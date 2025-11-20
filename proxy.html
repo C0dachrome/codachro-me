@@ -18,19 +18,45 @@
     </style>
 </head>
 <body>
+    <div class="container">
+        <h2>Codachrome Reverse Proxy</h2>
+        <p>Enter the URL you want to proxy:</p>
+        <form id="proxy-form">
+            <input type="text" id="url-input" placeholder="https://example.com" required>
+            <button type="submit">Go</button>
+        </form>
+    </div>
+    <script>
+        // 1. Find your form and input elements
+        const form = document.getElementById('proxy-form');
+        const urlInput = document.getElementById('url-input');
+
+        // 2. Set the URL where your reverse-proxy WORKER is located
+        //    (This is the URL of the worker itself, not your main site)
+        const workerUrl = "gfs-app.codycmillward.workers.dev"; // <-- ❗ CHANGE THIS
+
+        form.addEventListener('submit', (event) => {
+            event.preventDefault(); // Stop the form from submitting normally
+            
+            let targetUrl = urlInput.value.trim();
+
+            // 3. Add https:// if the user forgot it
+            if (!targetUrl.startsWith('http://') && !targetUrl.startsWith('https://')) {
+                targetUrl = 'https://' + targetUrl;
+            }
+
+            // 4. Build the final proxy URL and redirect the user
+            const proxyRequestUrl = `${workerUrl}/${targetUrl}`;
+            
+            // 5. Send the user to the proxy!
+            window.location.href = proxyRequestUrl;
+        });
+    </script>
     <main class="card">
         <h1>Proxy</h1>
-        <p>This is the Proxy page. Use this page as a placeholder for any proxy-related tools or content you want to add.</p>
         <p>
             <a class="btn" href="index.html" aria-label="Back to home">Back</a>
         </p>
-        <section>
-            <h2 style="color:var(--muted); font-size:1rem; margin-top:18px">Notes</h2>
-            <ul style="color:var(--muted)">
-                <li>This is a static page linked from the "More" panel.</li>
-                <li>If you want this to open in a new tab, change the link to <code>target="_blank"</code>.</li>
-            </ul>
-        </section>
     </main>
 </body>
 </html>
