@@ -105,6 +105,21 @@
         }
         .btn:hover{ transform:translateY(-2px); }
 
+        /* */
+        .btn.secondary {
+            background: transparent;
+            color: var(--muted);
+            border: 1px solid var(--glass-border);
+            box-shadow: none;
+        }
+        .btn.secondary:hover {
+            background: var(--glass);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        /* */
+
+
         .nav-list a:hover,
         .nav-list a:focus{
             color:var(--accent);
@@ -137,6 +152,52 @@
             box-shadow:var(--shadow);
             width:100%;
         }
+        
+        /* */
+        .project-grid {
+            display: grid;
+            /* Responsive grid: 1 column on mobile, 2 on tablet, etc. */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--gap);
+            margin-top: 24px; /* Space below the H1 and <p> */
+        }
+
+        .project-card {
+            background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.03);
+            padding: 22px;
+            border-radius: var(--radius);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent); /* Glows on hover */
+        }
+
+        /* Card-specific heading */
+        .project-card h2 {
+            margin: 0 0 8px 0;
+            color: #fff; /* Brighter than muted text */
+            font-size: 1.2rem;
+        }
+
+        /* Card-specific paragraph */
+        .project-card p {
+            margin-bottom: 16px;
+            flex-grow: 1; /* This pushes the links to the bottom */
+            font-size: 0.95rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        /* */
+
 
         h1{
             margin:0 0 8px 0;
@@ -183,19 +244,39 @@
     <main>
         <section id="home" class="card tab-panel" role="region" aria-labelledby="home-tab" style="display:block">
             <h1>Welcome</h1>
-            <p></p>
+            <p>This is the home tab. Click "Projects" to see my work.</p>
         </section>
 
         <section id="projects" class="card tab-panel" role="region" aria-labelledby="projects-tab" style="display:none">
             <h1>Projects</h1>
-            <p></p>
-        </section>
+            <p>A collection of my work and tools.</p>
 
+            <div class="project-grid">
+
+                <div class="project-card">
+                    <h2>W.A.R.P</h2>
+                    <p>A secure, private reverse proxy built with Cloudflare Workers, featuring on-the-fly HTML and header rewriting.</p>
+                    <div class="project-links">
+                        <a href="prxy.html" class="btn">Open Tool</a>
+                        <a href="https://github.com/codycmillward/gfs-app" class="btn secondary">View Code</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <h2>My Next Project</h2>
+                    <p>A short, punchy description of the project and the tech used. This is a template card you can copy.</p>
+                    <div class="project-links">
+                        <a href="#" class="btn">Demo</a>
+                        <a href="#" class="btn secondary">Code</a>
+                    </div>
+                </div>
+                </div>
+            </section>
         <section id="more" class="card tab-panel" role="region" aria-labelledby="more-tab" style="display:none">
             <h1>More</h1>
-            <p></p>
+            <p>Links to tools and other resources.</p>
             <div class="tabs" aria-hidden="false">
-                <a class="btn" href="prxy.html" role="button" aria-label="Go to WARP page">WARP</a>
+                <a class="btn" href="prxy.html" role="button" aria-label="Go to WARP page">WARP Proxy Tool</a>
             </div>
         </section>
     </main>
