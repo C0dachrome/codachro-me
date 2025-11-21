@@ -30,14 +30,16 @@
         // 1. Find your form and input elements
         const form = document.getElementById('proxy-form');
         const urlInput = document.getElementById('url-input');
-
+        
         // 2. Set the URL where your reverse-proxy WORKER is located
-        //    (This is the URL of the worker itself, not your main site)
-        const workerUrl = "gfs-app.codycmillward.workers.dev"; // <-- ❗ CHANGE THIS
+        //
+        //    THE FIX: You MUST include "https://" here so the browser
+        //    treats it as an absolute URL, not a relative path.
+        const workerUrl = "https://gfs-app.codycmillward.workers.dev"; 
 
         form.addEventListener('submit', (event) => {
             event.preventDefault(); // Stop the form from submitting normally
-            
+        
             let targetUrl = urlInput.value.trim();
 
             // 3. Add https:// if the user forgot it
@@ -46,8 +48,9 @@
             }
 
             // 4. Build the final proxy URL and redirect the user
+            //    (Based on your example, this string construction is correct!)
             const proxyRequestUrl = `${workerUrl}/${targetUrl}`;
-            
+        
             // 5. Send the user to the proxy!
             window.location.href = proxyRequestUrl;
         });
