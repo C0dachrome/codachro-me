@@ -1,22 +1,61 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Proxy — codachrome</title>
     <style>
-        :root{ --bg:#071014; --muted:#9fb1a6; --accent:#00dc12; --radius:12px; }
-        html,body{height:100%;}
-        body{
-            margin:0; padding:28px; font-family:system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-            background:linear-gradient(180deg,var(--bg), #041214 80%); color:var(--muted);
+        :root {
+            --bg: #071014;
+            --muted: #9fb1a6;
+            --accent: #00dc12;
+            --radius: 12px;
         }
-        .card{ max-width:900px; margin:28px auto; background:rgba(255,255,255,0.02); padding:22px; border-radius:var(--radius); border:1px solid rgba(255,255,255,0.03); }
-        h1{ color:var(--accent); margin:0 0 12px 0 }
-        p{ margin:0 0 18px 0 }
-        .btn{ display:inline-block; padding:10px 14px; background:var(--accent); color:#071014; text-decoration:none; border-radius:10px; font-weight:700 }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            padding: 28px;
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+            background: linear-gradient(180deg, var(--bg), #041214 80%);
+            color: var(--muted);
+        }
+
+        .card {
+            max-width: 900px;
+            margin: 28px auto;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 22px;
+            border-radius: var(--radius);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        h1 {
+            color: var(--accent);
+            margin: 0 0 12px 0
+        }
+
+        p {
+            margin: 0 0 18px 0
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 14px;
+            background: var(--accent);
+            color: #071014;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 700
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h2>Codachrome Reverse Proxy</h2>
@@ -27,31 +66,26 @@
         </form>
     </div>
     <script>
-        // 1. Find your form and input elements
         const form = document.getElementById('proxy-form');
         const urlInput = document.getElementById('url-input');
-        
-        // 2. Set the URL where your reverse-proxy WORKER is located
-        //
-        //    THE FIX: You MUST include "https://" here so the browser
-        //    treats it as an absolute URL, not a relative path.
-        const workerUrl = "https://gfs-app.codycmillward.workers.dev"; 
+
+        // NO workerUrl variable needed anymore!
 
         form.addEventListener('submit', (event) => {
-            event.preventDefault(); // Stop the form from submitting normally
-        
+            event.preventDefault();
+
             let targetUrl = urlInput.value.trim();
 
-            // 3. Add https:// if the user forgot it
             if (!targetUrl.startsWith('http://') && !targetUrl.startsWith('https://')) {
                 targetUrl = 'https://' + targetUrl;
             }
 
-            // 4. Build the final proxy URL and redirect the user
-            //    (Based on your example, this string construction is correct!)
-            const proxyRequestUrl = `${workerUrl}/${targetUrl}`;
-        
-            // 5. Send the user to the proxy!
+            // 4. Build the *local* proxy URL
+            //    This is on your OWN domain
+            const proxyRequestUrl = `/proxy/${targetUrl}`;
+
+            // 5. Send the user to the local proxy path!
+            //    The URL bar will change, but it STAYS on codachro.me
             window.location.href = proxyRequestUrl;
         });
     </script>
@@ -62,4 +96,5 @@
         </p>
     </main>
 </body>
+
 </html>
