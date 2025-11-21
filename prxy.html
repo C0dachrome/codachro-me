@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Proxy — codachrome</title>
+    <title>codachrome - WARP proxy</title>
     <style>
         :root {
             --bg: #071014;
@@ -57,14 +57,7 @@
 </head>
 
 <body>
-    <div class="container">
-        <h2>Codachrome Reverse Proxy</h2>
-        <p>Enter the URL you want to proxy:</p>
-        <form id="proxy-form">
-            <input type="text" id="url-input" placeholder="https://example.com" required>
-            <button type="submit">Go</button>
-        </form>
-    </div>
+
     <script>
         const form = document.getElementById('proxy-form');
         const urlInput = document.getElementById('url-input');
@@ -82,7 +75,7 @@
 
             // 4. Build the *local* proxy URL
             //    This is on your OWN domain
-            const proxyRequestUrl = `/proxy/${targetUrl}`;
+            const proxyRequestUrl = `/prxy/${targetUrl}`;
 
             // 5. Send the user to the local proxy path!
             //    The URL bar will change, but it STAYS on codachro.me
@@ -91,6 +84,14 @@
     </script>
     <main class="card">
         <h1>Proxy</h1>
+        <div class="container">
+            <h2>W.A.R.P - Web Authentication and Rewrite Proxy</h2>
+            <p>Enter the URL you want to proxy:</p>
+            <form id="proxy-form">
+                <input type="text" id="url-input" placeholder="https://example.com" required>
+                <button type="submit">Go</button>
+            </form>
+        </div>
         <p>
             <a class="btn" href="index.html" aria-label="Back to home">Back</a>
         </p>
