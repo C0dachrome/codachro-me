@@ -1,36 +1,27 @@
 export async function onRequestPost(context) {
-    const form = await context.request.formData();
-    const user = form.get("user");
-    const pass = form.get("pass");
+  const { request, env } = context;
 
-    // Change these to your actual credentials
-    const VALID_USER = context.env.LOGIN_USER;
-    const VALID_PASS = context.env.LOGIN_PASS;
+  const body = await request.json();
+  const { username, password } = body;
 
-    if (user === VALID_USER && pass === VALID_PASS) {
-        const cookie = await createAuthCookie(context.env.SECRET_KEY);
+  // Compare with environment variables
+  if (
+    username === env.ADMIN_USER &&
+    password === env.ADMIN_PASS
+  ) {
+    // Create a simple session token
+    const token = crypto.randomUUID();
 
-        return new Response("Logged in", {
-            status: 302,
-            headers: {
-                "Set-Cookie": cookie,
-                "Location": "/dashboard/private.html"
-            }
-        });
-    }
+    // Store it in KV
+    await env.SESSIONS.put(token, "valid", { expirationTtl: 3600 });
 
-    return new Response("Invalid login", { status: 401 });
-}
+    return new Response(JSON.stringify({ success: true, token }), {
+      headers: { "Content-Type": "application/json" },
+    });
+  }
 
-async function createAuthCookie(secret) {
-    const expiration = Math.floor(Date.now() / 1000) + 60 * 60 * 24;
-    const token = await crypto.subtle.digest(
-        "SHA-256",
-        new TextEncoder().encode(secret + expiration)
-    );
-
-    const hexToken = [...new Uint8Array(token)]
-          .map(b => b.toString(16).padStart(2, "0")).join("");
-
-    return `session=${hexToken}.${expiration}; Path=/; HttpOnly; SameSite=Lax;`;
+  return new Response(JSON.stringify({ success: false }), {
+    headers: { "Content-Type": "application/json" },
+    status: 401,
+  });
 }
