@@ -10,9 +10,13 @@ export async function onRequest(context) {
   const url = new URL(request.url);
   // Apply protection only to paths under /dashboard/
   if (url.pathname.startsWith('/dashboard/')) {
-    // Allow public pages under /dashboard/ (login, public landing)
-    const publicPaths = new Set(['/dashboard/login.html', '/dashboard/public.html']);
-    if (publicPaths.has(url.pathname)) {
+    // Normalize path (strip trailing slash) to handle pretty URLs like
+    // /dashboard/login (which may map to /dashboard/login.html on some hosts)
+    const path = url.pathname.replace(/\/+$|\/$/, '');
+
+    // Allow public pages under /dashboard/ (login in both forms, public landing)
+    const publicPaths = new Set(['/dashboard/login', '/dashboard/login.html', '/dashboard/public.html', '/dashboard/public']);
+    if (publicPaths.has(path)) {
       return next();
     }
 
