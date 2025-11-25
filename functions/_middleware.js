@@ -8,9 +8,13 @@ const LOGIN_PAGE_PATH = '/dashboard/login.html';
 export async function onRequest(context) {
   const { request, next, functionPath } = context;
   const url = new URL(request.url);
-
-  // Apply protection only to paths starting with /dashboard/
-  if (functionPath.startsWith('/dashboard/')) {
+  // Apply protection only to paths under /dashboard/
+  if (url.pathname.startsWith('/dashboard/')) {
+    // Allow public pages under /dashboard/ (login, public landing)
+    const publicPaths = new Set(['/dashboard/login.html', '/dashboard/public.html']);
+    if (publicPaths.has(url.pathname)) {
+      return next();
+    }
 
     const cookieHeader = request.headers.get('Cookie');
     let isAuthenticated = false;

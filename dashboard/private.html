@@ -126,16 +126,20 @@
         }
     </style>
     <script>
-        const token = localStorage.getItem("token");
-
-        const res = await fetch("/checksession", {
-            headers: { "Authorization": token }
-        });
-
-        if (!res.ok) {
-            window.location.href = "/login.html";
-        }
-
+        // Local/client-side fallback guard for development:
+        // If middleware isn't active (local preview), check for the localStorage
+        // token and redirect to the dashboard login page if missing.
+        (function () {
+            try {
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    window.location.href = '/dashboard/login.html';
+                }
+            } catch (e) {
+                // If any error, redirect to login as a safe default.
+                window.location.href = '/dashboard/login.html';
+            }
+        })();
     </script>
 </head>
 
