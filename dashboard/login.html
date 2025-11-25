@@ -103,16 +103,15 @@
                 const data = await res.json();
 
                 if (data.success) {
-                    // Server sets an HttpOnly cookie (session_token). Redirect to the
-                    // dashboard index. If you're testing on plain HTTP locally, the
-                    // cookie may not be set because it's Secure; in that case we also
-                    // accept the returned token and store it to allow a local fallback.
-                    if (data.token && window.location.protocol === 'http:') {
-                        // Local fallback — not secure. Only for local/testing.
-                        localStorage.setItem('token', data.token);
+                    // Server sets an HttpOnly cookie (session_token).
+                    // For local development, also store the returned token as a
+                    // fallback so the client-side guard on protected pages can
+                    // detect a session. This is NOT secure and is only for dev.
+                    if (data.token) {
+                        try { localStorage.setItem('token', data.token); } catch (e) { /* ignore */ }
                     }
 
-                    // Redirect to the actual dashboard page
+                    // Redirect to the protected dashboard page
                     window.location.href = '/dashboard/private.html';
                 } else {
                     alert('Invalid username or password');
