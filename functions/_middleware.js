@@ -2,7 +2,8 @@
 
 // Define the name of the cookie we set in login.js
 const AUTH_COOKIE_NAME = 'session_token';
-const LOGIN_PAGE_PATH = 'dashboard/login.html';
+// Use an absolute path so redirects resolve correctly regardless of current URL
+const LOGIN_PAGE_PATH = '/dashboard/login.html';
 
 export async function onRequest(context) {
   const { request, next, functionPath } = context;

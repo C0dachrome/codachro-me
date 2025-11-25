@@ -103,10 +103,19 @@
                 const data = await res.json();
 
                 if (data.success) {
-                    localStorage.setItem("token", data.token);
-                    window.location.href = "/dashboard/private.html";
+                    // Server sets an HttpOnly cookie (session_token). Redirect to the
+                    // dashboard index. If you're testing on plain HTTP locally, the
+                    // cookie may not be set because it's Secure; in that case we also
+                    // accept the returned token and store it to allow a local fallback.
+                    if (data.token && window.location.protocol === 'http:') {
+                        // Local fallback — not secure. Only for local/testing.
+                        localStorage.setItem('token', data.token);
+                    }
+
+                    // Redirect to the actual dashboard page
+                    window.location.href = '/dashboard/index.html';
                 } else {
-                    alert("Invalid username or password");
+                    alert('Invalid username or password');
                 }
             } catch (err) {
                 console.error("Error logging in:", err);

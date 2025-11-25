@@ -15,19 +15,25 @@ export async function onRequest(context) {
   const PASS = env.LOGIN_PASS;
 
   if (username === USER && password === PASS) {
-    // 1. Define the secure cookie string
-    // HttpOnly: Prevents client-side JS from reading the cookie
-    // Secure: Ensures the cookie is only sent over HTTPS
-    // Path=/: Makes the cookie available across your entire site
-    // Max-Age: Sets the cookie to expire in 1 hour (3600 seconds)
-    const cookieValue = `session_token=valid_token_value; HttpOnly; Secure; Path=/; Max-Age=3600; SameSite=Strict`;
+    // Create a token value (in a real app you'd issue a signed JWT or session id)
+    const tokenValue = 'valid_token_value';
 
-    // 2. Return a success response with the Set-Cookie header
-    return new Response(JSON.stringify({ success: true, message: "Login successful" }), {
+    // Respect secure cookie requirements: only set Secure when on HTTPS.
+    // During local HTTP development, Secure cookies won't be set by the browser.
+    const isHttps = request.url.startsWith('https:');
+    const secureFlag = isHttps ? ' Secure;' : '';
+
+    // Build cookie string. HttpOnly prevents JS reading the cookie (good);
+    // Path=/ makes it available site-wide; Max-Age controls expiry.
+    const cookieValue = `session_token=${tokenValue}; HttpOnly;${secureFlag} Path=/; Max-Age=3600; SameSite=Strict`;
+
+    // Return the Set-Cookie header and also include the token in JSON as a
+    // convenience for local/static fallbacks (NOT a substitute for secure cookies).
+    return new Response(JSON.stringify({ success: true, message: 'Login successful', token: tokenValue }), {
       status: 200,
       headers: {
-        "Content-Type": "application/json",
-        "Set-Cookie": cookieValue // <--- This is the key change
+        'Content-Type': 'application/json',
+        'Set-Cookie': cookieValue
       }
     });
   } else {
