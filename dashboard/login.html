@@ -1,31 +1,99 @@
-<button onclick="doLogin()">Login</button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SpectrumEye Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #121212;
+            color: #fff;
+        }
 
-<script>
-async function doLogin() {
-    const username = document.getElementById("user").value;
-    const password = document.getElementById("pass").value;
+        .login-box {
+            background-color: #1e1e1e;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #000;
+            width: 300px;
+        }
 
-    const res = await fetch("/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password })
-    });
+        .login-box h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-    let data;
-    try {
-        data = await res.json();
-    } catch (err) {
-        alert("Server returned invalid JSON (check function).");
-        return;
-    }
+        .login-box input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+        }
 
-    console.log("Server response:", data);
+        .login-box button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
-    if (data.success) {
-        localStorage.setItem("token", data.token);
-        window.location.href = "/dashboard/private.html";
-    } else {
-        alert("Invalid login");
-    }
-}
-</script>
+        .login-box button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h2>SpectrumEye Login</h2>
+        <input id="user" type="text" placeholder="Username" required>
+        <input id="pass" type="password" placeholder="Password" required>
+        <button onclick="doLogin()">Login</button>
+        <p style="text-align:center; margin-top: 10px;">
+            <a href="/dashboard/public.html" style="color:#bbb;">I don’t have a login</a>
+        </p>
+    </div>
+
+    <script>
+        async function doLogin() {
+            const username = document.getElementById("user").value;
+            const password = document.getElementById("pass").value;
+
+            try {
+                const res = await fetch("/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, password })
+                });
+
+                if (!res.ok) {
+                    alert("Login request failed: " + res.status);
+                    return;
+                }
+
+                const data = await res.json();
+
+                if (data.success) {
+                    // Store token for future use
+                    localStorage.setItem("token", data.token);
+                    window.location.href = "/dashboard/private.html";
+                } else {
+                    alert("Invalid username or password");
+                }
+            } catch (err) {
+                console.error("Error logging in:", err);
+                alert("An error occurred. Check the console.");
+            }
+        }
+    </script>
+</body>
+</html>
