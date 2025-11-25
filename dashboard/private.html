@@ -126,18 +126,29 @@
         }
     </style>
     <script>
-        // Local/client-side fallback guard for development:
-        // If middleware isn't active (local preview), check for the localStorage
-        // token and redirect to the dashboard login page if missing.
-        (function () {
+        // Verify session server-side first (reliable). If the server check
+        // returns 401, redirect to login. If the check can't be reached
+        // (network error), fall back to the localStorage token for dev.
+        (async function () {
             try {
-                const token = localStorage.getItem('token');
-                if (!token) {
+                const res = await fetch('/checksession', { method: 'GET', credentials: 'same-origin' });
+                if (res.ok) {
+                    // Session is valid — do nothing and allow the page to render.
+                    return;
+                }
+                // Not authenticated — redirect to login
+                window.location.href = '/dashboard/login.html';
+            } catch (err) {
+                // Fetch failed (likely local dev where functions aren't running).
+                // Fall back to the client-side token saved by the login form.
+                try {
+                    const token = localStorage.getItem('token');
+                    if (!token) {
+                        window.location.href = '/dashboard/login.html';
+                    }
+                } catch (e) {
                     window.location.href = '/dashboard/login.html';
                 }
-            } catch (e) {
-                // If any error, redirect to login as a safe default.
-                window.location.href = '/dashboard/login.html';
             }
         })();
     </script>
