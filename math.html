@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Math Tools</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #1e1e1e;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.8em;
+        }
+
+        section {
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+        }
+
+        input, button {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: none;
+            font-size: 1em;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    
+        #plot {
+            height: 400px;
+        }
+    </style>
+</head>
+<body>
+
+<header>Math Tools</header>
+
+<section>
+    <h2>Calculator</h2>
+    <input id="calc-input" type="text" placeholder="Enter expression, e.g. 2+2">
+    <button onclick="calculate()">Calculate</button>
+    <p>Result: <span id="calc-result">0</span></p>
+</section>
+<!--Useless comment so i can commit again-->
+<section>
+    <h2>Function Plotter</h2>
+    <input id="func-input" type="text" placeholder="Enter function, e.g. sin(x) or x^2">
+    <button onclick="plotFunction()">Plot</button>
+    <div id="plot"></div>
+</section>
+
+<section>
+    <h2>Prime / Factorization</h2>
+    <input id="prime-input" type="number" placeholder="Enter a number">
+    <button onclick="checkPrime()">Check Prime</button>
+    <p id="prime-result"></p>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.9.0/math.js"></script>
+<script>
+    // Calculator
+    function calculate() {
+        const expr = document.getElementById("calc-input").value;
+        try {
+            const result = math.evaluate(expr);
+            document.getElementById("calc-result").textContent = result;
+        } catch {
+            document.getElementById("calc-result").textContent = "Invalid expression";
+        }
+    }
+
+    // Function Plotter
+    function plotFunction() {
+        const funcText = document.getElementById("func-input").value;
+        const xValues = [];
+        const yValues = [];
+        for (let x = -10; x <= 10; x += 0.1) {
+            xValues.push(x);
+            try {
+                const y = math.evaluate(funcText.replace(/x/g, `(${x})`));
+                yValues.push(y);
+            } catch {
+                yValues.push(NaN);
+            }
+        }
+        Plotly.newPlot('plot', [{
+            x: xValues,
+            y: yValues,
+            type: 'scatter'
+        }], {margin: {t:0}});
+    }
+
+    // Prime / Factorization
+    function checkPrime() {
+        const num = parseInt(document.getElementById("prime-input").value);
+        if (isNaN(num) || num < 2) {
+            document.getElementById("prime-result").textContent = "Enter a number ≥ 2";
+            return;
+        }
+
+        // Prime check
+        let isPrime = true;
+        const factors = [];
+        for (let i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i === 0) {
+                isPrime = false;
+                factors.push(i, num / i);
+                break;
+            }
+        }
+
+        if (isPrime) {
+            document.getElementById("prime-result").textContent = `${num} is prime`;
+        } else {
+            document.getElementById("prime-result").textContent = `${num} is not prime. Factors: ${[...new Set(factors)].join(", ")}`;
+        }
+    }
+</script>
+
+</body>
+</html>

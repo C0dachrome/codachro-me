@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>SpectrumEye Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root{
+            --bg: #071014;
+            --surface: #0b1517;
+            --muted: #9fb1a6;
+            --accent: #00dc12;
+            --glass: rgba(255,255,255,0.03);
+            --radius: 12px;
+            --shadow: 0 6px 18px rgba(0,0,0,0.5);
+            font-family: 'Ubuntu Mono', monospace;
+        }
+
+        html,body{height:100%;margin:0}
+        body{
+            background: linear-gradient(180deg,var(--bg),#041214 80%);
+            color:var(--muted);
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            min-height:100vh;
+            padding:28px;
+            -webkit-font-smoothing:antialiased;
+        }
+
+        .topbar{width:100%;max-width:980px;display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+        .brand{display:inline-flex;align-items:center;gap:10px;color:var(--accent);text-decoration:none;font-weight:700;padding:8px 12px;border-radius:10px;background:linear-gradient(180deg,rgba(168,255,75,0.04),transparent 60%);border:1px solid rgba(168,255,75,0.08)}
+
+        main{width:100%;max-width:980px;display:flex;justify-content:center;align-items:center;flex:1}
+
+        .card{
+            width:380px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            border:1px solid rgba(255,255,255,0.03);
+            padding:28px;
+            border-radius:var(--radius);
+            box-shadow:var(--shadow);
+            color:var(--muted);
+        }
+
+        .card h2{margin:0 0 12px 0;color:#fff;font-size:1.2rem}
+
+        label{display:block;font-size:0.85rem;margin-top:10px;color:var(--muted)}
+        input[type="text"],input[type="password"]{width:100%;padding:10px;margin-top:6px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+
+        .actions{display:flex;gap:10px;align-items:center;margin-top:16px}
+        .btn{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:10px;background:var(--accent);color:var(--bg);font-weight:700;text-decoration:none;border:1px solid rgba(255,255,255,0.02);cursor:pointer}
+        .muted-link{color:var(--muted);text-decoration:none}
+
+        @media (max-width:640px){body{padding:18px}.card{width:100%}}
+    </style>
+</head>
+<body>
+    <header class="topbar">
+        <a class="brand" href="/">codachrome</a>
+        <nav aria-label="top nav">
+            <a class="muted-link" href="/">Home</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="card" aria-labelledby="login-title">
+            <h2 id="login-title">SpectrumEye Login</h2>
+
+            <label for="user">Username</label>
+            <input id="user" type="text" placeholder="Username" required>
+
+            <label for="pass">Password</label>
+            <input id="pass" type="password" placeholder="Password" required>
+
+            <div class="actions">
+                <button class="btn" onclick="doLogin()">Login</button>
+                <a class="muted-link" href="/dashboard/public.html">I don’t have a login</a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        async function doLogin() {
+            const username = document.getElementById("user").value;
+            const password = document.getElementById("pass").value;
+
+            try {
+                const res = await fetch("/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ username, password })
+                });
+
+                if (!res.ok) {
+                    alert("Login request failed: " + res.status);
+                    return;
+                }
+
+                const data = await res.json();
+
+                if (data.success) {
+                    localStorage.setItem("token", data.token);
+                    window.location.href = "/dashboard/private.html";
+                } else {
+                    alert("Invalid username or password");
+                }
+            } catch (err) {
+                console.error("Error logging in:", err);
+                alert("An error occurred. Check the console.");
+            }
+        }
+    </script>
+</body>
+</html>
