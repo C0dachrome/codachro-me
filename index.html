@@ -1,361 +1,141 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>codachrome</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&family=Ubuntu:wght@400;700&display=swap"
-        rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Math Tools</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <style>
-        :root {
-            --bg: #071014;
-            --surface: #0b1517;
-            --muted: #9fb1a6;
-            --accent: #00dc12;
-            /* lime green accent */
-            --glass: rgba(255, 255, 255, 0.03);
-            --radius: 12px;
-            --gap: 18px;
-            --shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
-            --glass-border: rgba(168, 255, 75, 0.08);
-            font-family: 'Ubuntu Mono', monospace;
-        }
-
-        /* page layout */
-        html,
         body {
-            height: 100%;
-        }
-
-        body {
-            margin: 0;
-            background: linear-gradient(180deg, var(--bg), #041214 80%);
-            color: var(--muted);
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            padding: 28px;
-            gap: var(--gap);
-        }
-
-        /* top nav */
-        .topbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            position: sticky;
-            top: 18px;
-            z-index: 10;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.15rem;
-            letter-spacing: 0.06em;
-            padding: 10px 14px;
-            border-radius: 10px;
-            background: linear-gradient(180deg, rgba(168, 255, 75, 0.04), transparent 60%);
-            border: 1px solid var(--glass-border);
-            box-shadow: var(--shadow);
-        }
-
-        nav {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .nav-list {
-            display: flex;
-            gap: 8px;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            align-items: center;
-            font-family: 'Ubuntu Mono', monospace;
-        }
-
-        .nav-list a {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 12px;
-            color: var(--muted);
-            text-decoration: none;
-            border-radius: 8px;
-            transition: all .18s ease;
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        /* simple button used on panels */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 14px;
-            background: var(--accent);
-            color: var(--bg);
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 700;
-            box-shadow: 0 6px 18px rgba(168, 255, 75, 0.08);
-            transition: transform .12s ease, box-shadow .12s ease;
-            border: 1px solid rgba(255, 255, 255, 0.02);
-            font-family: 'Ubuntu Mono', monospace;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-        }
-
-        /* */
-        .btn.secondary {
-            background: transparent;
-            color: var(--muted);
-            border: 1px solid var(--glass-border);
-            box-shadow: none;
-        }
-
-        .btn.secondary:hover {
-            background: var(--glass);
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-
-        /* */
-
-
-        .nav-list a:hover,
-        .nav-list a:focus {
-            color: var(--accent);
-            transform: translateY(-2px);
-            outline: none;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-        }
-
-        .nav-list a.active {
-            color: var(--bg);
-            background: var(--accent);
-            box-shadow: 0 6px 18px rgba(168, 255, 75, 0.08);
-        }
-
-        /* content card */
-        main {
-            display: flex;
-            gap: var(--gap);
-            align-items: flex-start;
-            width: 100%;
-        }
-
-        .card {
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            padding: 22px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            width: 100%;
-        }
-
-        /* */
-        .project-grid {
-            display: grid;
-            /* Responsive grid: 1 column on mobile, 2 on tablet, etc. */
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: var(--gap);
-            margin-top: 24px;
-            /* Space below the H1 and <p> */
-        }
-
-        .project-card {
-            background: var(--glass);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            padding: 22px;
-            border-radius: var(--radius);
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.2s ease, border-color 0.2s ease;
-        }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
-            /* Glows on hover */
-        }
-
-        /* Card-specific heading */
-        .project-card h2 {
-            margin: 0 0 8px 0;
+            font-family: Arial, sans-serif;
+            background-color: #121212;
             color: #fff;
-            /* Brighter than muted text */
-            font-size: 1.2rem;
+            margin: 0;
+            padding: 0;
         }
 
-        /* Card-specific paragraph */
-        .project-card p {
-            margin-bottom: 16px;
-            flex-grow: 1;
-            /* This pushes the links to the bottom */
-            font-size: 0.95rem;
+        header {
+            background-color: #1e1e1e;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.8em;
         }
 
-        .project-links {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
+        section {
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
         }
 
-        /* */
-
-
-        h1 {
-            margin: 0 0 8px 0;
-            color: var(--accent);
-            font-size: 1.6rem;
+        input, button {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: none;
+            font-size: 1em;
         }
 
-        p {
-            margin: 0 0 12px 0;
-            line-height: 1.6;
-            color: var(--muted);
+        button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
         }
 
-        /* small footer area for tabs */
-        .tabs {
-            display: flex;
-            gap: 12px;
-            margin-top: 18px;
-            flex-wrap: wrap;
+        button:hover {
+            background-color: #0056b3;
         }
 
-        /* responsive */
-        @media (max-width:640px) {
-            body {
-                padding: 18px;
-            }
-
-            .topbar {
-                flex-direction: row;
-                gap: 10px;
-            }
-
-            .nav-list {
-                display: flex;
-                gap: 6px;
-            }
-
-            .brand {
-                font-size: 1rem;
-                padding: 8px 10px;
-            }
+        #plot {
+            height: 400px;
         }
     </style>
 </head>
-
 <body>
-    <header class="topbar" role="banner">
-        <a class="brand" href="#" data-target="home" aria-label="codachrome home">codachrome</a>
 
-        <nav role="navigation" aria-label="Main navigation">
-            <ul class="nav-list" role="menubar">
-                <li role="none"><a href="#" role="menuitem" class="tab-link active" data-target="home">Home</a></li>
-                <li role="none"><a href="#" role="menuitem" class="tab-link" data-target="projects">Projects</a></li>
-                <li role="none"><a href="#" role="menuitem" class="tab-link" data-target="more">More</a></li>
-                <li role="none"><a href="#" role="menuitem" class="tab-link" data-target="dashboard">Dashboard</a></li>
-            </ul>
-        </nav>
-    </header>
+<header>Math Tools</header>
 
-    <main>
-        <section id="home" class="card tab-panel" role="region" aria-labelledby="home-tab" style="display:block">
-            <h1>Welcome</h1>
-            <p>This is the home tab. Click "Projects" to see my work.</p>
-        </section>
+<section>
+    <h2>Calculator</h2>
+    <input id="calc-input" type="text" placeholder="Enter expression, e.g. 2+2">
+    <button onclick="calculate()">Calculate</button>
+    <p>Result: <span id="calc-result">0</span></p>
+</section>
 
-        <section id="projects" class="card tab-panel" role="region" aria-labelledby="projects-tab" style="display:none">
-            <h1>Projects</h1>
-            <p>A collection of my work and tools.</p>
+<section>
+    <h2>Function Plotter</h2>
+    <input id="func-input" type="text" placeholder="Enter function, e.g. sin(x) or x^2">
+    <button onclick="plotFunction()">Plot</button>
+    <div id="plot"></div>
+</section>
 
-            <div class="project-grid">
-                <div class="project-card">
-                    <h2>My Next Project</h2>
-                    <p>Template</p>
-                    <div class="project-links">
-                        <a href="#" class="btn">Demo</a>
-                        <a href="#" class="btn secondary">Code</a>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <h2>My Next Project</h2>
-                    <p>Template</p>
-                    <div class="project-links">
-                        <a href="#" class="btn">Demo</a>
-                        <a href="#" class="btn secondary">Code</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section id="more" class="card tab-panel" role="region" aria-labelledby="more-tab" style="display:none">
-            <h1>More</h1>
-            <p>Links to tools and other resources.</p>
-            <div class="tabs" aria-hidden="false">
-                <a class="btn" href="prxy.html" role="button" aria-label="Go to WARP page">WARP</a>
-            </div>
-        </section>
-        <section id="dashboard" class="card tab-panel" role="region" aria-labelledby="dashboard-tab" style="display:none">
-            <h1>Dashboard Login</h1>
-            
-            <p></p>
-            <a class="btn" href="dashboard/login.html" role="button" aria-label="Go to Dashboard login page">Login</a>
-        </section>
-    </main>
+<section>
+    <h2>Prime / Factorization</h2>
+    <input id="prime-input" type="number" placeholder="Enter a number">
+    <button onclick="checkPrime()">Check Prime</button>
+    <p id="prime-result"></p>
+</section>
 
-    <script>
-        // Simple tab switching
-        (function () {
-            const links = document.querySelectorAll('.tab-link');
-            const panels = document.querySelectorAll('.tab-panel');
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.9.0/math.js"></script>
+<script>
+    // Calculator
+    function calculate() {
+        const expr = document.getElementById("calc-input").value;
+        try {
+            const result = math.evaluate(expr);
+            document.getElementById("calc-result").textContent = result;
+        } catch {
+            document.getElementById("calc-result").textContent = "Invalid expression";
+        }
+    }
 
-            function setActive(targetId) {
-                panels.forEach(p => p.style.display = p.id === targetId ? 'block' : 'none');
-                links.forEach(a => {
-                    if (a.dataset.target === targetId) a.classList.add('active');
-                    else a.classList.remove('active');
-                });
-                // update focus for accessibility
-                const activeLink = Array.from(links).find(a => a.dataset.target === targetId);
-                if (activeLink) activeLink.focus({ preventScroll: true });
+    // Function Plotter
+    function plotFunction() {
+        const funcText = document.getElementById("func-input").value;
+        const xValues = [];
+        const yValues = [];
+        for (let x = -10; x <= 10; x += 0.1) {
+            xValues.push(x);
+            try {
+                const y = math.evaluate(funcText.replace(/x/g, `(${x})`));
+                yValues.push(y);
+            } catch {
+                yValues.push(NaN);
             }
+        }
+        Plotly.newPlot('plot', [{
+            x: xValues,
+            y: yValues,
+            type: 'scatter'
+        }], {margin: {t:0}});
+    }
 
-            links.forEach(a => {
-                a.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const t = this.dataset.target;
-                    setActive(t);
-                    // update URL hash without scrolling
-                    history.replaceState(null, '', '#' + t);
-                });
-            });
+    // Prime / Factorization
+    function checkPrime() {
+        const num = parseInt(document.getElementById("prime-input").value);
+        if (isNaN(num) || num < 2) {
+            document.getElementById("prime-result").textContent = "Enter a number ≥ 2";
+            return;
+        }
 
-            // Initialize from hash if present
-            const initial = location.hash ? location.hash.substring(1) : 'home';
-            if (document.getElementById(initial)) setActive(initial);
-        })();
-    </script>
+        // Prime check
+        let isPrime = true;
+        const factors = [];
+        for (let i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i === 0) {
+                isPrime = false;
+                factors.push(i, num / i);
+                break;
+            }
+        }
+
+        if (isPrime) {
+            document.getElementById("prime-result").textContent = `${num} is prime`;
+        } else {
+            document.getElementById("prime-result").textContent = `${num} is not prime. Factors: ${[...new Set(factors)].join(", ")}`;
+        }
+    }
+</script>
+
 </body>
-
 </html>
