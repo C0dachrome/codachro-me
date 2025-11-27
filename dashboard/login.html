@@ -20,15 +20,17 @@
     <main>
         <section class="card form-card" aria-labelledby="login-title">
             <h2 id="login-title">SpectrumEye Login</h2>
+            <p class="muted">Sign in to access your dashboard.</p>
 
             <label for="user">Username</label>
-            <input id="user" type="text" placeholder="Username" required>
+            <input id="user" type="text" placeholder="Username" required autocomplete="username">
 
             <label for="pass">Password</label>
-            <input id="pass" type="password" placeholder="Password" required>
+            <input id="pass" type="password" placeholder="Password" required autocomplete="current-password">
 
-            <div class="actions">
+            <div class="login-footer">
                 <button class="btn" onclick="doLogin()">Login</button>
+                <a class="secondary-link" href="#" onclick="alert('Contact admin to request access')">Need access?</a>
             </div>
         </section>
     </main>

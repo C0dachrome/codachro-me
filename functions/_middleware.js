@@ -14,8 +14,8 @@ export async function onRequest(context) {
     // /dashboard/login (which may map to /dashboard/login.html on some hosts)
     const path = url.pathname.replace(/\/+$|\/$/, '');
 
-    // Allow public pages under /dashboard/ (login in both forms, public landing)
-    const publicPaths = new Set(['/dashboard/login', '/dashboard/login.html', '/dashboard/public.html', '/dashboard/public']);
+    // Allow public pages under /dashboard/ (login in both forms)
+    const publicPaths = new Set(['/dashboard/login', '/dashboard/login.html']);
     if (publicPaths.has(path)) {
       return next();
     }
