@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Spectrum Eye Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="../styles.css">
     <script>
         // Verify session server-side first (reliable). If the server check
         // returns 401, redirect to login. If the check can't be reached
@@ -33,47 +33,62 @@
 </head>
 <body>
 
-<div id="header">
-    <h2>Spectrum Eye Dashboard</h2>
-    <div id="connection">● Connecting…</div>
-</div>
+    <header class="topbar" role="banner">
+        <a class="brand" href="/">codachrome</a>
 
-<div id="container">
+        <nav role="navigation" aria-label="Main navigation">
+            <ul class="nav-list" role="menubar">
+                <li role="none"><a href="/" role="menuitem" class="tab-link">Home</a></li>
+                <li role="none"><a href="/dashboard/public.html" role="menuitem" class="tab-link">Public</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <div id="sidebar">
-        <button onclick="showPanel('system')">System Stats</button>
-        <button onclick="showPanel('spectrum')">Spectrum</button>
-        <button onclick="showPanel('commands')">Commands</button>
-        <button onclick="showPanel('logs')">Logs</button>
+    <div id="header">
+        <h2>Spectrum Eye Dashboard</h2>
+        <div id="connection">● Connecting…</div>
     </div>
 
-    <div id="main">
-        <div id="panel-system" class="panel active">
-            <h3>System Stats</h3>
-            CPU: <span id="cpu"></span><br>
-            RAM: <span id="ram"></span><br>
-            Temp: <span id="temp"></span>
-        </div>
+    <main>
+        <div id="container">
 
-        <div id="panel-spectrum" class="panel">
-            <h3>Spectrum</h3>
-            <canvas id="spectrumCanvas" width="600" height="200"></canvas>
-        </div>
+            <aside id="sidebar">
+                <button onclick="showPanel('system')">System Stats</button>
+                <button onclick="showPanel('spectrum')">Spectrum</button>
+                <button onclick="showPanel('commands')">Commands</button>
+                <button onclick="showPanel('logs')">Logs</button>
+            </aside>
 
-        <div id="panel-commands" class="panel">
-            <h3>Command Runner</h3>
-            <input id="cmd" placeholder="Enter command">
-            <button onclick="sendCommand()">Run</button>
-            <pre id="cmd-output"></pre>
-        </div>
+            <section id="main">
+                <div id="panel-system" class="panel active card">
+                    <h3>System Stats</h3>
+                    <div>CPU: <span id="cpu"></span></div>
+                    <div>RAM: <span id="ram"></span></div>
+                    <div>Temp: <span id="temp"></span></div>
+                </div>
 
-        <div id="panel-logs" class="panel">
-            <h3>Logs</h3>
-            <pre id="logs"></pre>
-        </div>
-    </div>
+                <div id="panel-spectrum" class="panel card">
+                    <h3>Spectrum</h3>
+                    <canvas id="spectrumCanvas" width="600" height="200"></canvas>
+                </div>
 
-</div>
+                <div id="panel-commands" class="panel card">
+                    <h3>Command Runner</h3>
+                    <div style="display:flex;gap:8px;margin-top:8px">
+                        <input id="cmd" placeholder="Enter command" style="flex:1;padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit">
+                        <button class="btn" onclick="sendCommand()">Run</button>
+                    </div>
+                    <pre id="cmd-output" style="margin-top:12px;background:rgba(0,0,0,0.12);padding:12px;border-radius:8px;color:var(--muted)"></pre>
+                </div>
+
+                <div id="panel-logs" class="panel card">
+                    <h3>Logs</h3>
+                    <pre id="logs" style="background:rgba(0,0,0,0.12);padding:12px;border-radius:8px;color:var(--muted)"></pre>
+                </div>
+            </section>
+
+        </div>
+    </main>
 
 <script src="dashboard.js"></script>
 </body>
