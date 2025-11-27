@@ -5,7 +5,8 @@ let ws;
 // -------------------------------
 
 function connectWS() {
-    ws = new WebSocket("ws://PI_IP_HERE:8765");
+    ws = new WebSocket("wss://eye.codachro.me");
+
 
     ws.onopen = () => {
         const c = document.getElementById("connection");
