@@ -1,130 +1,8 @@
-<!doctype html>
-<html lang="en">
-
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>codachrome — priv_dashboard</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&family=Ubuntu:wght@400;700&display=swap"
-        rel="stylesheet">
-    <style>
-        :root {
-            --bg: #071014;
-            --muted: #9fb1a6;
-            --accent: #00dc12;
-            --radius: 12px;
-            --gap: 18px;
-            --shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
-            --glass-border: rgba(168, 255, 75, 0.08);
-            font-family: 'Ubuntu Mono', monospace;
-        }
-
-        html,
-        body {
-            height: 100%;
-        }
-
-        body {
-            margin: 0;
-            background: linear-gradient(180deg, var(--bg), #041214 80%);
-            color: var(--muted);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            padding: 28px;
-            gap: var(--gap);
-        }
-
-        .topbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            position: sticky;
-            top: 18px;
-            z-index: 10
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.15rem;
-            padding: 10px 14px;
-            border-radius: 10px;
-            background: linear-gradient(180deg, rgba(168, 255, 75, 0.04), transparent 60%);
-            border: 1px solid var(--glass-border);
-            box-shadow: var(--shadow)
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 14px;
-            background: var(--accent);
-            color: var(--bg);
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 700;
-            box-shadow: 0 6px 18px rgba(168, 255, 75, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.02)
-        }
-
-        .btn.secondary {
-            background: transparent;
-            color: var(--muted);
-            border: 1px solid var(--glass-border);
-            box-shadow: none
-        }
-
-        main {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex: 1
-        }
-
-        .card {
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            padding: 28px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            max-width: 760px;
-            width: 100%
-        }
-
-        h1 {
-            margin: 0 0 8px 0;
-            color: var(--accent);
-            font-size: 1.6rem
-        }
-
-        p {
-            margin: 0 0 12px 0;
-            color: var(--muted);
-            line-height: 1.6
-        }
-
-        @media (max-width:640px) {
-            body {
-                padding: 18px
-            }
-
-            .brand {
-                font-size: 1rem;
-                padding: 8px 10px
-            }
-        }
-    </style>
+    <title>Spectrum Eye Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
     <script>
         // Verify session server-side first (reliable). If the server check
         // returns 401, redirect to login. If the check can't be reached
@@ -153,22 +31,50 @@
         })();
     </script>
 </head>
-
 <body>
-    <header class="topbar" role="banner">
-        <a class="brand" href="../index.html" aria-label="codachrome home">codachrome</a>
-        <nav role="navigation" aria-label="Minimal navigation">
-            <a class="btn secondary" href="../index.html" role="button" aria-label="Back to home">Back to home</a>
-        </nav>
-    </header>
 
-    <main>
-        <section class="card" role="main" aria-label="Dashboard">
-            <h1>Private Dashboard</h1>
-            <p>This is a minimal dashboard page. Use the button above to return to the site home.</p>
-        </section>
-    </main>
+<div id="header">
+    <h2>Spectrum Eye Dashboard</h2>
+    <div id="connection">● Connecting…</div>
+</div>
 
+<div id="container">
+
+    <div id="sidebar">
+        <button onclick="showPanel('system')">System Stats</button>
+        <button onclick="showPanel('spectrum')">Spectrum</button>
+        <button onclick="showPanel('commands')">Commands</button>
+        <button onclick="showPanel('logs')">Logs</button>
+    </div>
+
+    <div id="main">
+        <div id="panel-system" class="panel active">
+            <h3>System Stats</h3>
+            CPU: <span id="cpu"></span><br>
+            RAM: <span id="ram"></span><br>
+            Temp: <span id="temp"></span>
+        </div>
+
+        <div id="panel-spectrum" class="panel">
+            <h3>Spectrum</h3>
+            <canvas id="spectrumCanvas" width="600" height="200"></canvas>
+        </div>
+
+        <div id="panel-commands" class="panel">
+            <h3>Command Runner</h3>
+            <input id="cmd" placeholder="Enter command">
+            <button onclick="sendCommand()">Run</button>
+            <pre id="cmd-output"></pre>
+        </div>
+
+        <div id="panel-logs" class="panel">
+            <h3>Logs</h3>
+            <pre id="logs"></pre>
+        </div>
+    </div>
+
+</div>
+
+<script src="dashboard.js"></script>
 </body>
-
 </html>
