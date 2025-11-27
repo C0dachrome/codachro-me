@@ -19,19 +19,32 @@
 
     <main>
         <section class="card form-card" aria-labelledby="login-title">
-            <h2 id="login-title">SpectrumEye Login</h2>
-            <p class="muted">Sign in to access your dashboard.</p>
-
-            <label for="user">Username</label>
-            <input id="user" type="text" placeholder="Username" required autocomplete="username">
-
-            <label for="pass">Password</label>
-            <input id="pass" type="password" placeholder="Password" required autocomplete="current-password">
-
-            <div class="login-footer">
-                <button class="btn" onclick="doLogin()">Login</button>
-                <a class="secondary-link" href="#" onclick="alert('Contact admin to request access')">Need access?</a>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:8px">
+                <div style="width:72px;height:72px;border-radius:18px;background:linear-gradient(135deg,rgba(0,220,18,0.12),rgba(0,220,18,0.04));display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(0,0,0,0.5);">
+                    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+                        <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="white" fill-opacity="0.95"/>
+                    </svg>
+                </div>
+                <h2 id="login-title">SpectrumEye</h2>
+                <p class="muted">Sign in to access your dashboard.</p>
             </div>
+
+            <form id="loginForm" onsubmit="event.preventDefault(); doLogin();">
+                <div class="field">
+                    <label for="user">Username</label>
+                    <input id="user" class="input-user" type="text" placeholder="your.username" required autocomplete="username">
+                </div>
+
+                <div class="field">
+                    <label for="pass">Password</label>
+                    <input id="pass" class="input-pass" type="password" placeholder="••••••••" required autocomplete="current-password">
+                </div>
+
+                <div class="login-actions">
+                    <button class="btn block" type="submit">Sign In</button>
+                    <a class="secondary-link" href="#" onclick="alert('Contact admin to request access')">Need access?</a>
+                </div>
+            </form>
         </section>
     </main>
 
