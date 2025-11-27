@@ -209,3 +209,43 @@ main {
 @media (max-width:800px){
     #container{grid-template-columns:1fr}
 }
+
+/* Responsive adjustments for smaller screens */
+@media (max-width:800px) {
+    body { padding: 18px; }
+    .topbar { flex-direction: row; gap: 10px; }
+    .brand { font-size: 1rem; padding: 8px 10px; }
+
+    /* Sidebar becomes horizontal strip on small screens */
+    #container { grid-template-columns: 1fr; }
+    #sidebar { display: flex; flex-direction: row; gap: 8px; overflow-x: auto; padding: 8px; }
+    #sidebar button { flex: 0 0 auto; white-space: nowrap; }
+
+    /* Make panels stack nicely */
+    #main { width: 100%; }
+    .card { padding: 18px; }
+
+    /* Make canvas responsive */
+    canvas { max-width: 100%; height: auto; }
+}
+
+@media (max-width:480px) {
+    :root { --gap: 12px; }
+    body { padding: 14px; }
+    .brand { padding: 6px 8px; }
+    .nav-list { display: none; }
+
+    /* Buttons and inputs scale for touch */
+    #sidebar button { padding: 8px 10px; font-size: 0.95rem; border-radius: 8px; }
+    .btn { padding: 10px 12px; font-size: 0.95rem; }
+
+    /* Smaller headings */
+    h1 { font-size: 1.25rem; }
+    h3 { font-size: 1rem; }
+}
+
+/* Narrow variant for forms (login) so they are centered and don't span full width on large screens) */
+.form-card { max-width: 420px; width: 100%; margin: 0 auto; }
+
+/* Improve focus states for accessibility on mobile */
+#sidebar button:focus, .nav-list a:focus, .btn:focus { outline: 2px solid rgba(0,0,0,0.12); outline-offset: 2px; }
