@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Spectrum Eye Dashboard</title>
     <link rel="stylesheet" href="../styles.css?v=3">
@@ -31,6 +32,7 @@
         })();
     </script>
 </head>
+
 <body>
 
     <header class="topbar" role="banner">
@@ -75,74 +77,164 @@
                     <h3>Command Runner</h3>
 
                     <!-- Output first for easier reading -->
-                    <pre id="cmd-output" style="min-height:140px;background:rgba(0,0,0,0.08);padding:12px;border-radius:8px;color:var(--muted);overflow:auto"></pre>
-
-                    <!-- Mini nav with categorized preset buttons. Edit data-cmd values to change commands. -->
-                    <div class="mini-nav" style="margin-top:12px">
-                        <div class="mini-section">
-                            <div class="mini-title">SDR</div>
-                            <div class="section-buttons">
-                                <button class="preset-btn" data-cmd="sdr scan --freq 2.4G">Scan</button>
-                                <button class="preset-btn" data-cmd="sdr start_rx">Start RX</button>
-                            </div>
-                        </div>
-
-                        <div class="mini-section">
-                            <div class="mini-title">Pentest</div>
-                            <div class="section-buttons">
-                                <button class="preset-btn" data-cmd="nmap -sC -T4 192.168.1.0/24">Nmap Quick</button>
-                                <button class="preset-btn" data-cmd="exploit run target">Run Exploit</button>
-                            </div>
-                        </div>
-
-                        <div class="mini-section">
-                            <div class="mini-title">System</div>
-                            <div class="section-buttons">
-                                <button class="preset-btn" data-cmd="cat /proc/cpuinfo">Show CPU</button>
-                                <button class="preset-btn" data-cmd="sudo reboot">Reboot</button>
-                            </div>
-                        </div>
-
-                        <div class="mini-section">
-                            <div class="mini-title">Server</div>
-                            <div class="section-buttons">
-                                <button class="preset-btn" data-cmd="systemctl restart myservice">Restart Service</button>
-                                <button class="preset-btn" data-cmd="tail -n 200 /var/log/syslog">Tail Logs</button>
-                            </div>
-                        </div>
-                    </div>
+                    <pre id="cmd-output"
+                        style="min-height:140px;background:rgba(0,0,0,0.08);padding:12px;border-radius:8px;color:var(--muted);overflow:auto"></pre>
 
                     <!-- Command input area -->
                     <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
-                        <input id="cmd" placeholder="Enter command" style="flex:1;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit">
+                        <input id="cmd" placeholder="Enter command"
+                            style="flex:1;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit">
                         <button class="btn" onclick="sendCommand()">Run</button>
                     </div>
                 </div>
 
                 <div id="panel-logs" class="panel card">
                     <h3>Logs</h3>
-                    <pre id="logs" style="background:rgba(0,0,0,0.12);padding:12px;border-radius:8px;color:var(--muted)"></pre>
+                    <pre id="logs"
+                        style="background:rgba(0,0,0,0.12);padding:12px;border-radius:8px;color:var(--muted)"></pre>
                 </div>
-            </section>
 
+                <!-- Mini nav with categorized preset buttons -->
+                <div class="mini-nav" style="margin-top:12px">
+
+                    <!-- SDR -->
+                    <div class="mini-section">
+                        <div class="mini-title">SDR</div>
+                        <div class="section-buttons">
+                            <button class="preset-btn" data-cmd="sdr-scan">Scan</button>
+                            <button class="preset-btn" data-cmd="sdr-start-rx">Start RX</button>
+                            <button class="preset-btn" data-cmd="sdr-stop-rx">Stop RX</button>
+                            <button class="preset-btn" data-cmd="sdr-spec">Spectrum Snap</button>
+                        </div>
+                    </div>
+
+                    <!-- Network / Recon -->
+                    <div class="mini-section">
+                        <div class="mini-title">Network</div>
+                        <div class="section-buttons">
+                            <button class="preset-btn" data-cmd="net-scan">Net Scan</button>
+                            <button class="preset-btn" data-cmd="net-arp">ARP Table</button>
+                            <button class="preset-btn" data-cmd="net-ports">Local Ports</button>
+                            <button class="preset-btn" data-cmd="net-traffic">Net Usage</button>
+                            <button class="preset-btn" data-cmd="net-dns">DNS Info</button>
+                            <button class="preset-btn" data-cmd="net-ping">Ping</button>
+                            <button class="preset-btn" data-cmd="net-trace">Traceroute</button>
+                        </div>
+                    </div>
+
+                    <!-- System -->
+                    <div class="mini-section">
+                        <div class="mini-title">System</div>
+                        <div class="section-buttons">
+                            <button class="preset-btn" data-cmd="sys-uptime">Uptime</button>
+                            <button class="preset-btn" data-cmd="sys-disk">Disk</button>
+                            <button class="preset-btn" data-cmd="sys-mem">Memory</button>
+                            <button class="preset-btn" data-cmd="sys-proc">Processes</button>
+                            <button class="preset-btn" data-cmd="sys-temp">Temp</button>
+                            <button class="preset-btn" data-cmd="sys-ip">IP Addrs</button>
+                            <button class="preset-btn" data-cmd="sys-gpio">GPIO</button>
+                        </div>
+                    </div>
+
+                    <!-- Server -->
+                    <div class="mini-section">
+                        <div class="mini-title">Server</div>
+                        <div class="section-buttons">
+                            <button class="preset-btn" data-cmd="ws-restart">Restart WS</button>
+                            <button class="preset-btn" data-cmd="ws-status">WS Status</button>
+                            <button class="preset-btn" data-cmd="logs-ws">WS Logs</button>
+
+                            <button class="preset-btn" data-cmd="tunnel-restart">Restart Tunnel</button>
+                            <button class="preset-btn" data-cmd="tunnel-status">Tunnel Status</button>
+                            <button class="preset-btn" data-cmd="logs-tunnel">Tunnel Logs</button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </section>
+            <section id="main">
+                <!-- Command Library (reference section) -->
+                <div style="margin-top:30px; padding:16px; border-radius:12px; background:#111; color:#eee;">
+
+                    <h2 style="margin-bottom:12px;">Command Library</h2>
+                    <p style="margin-top:-6px; opacity:0.75;">Reference guide for all preset commands available in the
+                        dashboard.</p>
+
+                    <!-- SDR Commands -->
+                    <div style="margin-top:20px;">
+                        <h3>SDR Commands</h3>
+                        <ul>
+                            <li><strong>sdr-scan</strong> — Sweeps a frequency range and reports detected signals.</li>
+                            <li><strong>sdr-start-rx</strong> — Starts SDR receive mode on the Pi.</li>
+                            <li><strong>sdr-stop-rx</strong> — Stops the SDR receiver.</li>
+                            <li><strong>sdr-spec</strong> — Runs a quick spectrum capture (FFT snapshot).</li>
+                        </ul>
+                    </div>
+
+                    <!-- Network / Pentesting Tools (Safe Recon Only) -->
+                    <div style="margin-top:20px;">
+                        <h3>Network Tools (Recon Only)</h3>
+                        <ul>
+                            <li><strong>net-scan</strong> — Fast scan of your local subnet using nmap safe scripts.</li>
+                            <li><strong>net-ports</strong> — Lists open TCP/UDP ports on the Pi itself.</li>
+                            <li><strong>net-dns</strong> — Shows DNS configuration and resolvers.</li>
+                            <li><strong>net-ping</strong> — Pings 8.8.8.8 for latency & connectivity.</li>
+                            <li><strong>net-trace</strong> — Runs traceroute to a domain.</li>
+                            <li><strong>net-arp</strong> — Shows LAN device table (ARP cache).</li>
+                            <li><strong>net-traffic</strong> — Live bandwidth summary via ifstat.</li>
+                        </ul>
+                    </div>
+
+                    <!-- System -->
+                    <div style="margin-top:20px;">
+                        <h3>System</h3>
+                        <ul>
+                            <li><strong>sys-uptime</strong> — Shows how long the Pi has been running.</li>
+                            <li><strong>sys-disk</strong> — Displays disk usage (free space, size, mounts).</li>
+                            <li><strong>sys-mem</strong> — Memory usage overview.</li>
+                            <li><strong>sys-proc</strong> — Top 15 running processes.</li>
+                            <li><strong>sys-temp</strong> — Device temperature sensor readout.</li>
+                            <li><strong>sys-ip</strong> — All assigned IP addresses.</li>
+                            <li><strong>sys-gpio</strong> — Lists GPIO pin state (requires gpiod).</li>
+                        </ul>
+                    </div>
+
+                    <!-- Server -->
+                    <div style="margin-top:20px;">
+                        <h3>Server Controls</h3>
+                        <ul>
+                            <li><strong>ws-restart</strong> — Restart the WebSocket server service.</li>
+                            <li><strong>ws-status</strong> — Show WebSocket service status.</li>
+                            <li><strong>tunnel-restart</strong> — Restart Cloudflared tunnel.</li>
+                            <li><strong>tunnel-status</strong> — Show Cloudflared status/logs.</li>
+                            <li><strong>logs-ws</strong> — View recent logs of the WS server.</li>
+                            <li><strong>logs-tunnel</strong> — View recent Cloudflared logs.</li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </section>
         </div>
     </main>
 
-<script src="dashboard.js"></script>
-<script>
-// Wire preset buttons: set the input and send the command using existing sendCommand()
-document.addEventListener('click', function (e) {
-    const btn = e.target.closest && e.target.closest('.preset-btn');
-    if (!btn) return;
-    const cmd = btn.getAttribute('data-cmd') || btn.textContent || '';
-    const input = document.getElementById('cmd');
-    if (input) input.value = cmd;
-    // give a small visual cue in the output
-    const out = document.getElementById('cmd-output');
-    if (out) out.textContent = `> ${cmd}\n` + (out.textContent || '');
-    // call the existing sendCommand function (defined in dashboard.js)
-    if (typeof sendCommand === 'function') sendCommand();
-});
-</script>
+    <script src="dashboard.js"></script>
+    <script>
+        // Wire preset buttons: set the input and send the command using existing sendCommand()
+        document.addEventListener('click', function (e) {
+            const btn = e.target.closest && e.target.closest('.preset-btn');
+            if (!btn) return;
+            const cmd = btn.getAttribute('data-cmd') || btn.textContent || '';
+            const input = document.getElementById('cmd');
+            if (input) input.value = cmd;
+            // give a small visual cue in the output
+            const out = document.getElementById('cmd-output');
+            if (out) out.textContent = `> ${cmd}\n` + (out.textContent || '');
+            // call the existing sendCommand function (defined in dashboard.js)
+            if (typeof sendCommand === 'function') sendCommand();
+        });
+    </script>
 </body>
+
 </html>
