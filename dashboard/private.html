@@ -73,11 +73,50 @@
 
                 <div id="panel-commands" class="panel card">
                     <h3>Command Runner</h3>
-                    <div style="display:flex;gap:8px;margin-top:8px">
-                        <input id="cmd" placeholder="Enter command" style="flex:1;padding:8px;border-radius:6px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit">
+
+                    <!-- Output first for easier reading -->
+                    <pre id="cmd-output" style="min-height:140px;background:rgba(0,0,0,0.08);padding:12px;border-radius:8px;color:var(--muted);overflow:auto"></pre>
+
+                    <!-- Mini nav with categorized preset buttons. Edit data-cmd values to change commands. -->
+                    <div class="mini-nav" style="margin-top:12px">
+                        <div class="mini-section">
+                            <div class="mini-title">SDR</div>
+                            <div class="section-buttons">
+                                <button class="preset-btn" data-cmd="sdr scan --freq 2.4G">Scan</button>
+                                <button class="preset-btn" data-cmd="sdr start_rx">Start RX</button>
+                            </div>
+                        </div>
+
+                        <div class="mini-section">
+                            <div class="mini-title">Pentest</div>
+                            <div class="section-buttons">
+                                <button class="preset-btn" data-cmd="nmap -sC -T4 192.168.1.0/24">Nmap Quick</button>
+                                <button class="preset-btn" data-cmd="exploit run target">Run Exploit</button>
+                            </div>
+                        </div>
+
+                        <div class="mini-section">
+                            <div class="mini-title">System</div>
+                            <div class="section-buttons">
+                                <button class="preset-btn" data-cmd="cat /proc/cpuinfo">Show CPU</button>
+                                <button class="preset-btn" data-cmd="sudo reboot">Reboot</button>
+                            </div>
+                        </div>
+
+                        <div class="mini-section">
+                            <div class="mini-title">Server</div>
+                            <div class="section-buttons">
+                                <button class="preset-btn" data-cmd="systemctl restart myservice">Restart Service</button>
+                                <button class="preset-btn" data-cmd="tail -n 200 /var/log/syslog">Tail Logs</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Command input area -->
+                    <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
+                        <input id="cmd" placeholder="Enter command" style="flex:1;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit">
                         <button class="btn" onclick="sendCommand()">Run</button>
                     </div>
-                    <pre id="cmd-output" style="margin-top:12px;background:rgba(0,0,0,0.12);padding:12px;border-radius:8px;color:var(--muted)"></pre>
                 </div>
 
                 <div id="panel-logs" class="panel card">
@@ -90,5 +129,20 @@
     </main>
 
 <script src="dashboard.js"></script>
+<script>
+// Wire preset buttons: set the input and send the command using existing sendCommand()
+document.addEventListener('click', function (e) {
+    const btn = e.target.closest && e.target.closest('.preset-btn');
+    if (!btn) return;
+    const cmd = btn.getAttribute('data-cmd') || btn.textContent || '';
+    const input = document.getElementById('cmd');
+    if (input) input.value = cmd;
+    // give a small visual cue in the output
+    const out = document.getElementById('cmd-output');
+    if (out) out.textContent = `> ${cmd}\n` + (out.textContent || '');
+    // call the existing sendCommand function (defined in dashboard.js)
+    if (typeof sendCommand === 'function') sendCommand();
+});
+</script>
 </body>
 </html>
