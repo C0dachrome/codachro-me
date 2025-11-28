@@ -78,7 +78,58 @@
 
                     <!-- Output first for easier reading -->
                     <pre id="cmd-output"
-                        style="min-height:140px;background:rgba(0,0,0,0.08);padding:12px;border-radius:8px;color:var(--muted);overflow:auto"></pre>
+                        style="min-height:140px;background:rgba(0,0,0,0.08);padding:12px;border-radius:8px;color:var(--muted);overflow:auto;word-wrap:break-word"></pre>
+
+                    <!-- Mini nav with categorized preset buttons -->
+                    <div class="mini-nav" style="margin-top:12px">
+                        <div class="mini-section">
+                            <div class="mini-title">SDR</div>
+                            <div class="section-buttons">
+                                <button class="preset-btn" data-cmd="sdr-scan">Scan</button>
+                                <button class="preset-btn" data-cmd="sdr-start-rx">Start RX</button>
+                                <button class="preset-btn" data-cmd="sdr-stop-rx">Stop RX</button>
+                                <button class="preset-btn" data-cmd="sdr-spec">Spectrum Snap</button>
+                            </div>
+                        </div>
+
+                        <div class="mini-section">
+                            <div class="mini-title">Network</div>
+                            <div class="section-buttons">
+                                <button class="preset-btn" data-cmd="net-scan">Net Scan</button>
+                                <button class="preset-btn" data-cmd="net-arp">ARP Table</button>
+                                <button class="preset-btn" data-cmd="net-ports">Local Ports</button>
+                                <button class="preset-btn" data-cmd="net-traffic">Net Usage</button>
+                                <button class="preset-btn" data-cmd="net-dns">DNS Info</button>
+                                <button class="preset-btn" data-cmd="net-ping">Ping</button>
+                                <button class="preset-btn" data-cmd="net-trace">Traceroute</button>
+                            </div>
+                        </div>
+
+                        <div class="mini-section">
+                            <div class="mini-title">System</div>
+                            <div class="section-buttons">
+                                <button class="preset-btn" data-cmd="sys-uptime">Uptime</button>
+                                <button class="preset-btn" data-cmd="sys-disk">Disk</button>
+                                <button class="preset-btn" data-cmd="sys-mem">Memory</button>
+                                <button class="preset-btn" data-cmd="sys-proc">Processes</button>
+                                <button class="preset-btn" data-cmd="sys-temp">Temp</button>
+                                <button class="preset-btn" data-cmd="sys-ip">IP Addrs</button>
+                                <button class="preset-btn" data-cmd="sys-gpio">GPIO</button>
+                            </div>
+                        </div>
+
+                        <div class="mini-section">
+                            <div class="mini-title">Server</div>
+                            <div class="section-buttons">
+                                <button class="preset-btn" data-cmd="ws-restart">Restart WS</button>
+                                <button class="preset-btn" data-cmd="ws-status">WS Status</button>
+                                <button class="preset-btn" data-cmd="logs-ws">WS Logs</button>
+                                <button class="preset-btn" data-cmd="tunnel-restart">Restart Tunnel</button>
+                                <button class="preset-btn" data-cmd="tunnel-status">Tunnel Status</button>
+                                <button class="preset-btn" data-cmd="logs-tunnel">Tunnel Logs</button>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- Command input area -->
                     <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
@@ -221,19 +272,20 @@
 
     <script src="dashboard.js"></script>
     <script>
-        // Wire preset buttons: set the input and send the command using existing sendCommand()
-        document.addEventListener('click', function (e) {
-            const btn = e.target.closest && e.target.closest('.preset-btn');
-            if (!btn) return;
-            const cmd = btn.getAttribute('data-cmd') || btn.textContent || '';
-            const input = document.getElementById('cmd');
-            if (input) input.value = cmd;
-            // give a small visual cue in the output
-            const out = document.getElementById('cmd-output');
-            if (out) out.textContent = `> ${cmd}\n` + (out.textContent || '');
-            // call the existing sendCommand function (defined in dashboard.js)
-            if (typeof sendCommand === 'function') sendCommand();
-        });
+        // Wire preset buttons ONLY within commands panel to avoid persistence across pages
+        const cmdPanel = document.getElementById('panel-commands');
+        if (cmdPanel) {
+            cmdPanel.addEventListener('click', function (e) {
+                const btn = e.target.closest && e.target.closest('.preset-btn');
+                if (!btn) return;
+                const cmd = btn.getAttribute('data-cmd') || btn.textContent || '';
+                const input = document.getElementById('cmd');
+                if (input) input.value = cmd;
+                const out = document.getElementById('cmd-output');
+                if (out) out.textContent = `> ${cmd}\n` + (out.textContent || '');
+                if (typeof sendCommand === 'function') sendCommand();
+            });
+        }
     </script>
 </body>
 
