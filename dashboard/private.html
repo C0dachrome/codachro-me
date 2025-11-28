@@ -2,6 +2,8 @@
 <html>
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spectrum Eye Dashboard</title>
     <link rel="stylesheet" href="../styles.css?v=3">
     <script>
@@ -85,48 +87,48 @@
                         <div class="mini-section">
                             <div class="mini-title">SDR</div>
                             <div class="section-buttons">
-                                <button class="preset-btn" data-cmd="sdr-scan">Scan</button>
-                                <button class="preset-btn" data-cmd="sdr-start-rx">Start RX</button>
-                                <button class="preset-btn" data-cmd="sdr-stop-rx">Stop RX</button>
-                                <button class="preset-btn" data-cmd="sdr-spec">Spectrum Snap</button>
+                                <button class="preset-btn" data-cmd="sdr-scan">sdr-scan</button>
+                                <button class="preset-btn" data-cmd="sdr-start-rx">sdr-start-rx</button>
+                                <button class="preset-btn" data-cmd="sdr-stop-rx">sdr-stop-rx</button>
+                                <button class="preset-btn" data-cmd="sdr-spec">sdr-spec</button>
                             </div>
                         </div>
 
                         <div class="mini-section">
                             <div class="mini-title">Network</div>
                             <div class="section-buttons">
-                                <button class="preset-btn" data-cmd="net-scan">Net Scan</button>
-                                <button class="preset-btn" data-cmd="net-arp">ARP Table</button>
-                                <button class="preset-btn" data-cmd="net-ports">Local Ports</button>
-                                <button class="preset-btn" data-cmd="net-traffic">Net Usage</button>
-                                <button class="preset-btn" data-cmd="net-dns">DNS Info</button>
-                                <button class="preset-btn" data-cmd="net-ping">Ping</button>
-                                <button class="preset-btn" data-cmd="net-trace">Traceroute</button>
+                                <button class="preset-btn" data-cmd="net-scan">net-scan</button>
+                                <button class="preset-btn" data-cmd="net-arp">net-arp</button>
+                                <button class="preset-btn" data-cmd="net-ports">net-ports</button>
+                                <button class="preset-btn" data-cmd="net-traffic">net-traffic</button>
+                                <button class="preset-btn" data-cmd="net-dns">net-dns</button>
+                                <button class="preset-btn" data-cmd="net-ping">net-ping</button>
+                                <button class="preset-btn" data-cmd="net-trace">net-trace</button>
                             </div>
                         </div>
 
                         <div class="mini-section">
                             <div class="mini-title">System</div>
                             <div class="section-buttons">
-                                <button class="preset-btn" data-cmd="sys-uptime">Uptime</button>
-                                <button class="preset-btn" data-cmd="sys-disk">Disk</button>
-                                <button class="preset-btn" data-cmd="sys-mem">Memory</button>
-                                <button class="preset-btn" data-cmd="sys-proc">Processes</button>
-                                <button class="preset-btn" data-cmd="sys-temp">Temp</button>
-                                <button class="preset-btn" data-cmd="sys-ip">IP Addrs</button>
-                                <button class="preset-btn" data-cmd="sys-gpio">GPIO</button>
+                                <button class="preset-btn" data-cmd="sys-uptime">sys-uptime</button>
+                                <button class="preset-btn" data-cmd="sys-disk">sys-disk</button>
+                                <button class="preset-btn" data-cmd="sys-mem">sys-mem</button>
+                                <button class="preset-btn" data-cmd="sys-proc">sys-proc</button>
+                                <button class="preset-btn" data-cmd="sys-temp">sys-temp</button>
+                                <button class="preset-btn" data-cmd="sys-ip">sys-ip</button>
+                                <button class="preset-btn" data-cmd="sys-gpio">sys-gpio</button>
                             </div>
                         </div>
 
                         <div class="mini-section">
                             <div class="mini-title">Server</div>
                             <div class="section-buttons">
-                                <button class="preset-btn" data-cmd="ws-restart">Restart WS</button>
-                                <button class="preset-btn" data-cmd="ws-status">WS Status</button>
-                                <button class="preset-btn" data-cmd="logs-ws">WS Logs</button>
-                                <button class="preset-btn" data-cmd="tunnel-restart">Restart Tunnel</button>
-                                <button class="preset-btn" data-cmd="tunnel-status">Tunnel Status</button>
-                                <button class="preset-btn" data-cmd="logs-tunnel">Tunnel Logs</button>
+                                <button class="preset-btn" data-cmd="ws-restart">ws-restart</button>
+                                <button class="preset-btn" data-cmd="ws-status">ws-status</button>
+                                <button class="preset-btn" data-cmd="logs-ws">logs-ws</button>
+                                <button class="preset-btn" data-cmd="tunnel-restart">tunnel-restart</button>
+                                <button class="preset-btn" data-cmd="tunnel-status">tunnel-status</button>
+                                <button class="preset-btn" data-cmd="logs-tunnel">logs-tunnel</button>
                             </div>
                         </div>
                     </div>
@@ -202,12 +204,11 @@
                     </div>
                 </div>
 
-
             </section>
-            <section id="main">
-                <!-- Command Library (reference section) -->
-                <div style="margin-top:30px; padding:16px; border-radius:12px; background:#111; color:#eee;">
 
+            <!-- Command Library (reference section) -->
+            <section id="main">
+                <div style="margin-top:30px; padding:16px; border-radius:12px; background:#111; color:#eee;">
                     <h2 style="margin-bottom:12px;">Command Library</h2>
                     <p style="margin-top:-6px; opacity:0.75;">Reference guide for all preset commands available in the
                         dashboard.</p>

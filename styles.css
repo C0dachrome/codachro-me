@@ -485,10 +485,10 @@ textarea:focus {
     outline-offset: 2px;
 }
 
-/* Mini-nav styles for command presets - better responsive scaling */
+/* Mini-nav styles for command presets - fixed column layout for predictable scaling */
 .mini-nav {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 12px;
     margin: 12px 0
 }
@@ -543,7 +543,7 @@ textarea:focus {
 
 @media (max-width:800px) {
     .mini-nav {
-        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
         gap: 8px
     }
 
@@ -557,19 +557,18 @@ textarea:focus {
     }
 }
 
-@media (max-width:640px) {
+@media (max-width:480px) {
     .mini-nav {
         grid-template-columns: 1fr;
         gap: 6px
     }
 
-    .section-buttons {
-        flex-direction: row;
-        flex-wrap: wrap
+    .mini-section {
+        padding: 6px
     }
 
     .preset-btn {
-        flex: 1 1 calc(50% - 3px);
-        min-width: unset
+        padding: 6px 8px;
+        font-size: 0.8rem
     }
 }
