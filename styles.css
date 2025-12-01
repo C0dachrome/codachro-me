@@ -197,9 +197,11 @@ main {
     background: var(--glass);
 }
 
-/* #main {
-    min-height: 300px;
-} */
+#main {
+    flex-grow: 1;
+    /* Optional: Prevents the content from defining a minimum width that breaks the layout */
+    min-width: 0;
+}
 
 .panel {
     display: none
