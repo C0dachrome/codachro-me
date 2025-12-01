@@ -197,9 +197,9 @@ main {
     background: var(--glass);
 }
 
-#main {
+/* #main {
     min-height: 300px;
-}
+} */
 
 .panel {
     display: none
