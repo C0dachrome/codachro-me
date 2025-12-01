@@ -363,8 +363,8 @@ textarea::placeholder {
     color: rgba(255, 255, 255, 0.35);
 }
 
-img {
-    max-width: 100%;
+img#img {
+    max-width: 100px;
     height: auto;
     border-radius: 10px;
     margin-top: 12px;
