@@ -56,10 +56,67 @@
     <div id="container">
         <section id="main">
             <div id="panel-system" class="panel active card">
-                <h3>Site Stats</h3>
-                <!-- <div>CPU: <span id="cpu"></span></div>
-                <div>RAM: <span id="ram"></span></div>
-                <div>Temp: <span id="temp"></span></div> -->
+                <div id="status-container">
+                    <span id="status-indicator">...checking status...</span>
+                </div>
+
+                <script>
+                    const statusSlug = 'codachro-me'; // Replace with your actual slug
+                    const apiEndpoint = `api.openstatus.dev{statusSlug}`;
+                    const statusIndicator = document.getElementById('status-indicator');
+                    const statusContainer = document.getElementById('status-container');
+
+                    async function fetchStatus() {
+                        try {
+                            const response = await fetch(apiEndpoint);
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            const data = await response.json();
+                            // The data object will contain a 'status' field (e.g., 'OPERATIONAL', 'DEGRADED', 'INCIDENT')
+
+                            updateStatusUI(data.status);
+
+                        } catch (error) {
+                            console.error("Failed to fetch status:", error);
+                            updateStatusUI('ERROR');
+                        }
+                    }
+
+                    function updateStatusUI(status) {
+                        let message = "Status Unknown";
+                        let color = "#aaa";
+
+                        switch (status) {
+                            case 'OPERATIONAL':
+                                message = "All Systems Operational";
+                                color = "#10B981"; // Emerald green
+                                break;
+                            case 'DEGRADED':
+                                message = "Some Systems Degraded";
+                                color = "#F59E0B"; // Amber
+                                break;
+                            case 'INCIDENT':
+                                message = "Major Incident Detected";
+                                color = "#EF4444"; // Red
+                                break;
+                            case 'MAINTENANCE':
+                                message = "Under Scheduled Maintenance";
+                                color = "#3B82F6"; // Blue
+                                break;
+                            default:
+                                message = "Status check failed";
+                        }
+
+                        statusIndicator.textContent = message;
+                        statusContainer.style.color = color;
+                    }
+
+                    fetchStatus();
+                    // Optionally, set an interval to refresh the status periodically
+                    // setInterval(fetchStatus, 60000); // Refresh every minute
+                </script>
+
             </div>
         </section>
     </div>
