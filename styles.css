@@ -214,7 +214,7 @@ main {
 
 #header {
     width: 100%;
-    max-width: 980px;
+    max-width: none;
     margin: 0 auto 18px auto;
     display: flex;
     justify-content: space-between;
