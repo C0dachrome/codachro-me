@@ -42,7 +42,7 @@ body {
     top: 18px;
     z-index: 10;
     width: 100%;
-    max-width: 980px;
+    max-width: none;
     margin: 0 auto;
 }
 
