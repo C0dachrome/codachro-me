@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>SpectrumEye Login</title>
+    <title>Dashboard Login</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
@@ -20,7 +20,7 @@
     <main>
         <section class="card form-card" aria-labelledby="login-title">
             <div style="display:flex;flex-direction:column;align-items:center;gap:6px;margin-bottom:6px">
-                <h2 id="login-title">SpectrumEye</h2>
+                <h2 id="login-title">Dashboard</h2>
                 <p class="muted">Sign in to access the dashboard.</p>
             </div>
 
@@ -72,7 +72,7 @@
                     }
 
                     // Redirect to the protected dashboard page
-                    window.location.href = '/dashboard/private.html';
+                    window.location.href = '/dashboard/maindash.html';
                 } else {
                     alert('Invalid username or password');
                 }

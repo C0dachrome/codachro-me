@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Dashboard</title>
+    <link rel="stylesheet" href="../styles.css?v=3">
+    <script>
+        // Verify session server-side first (reliable). If the server check
+        // returns 401, redirect to login. If the check can't be reached
+        // (network error), fall back to the localStorage token for dev.
+        (async function () {
+            try {
+                const res = await fetch('/checksession', { method: 'GET', credentials: 'same-origin' });
+                if (res.ok) {
+                    // Session is valid — do nothing and allow the page to render.
+                    return;
+                }
+                // Not authenticated — redirect to login
+                window.location.href = '/dashboard/login.html';
+            } catch (err) {
+                // Fetch failed (likely local dev where functions aren't running).
+                // Fall back to the client-side token saved by the login form.
+                try {
+                    const token = localStorage.getItem('token');
+                    if (!token) {
+                        window.location.href = '/dashboard/login.html';
+                    }
+                } catch (e) {
+                    window.location.href = '/dashboard/login.html';
+                }
+            }
+        })();
+    </script>
+</head>
+
+<body>
+
+    <header class="topbar" role="banner">
+        <a class="brand" href="/">codachrome</a>
+
+        <nav role="navigation" aria-label="Main navigation">
+            <ul class="nav-list" role="menubar">
+                <li role="none"><a href="/" role="menuitem" class="tab-link">Home</a></li>
+                <li role="none"><a href="/sedash.html" role="menuitem" class="tab-link">SpecEye</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="header">
+        <h2>Main Dashboard</h2>
+    </div>
+
+    <div id="container">
+        <section id="main">
+            <div id="panel-system" class="panel active card">
+                <h3>Site Stats</h3>
+                <!-- <div>CPU: <span id="cpu"></span></div>
+                <div>RAM: <span id="ram"></span></div>
+                <div>Temp: <span id="temp"></span></div> -->
+            </div>
+        </section>
+    </div>
+</body>
+
+</html>
