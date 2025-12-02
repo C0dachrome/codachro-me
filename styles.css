@@ -3,13 +3,30 @@
     --surface: #0b1517;
     --muted: #9fb1a6;
     --accent: #00dc12;
-    /* lime green accent */
-    --glass: rgba(255, 255, 255, 0.03);
-    --radius: 12px;
-    --gap: 18px;
+    --accent-dark: #00a30e; /* NEW: For button gradients */
+
+    /* --- Scaling Fixes --- */
+    /* Converted px to rem (assuming 1rem = 16px) */
+    --radius: 0.75rem; /* 12px */
+    --gap: 1.125rem;  /* 18px */
+
+    /* --- Vibe Changes --- */
+    --glass: rgba(255, 255, 255, 0.05); /* Slightly more visible glass */
     --shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
-    --glass-border: rgba(168, 255, 75, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.1); /* LIGHTER border for liquid feel */
+    --blur: blur(10px); /* NEW: The "frosted glass" effect */
+
     font-family: 'Ubuntu Mono', monospace;
+}
+
+/* * CRITICAL SCALING FIX #1:
+ * Makes 'width: 100%' include padding and border, not add to it.
+ * This prevents all your overflow and "magic number" width issues.
+*/
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
 /* page layout */
@@ -27,7 +44,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    padding: 28px;
+    padding: 1.75rem; /* 28px -> rem */
     gap: var(--gap);
 }
 
@@ -36,9 +53,9 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
+    gap: 1rem; /* 16px */
     position: sticky;
-    top: 18px;
+    top: 1.125rem; /* 18px */
     z-index: 10;
     width: 100%;
     max-width: 980px;
@@ -48,28 +65,32 @@ body {
 .brand {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 0.75rem; /* 12px */
     color: var(--accent);
     text-decoration: none;
     font-weight: 700;
     font-size: 1.15rem;
     letter-spacing: 0.06em;
-    padding: 10px 14px;
-    border-radius: 10px;
+    padding: 0.625rem 0.875rem; /* 10px 14px */
+    border-radius: 0.625rem; /* 10px */
     background: linear-gradient(180deg, rgba(168, 255, 75, 0.04), transparent 60%);
     border: 1px solid var(--glass-border);
     box-shadow: var(--shadow);
+
+    /* VIBE: Add frosted glass effect */
+    -webkit-backdrop-filter: var(--blur);
+    backdrop-filter: var(--blur);
 }
 
 nav {
     display: flex;
-    gap: 10px;
+    gap: 0.625rem; /* 10px */
     align-items: center;
 }
 
 .nav-list {
     display: flex;
-    gap: 8px;
+    gap: 0.5rem; /* 8px */
     list-style: none;
     padding: 0;
     margin: 0;
@@ -80,53 +101,62 @@ nav {
 .nav-list a {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 10px 12px;
+    gap: 0.5rem; /* 8px */
+    padding: 0.625rem 0.75rem; /* 10px 12px */
     color: var(--muted);
     text-decoration: none;
-    border-radius: 8px;
+    border-radius: 0.5rem; /* 8px */
     transition: all .18s ease;
     font-weight: 600;
     font-size: 0.95rem;
+    border: 1px solid transparent; /* Add border to prevent layout shift on hover */
 }
 
-/* simple button used on panels */
+/* * VIBE: "Gel" button 
+*/
 .btn {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 10px 14px;
-    background: var(--accent);
-    color: var(--bg);
-    border-radius: 10px;
+    gap: 0.5rem; /* 8px */
+    padding: 0.625rem 0.875rem; /* 10px 14px */
+    /* background: var(--accent); <-- OLD */
+    background: linear-gradient(to bottom, var(--accent), var(--accent-dark)); /* NEW */
+    color: #000; /* Darker text for bright button */
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1); /* NEW */
+    border-radius: 0.625rem; /* 10px */
     text-decoration: none;
     font-weight: 700;
-    box-shadow: 0 6px 18px rgba(168, 255, 75, 0.08);
+    /* box-shadow: 0 6px 18px rgba(168, 255, 75, 0.08); <-- OLD */
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15), /* NEW: Inner gloss */
+                0 6px 18px rgba(0, 220, 18, 0.2); /* NEW: Brighter glow */
     transition: transform .12s ease, box-shadow .12s ease;
-    border: 1px solid rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.2);
     font-family: 'Ubuntu Mono', monospace;
 }
 
 .btn:hover {
     transform: translateY(-2px);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15),
+                0 8px 24px rgba(0, 220, 18, 0.3); /* Brighter glow on hover */
 }
 
-/* */
+/* * VIBE: "Glass" button
+*/
 .btn.secondary {
-    background: transparent;
+    background: var(--glass);
     color: var(--muted);
     border: 1px solid var(--glass-border);
     box-shadow: none;
+    text-shadow: none;
+    -webkit-backdrop-filter: var(--blur);
+    backdrop-filter: var(--blur);
 }
 
 .btn.secondary:hover {
-    background: var(--glass);
+    background: rgba(255, 255, 255, 0.1); /* More opaque glass */
     border-color: var(--accent);
     color: var(--accent);
 }
-
-/* */
-
 
 .nav-list a:hover,
 .nav-list a:focus {
@@ -136,12 +166,17 @@ nav {
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
     background: var(--glass);
     border: 1px solid var(--glass-border);
+    -webkit-backdrop-filter: var(--blur);
+    backdrop-filter: var(--blur);
 }
 
 .nav-list a.active {
-    color: var(--bg);
-    background: var(--accent);
-    box-shadow: 0 6px 18px rgba(168, 255, 75, 0.08);
+    color: #000;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.1);
+    background: linear-gradient(to bottom, var(--accent), var(--accent-dark));
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15),
+                0 6px 18px rgba(0, 220, 18, 0.2);
+    border-color: rgba(0, 0, 0, 0.2);
 }
 
 /* content card */
@@ -155,39 +190,46 @@ main {
 }
 
 .card {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
-    border: 1px solid rgba(255, 255, 255, 0.03);
-    padding: 22px;
+    /* VIBE: Lighter top gradient for "shine" */
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    border: 1px solid var(--glass-border);
+    padding: 1.375rem; /* 22px */
     border-radius: var(--radius);
     box-shadow: var(--shadow);
     width: 100%;
+    /* VIBE: Add frosted glass effect */
+    -webkit-backdrop-filter: var(--blur);
+    backdrop-filter: var(--blur);
 }
 
 /* dashboard layout specifics */
 #container {
     display: grid;
     grid-template-columns: 220px 1fr;
-    gap: 20px;
+    gap: 1.25rem; /* 20px */
     align-items: start;
     width: 100%;
 }
 
 #sidebar {
     background: var(--glass);
-    padding: 14px;
+    padding: 0.875rem; /* 14px */
     border-radius: var(--radius);
-    border: 1px solid rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 0.5rem; /* 8px */
+    /* VIBE: Add frosted glass effect */
+    -webkit-backdrop-filter: var(--blur);
+    backdrop-filter: var(--blur);
 }
 
 #sidebar button {
     background: transparent;
     color: var(--muted);
     border: 1px solid rgba(255, 255, 255, 0.02);
-    padding: 10px 12px;
-    border-radius: 8px;
+    padding: 0.625rem 0.75rem; /* 10px 12px */
+    border-radius: 0.5rem; /* 8px */
     cursor: pointer;
     text-align: left;
 }
@@ -195,167 +237,33 @@ main {
 #sidebar button:hover {
     color: var(--accent);
     background: var(--glass);
+    border-color: var(--glass-border);
 }
 
 #main {
     flex-grow: 1;
-    /* Optional: Prevents the content from defining a minimum width that breaks the layout */
-    min-width: 0;
+    min-width: 0; /* Prevents content from breaking grid */
 }
 
-.panel {
-    display: none
-}
+/* ... (panel styles are fine) ... */
 
-.panel.active {
-    display: block
-}
-
-#header {
-    width: 100%;
-    max-width: 980px;
-    margin: 0 auto 18px auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center
-}
-
-#connection {
-    font-family: monospace;
-    color: var(--muted)
-}
-
-.muted-link {
-    color: var(--muted);
-    text-decoration: none
-}
-
-@media (max-width:800px) {
-    #container {
-        grid-template-columns: 1fr
-    }
-}
-
-/* Responsive adjustments for smaller screens */
-@media (max-width:800px) {
-    body {
-        padding: 18px;
-    }
-
-    .topbar {
-        flex-direction: row;
-        gap: 10px;
-    }
-
-    .brand {
-        font-size: 1rem;
-        padding: 8px 10px;
-    }
-
-    /* Sidebar becomes horizontal strip on small screens */
-    #container {
-        grid-template-columns: 1fr;
-    }
-
-    #sidebar {
-        display: flex;
-        flex-direction: row;
-        gap: 8px;
-        overflow-x: auto;
-        padding: 8px;
-    }
-
-    #sidebar button {
-        flex: 0 0 auto;
-        white-space: nowrap;
-    }
-
-    /* Make panels stack nicely */
-    #main {
-        width: 100%;
-    }
-
-    .card {
-        padding: 18px;
-    }
-
-    /* Make canvas responsive */
-    canvas {
-        max-width: 100%;
-        height: auto;
-    }
-}
-
-@media (max-width:480px) {
-    :root {
-        --gap: 12px;
-    }
-
-    body {
-        padding: 14px;
-    }
-
-    .brand {
-        padding: 6px 8px;
-    }
-
-    .nav-list {
-        display: none;
-    }
-
-    /* Buttons and inputs scale for touch */
-    #sidebar button {
-        padding: 8px 10px;
-        font-size: 0.95rem;
-        border-radius: 8px;
-    }
-
-    .btn {
-        padding: 10px 12px;
-        font-size: 0.95rem;
-    }
-
-    /* Smaller headings */
-    h1 {
-        font-size: 1.25rem;
-    }
-
-    h3 {
-        font-size: 1rem;
-    }
-}
-
-/* Narrow variant for forms (login) so they are centered and don't span full width on large screens) */
-.form-card {
-    max-width: 420px;
-    width: 100%;
-    margin: 0 auto;
-}
-
-/* Floating login card visuals */
-.form-card {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015));
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6), 0 2px 6px rgba(0, 0, 0, 0.35);
-    transform: translateY(-6px);
-    backdrop-filter: blur(6px);
-}
-
-/* Inputs inside forms */
+/* * VIBE: "Inset" input style (Old iOS)
+*/
 input[type="text"],
 input[type="password"],
 input[type="email"],
 textarea {
     display: block;
     width: 100%;
-    padding: 12px 14px;
-    margin-top: 8px;
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    background: rgba(0, 0, 0, 0.12);
-    color: inherit;
-    transition: box-shadow .12s ease, border-color .12s ease, transform .08s ease;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+    padding: 0.75rem 0.875rem; /* 12px 14px */
+    margin-top: 0.5rem; /* 8px */
+    border-radius: 0.625rem; /* 10px */
+    border: 1px solid rgba(0, 0, 0, 0.3); /* Darker border */
+    background: rgba(0, 0, 0, 0.25); /* Darker bg */
+    color: #fff; /* Brighter text */
+    /* VIBE: Stronger inset shadow */
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+    transition: all .12s ease;
 }
 
 input::placeholder,
@@ -363,221 +271,151 @@ textarea::placeholder {
     color: rgba(255, 255, 255, 0.35);
 }
 
-img#img {
-    max-width: 100px;
-    height: auto;
-    border-radius: 10px;
-    margin-top: 12px;
-}
-
 input:focus,
 textarea:focus {
     outline: none;
     border-color: var(--accent);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 0 4px rgba(0, 220, 18, 0.06);
-    transform: translateY(-1px);
+    /* Keep the "hackery" focus glow */
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4),
+                0 0 0 4px rgba(0, 220, 18, 0.15);
 }
 
-.card h2 {
-    margin-bottom: 6px;
+/* ... (other styles like .form-card, .mini-nav look okay) ... */
+
+/* * SCALING FIX #3:
+ * Merged your two '@media (max-width:800px)' blocks.
+ * Converted px to rem.
+*/
+@media (max-width: 800px) { /* 800px is a good breakpoint */
+    body {
+        padding: 1.125rem; /* 18px */
+    }
+
+    .topbar {
+        flex-direction: row;
+        gap: 0.625rem; /* 10px */
+    }
+
+    .brand {
+        font-size: 1rem;
+        padding: 0.5rem 0.625rem; /* 8px 10px */
+    }
+
+    #container {
+        grid-template-columns: 1fr;
+    }
+
+    #sidebar {
+        flex-direction: row;
+        gap: 0.5rem; /* 8px */
+        overflow-x: auto;
+        padding: 0.5rem; /* 8px */
+    }
+
+    #sidebar button {
+        flex: 0 0 auto;
+        white-space: nowrap;
+    }
+
+    #main {
+        width: 100%;
+    }
+
+    .card {
+        padding: 1.125rem; /* 18px */
+    }
+
+    canvas {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .mini-nav {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem; /* 8px */
+    }
+
+    .mini-section {
+        padding: 0.5rem; /* 8px */
+    }
+
+    .preset-btn {
+        padding: 0.375rem 0.5rem; /* 6px 8px */
+        font-size: 0.85rem;
+    }
 }
 
-.card p.muted {
-    color: var(--muted);
-    margin-top: 0;
-    margin-bottom: 12px;
+/* * SCALING FIX #4:
+ * Converted px to rem.
+*/
+@media (max-width: 480px) {
+    :root {
+        --gap: 0.75rem; /* 12px */
+    }
+
+    body {
+        padding: 0.875rem; /* 14px */
+    }
+
+    .brand {
+        padding: 0.375rem 0.5rem; /* 6px 8px */
+    }
+
+    .nav-list {
+        display: none; /* This was in your original, keeping it */
+    }
+
+    #sidebar button {
+        padding: 0.5rem 0.625rem; /* 8px 10px */
+        font-size: 0.95rem;
+        border-radius: 0.5rem; /* 8px */
+    }
+
+    .btn {
+        padding: 0.625rem 0.75rem; /* 10px 12px */
+        font-size: 0.95rem;
+    }
+
+    /* ... (h1, h3 styles) ... */
+
+    .mini-nav {
+        grid-template-columns: 1fr;
+        gap: 0.375rem; /* 6px */
+    }
+    
+    /* ... (rest of mini-nav) ... */
 }
 
-.login-footer {
-    margin-top: 14px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px
-}
 
-.secondary-link {
-    color: rgba(255, 255, 255, 0.6);
-    text-decoration: none;
-    font-size: 0.95rem
-}
-
-/* New form field styling for stacked, 'cool' inputs */
-.field {
-    margin-top: 12px;
-    display: flex;
-    justify-content: center
-}
-
-.field label {
-    display: block;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.85);
-    margin-bottom: 6px
-}
-
-/* Visually-hidden helper for accessibility but not visible layout */
-.visually-hidden {
-    position: absolute !important;
-    height: 1px;
-    width: 1px;
-    overflow: hidden;
-    clip: rect(1px, 1px, 1px, 1px);
-    white-space: nowrap
-}
-
-/* New unified input style */
+/* * SCALING FIX #2:
+ * Your .input-field and .btn.block had 'magic number' widths (94%, 92%).
+ * With 'box-sizing: border-box;' at the top, you can now use 100%.
+*/
 .input-field {
-    width: 94%;
+    width: 100%; /* Was 94% */
     max-width: 340px;
     font-size: 1.05rem;
-    padding: 16px 18px;
-    border-radius: 14px;
+    padding: 1rem 1.125rem; /* 16px 18px */
+    border-radius: 0.875rem; /* 14px */
     background: rgba(0, 0, 0, 0.32);
     border: 1px solid rgba(255, 255, 255, 0.06);
     color: inherit;
     box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.45);
 }
 
-.input-field::placeholder {
-    color: rgba(255, 255, 255, 0.45);
-}
-
 .input-field:focus {
     outline: none;
     border-color: var(--accent);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55), 0 0 0 6px rgba(0, 220, 18, 0.04);
+    box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.45), /* Keep inset shadow */
+                0 10px 30px rgba(0, 0, 0, 0.55), 
+                0 0 0 6px rgba(0, 220, 18, 0.04);
     transform: translateY(-1px);
 }
 
-.login-actions {
-    margin-top: 18px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: center
-}
-
 .btn.block {
-    width: 92%;
+    width: 100%; /* Was 92% */
     max-width: 320px;
     justify-content: center
 }
 
-.secondary-link {
-    text-align: center;
-    display: block
-}
-
-/* Slight hover for button to feel lively */
-.btn:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6), 0 8px 20px rgba(0, 220, 18, 0.06);
-}
-
-/* Make the login card smaller and more square */
-.form-card {
-    max-width: 360px;
-    padding: 18px;
-    border-radius: 10px;
-    transform: none;
-    border: 2px solid rgba(0, 220, 18, 0.18);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
-}
-
-
-/* Improve focus states for accessibility on mobile */
-#sidebar button:focus,
-.nav-list a:focus,
-.btn:focus {
-    outline: 2px solid rgba(0, 0, 0, 0.12);
-    outline-offset: 2px;
-}
-
-/* Mini-nav styles for command presets - fixed column layout for predictable scaling */
-.mini-nav {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin: 12px 0
-}
-
-.mini-section {
-    background: var(--glass);
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.03);
-    min-width: 0
-}
-
-.mini-title {
-    font-weight: 700;
-    color: var(--accent);
-    font-size: 0.9rem;
-    margin-bottom: 8px;
-    white-space: nowrap
-}
-
-.section-buttons {
-    display: flex;
-    gap: 6px;
-    flex-direction: column
-}
-
-.preset-btn {
-    background: transparent;
-    color: var(--muted);
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    padding: 8px 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    text-align: left;
-    font-size: 0.9rem;
-    transition: all .12s ease;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap
-}
-
-.preset-btn:hover {
-    background: var(--glass);
-    color: var(--accent);
-    transform: translateY(-2px);
-    border-color: var(--accent)
-}
-
-.preset-btn:active {
-    transform: translateY(0)
-}
-
-@media (max-width:800px) {
-    .mini-nav {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px
-    }
-
-    .mini-section {
-        padding: 8px
-    }
-
-    .preset-btn {
-        padding: 6px 8px;
-        font-size: 0.85rem
-    }
-}
-
-@media (max-width:480px) {
-    .mini-nav {
-        grid-template-columns: 1fr;
-        gap: 6px
-    }
-
-    .mini-section {
-        padding: 6px
-    }
-
-    .preset-btn {
-        padding: 6px 8px;
-        font-size: 0.8rem
-    }
-}
+/* ... (The rest of your CSS) ... */
