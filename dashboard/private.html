@@ -56,7 +56,7 @@
 
         <aside id="sidebar">
             <button onclick="showPanel('system')">System Stats</button>
-            <button onclick="showPanel('spectrum')">Spectrum</button>
+            <!-- <button onclick="showPanel('spectrum')">Spectrum</button> -->
             <button onclick="showPanel('commands')">Commands</button>
             <button onclick="showPanel('logs')">Logs</button>
         </aside>
@@ -69,10 +69,10 @@
                 <div>Temp: <span id="temp"></span></div>
             </div>
 
-            <div id="panel-spectrum" class="panel card">
+            <!-- <div id="panel-spectrum" class="panel card">
                 <h3>Spectrum</h3>
                 <canvas id="spectrumCanvas" width="600" height="200"></canvas>
-            </div>
+            </div> -->
 
             <div id="panel-commands" class="panel card">
                 <h3>Command Runner</h3>
@@ -80,6 +80,15 @@
                 <!-- Output first for easier reading -->
                 <pre id="cmd-output"
                     style="min-height:140px;background:rgba(0,0,0,0.08);padding:12px;border-radius:8px;color:var(--muted);overflow:auto;word-wrap:break-word"></pre>
+
+
+
+                <!-- Command input area -->
+                <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
+                    <input id="cmd" placeholder="Enter command"
+                        style="flex:1;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit">
+                    <button class="btn" onclick="sendCommand()">Run</button>
+                </div>
 
                 <!-- Mini nav with categorized preset buttons -->
                 <div class="mini-nav" style="margin-top:12px">
@@ -130,13 +139,6 @@
                             <button class="preset-btn" data-cmd="logs-tunnel">logs-tunnel</button>
                         </div>
                     </div>
-                </div>
-
-                <!-- Command input area -->
-                <div style="margin-top:12px;display:flex;gap:8px;align-items:center">
-                    <input id="cmd" placeholder="Enter command"
-                        style="flex:1;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit">
-                    <button class="btn" onclick="sendCommand()">Run</button>
                 </div>
             </div>
 
