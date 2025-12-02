@@ -151,67 +151,67 @@
             </section>
 
             <!-- Command Library (reference section) -->
-            <section id="library">
-                <div style="margin-top:30px; padding:16px; border-radius:12px; background:#111; color:#eee;">
-                    <h2 style="margin-bottom:12px;">Command Library</h2>
-                    <p style="margin-top:-6px; opacity:0.75;">Reference guide for all preset commands available in the
-                        dashboard.</p>
 
-                    <!-- SDR Commands -->
-                    <div style="margin-top:20px;">
-                        <h3>SDR Commands</h3>
-                        <ul>
-                            <li><strong>sdr-scan</strong> — Sweeps a frequency range and reports detected signals.</li>
-                            <li><strong>sdr-start-rx</strong> — Starts SDR receive mode on the Pi.</li>
-                            <li><strong>sdr-stop-rx</strong> — Stops the SDR receiver.</li>
-                            <li><strong>sdr-spec</strong> — Runs a quick spectrum capture (FFT snapshot).</li>
-                        </ul>
-                    </div>
+            <div style="margin-top:30px; padding:16px; border-radius:12px; background:#111; color:#eee;">
+                <h2 style="margin-bottom:12px;">Command Library</h2>
+                <p style="margin-top:-6px; opacity:0.75;">Reference guide for all preset commands available in the
+                    dashboard.</p>
 
-                    <!-- Network / Pentesting Tools (Safe Recon Only) -->
-                    <div style="margin-top:20px;">
-                        <h3>Network Tools</h3>
-                        <ul>
-                            <li><strong>net-scan</strong> — Fast scan of your local subnet using nmap safe scripts.</li>
-                            <li><strong>net-ports</strong> — Lists open TCP/UDP ports on the Pi itself.</li>
-                            <li><strong>net-dns</strong> — Shows DNS configuration and resolvers.</li>
-                            <li><strong>net-ping</strong> — Pings 8.8.8.8 for latency & connectivity.</li>
-                            <li><strong>net-trace</strong> — Runs traceroute to a domain.</li>
-                            <li><strong>net-arp</strong> — Shows LAN device table (ARP cache).</li>
-                            <li><strong>net-traffic</strong> — Live bandwidth summary via ifstat.</li>
-                        </ul>
-                    </div>
-
-                    <!-- System -->
-                    <div style="margin-top:20px;">
-                        <h3>System</h3>
-                        <ul>
-                            <li><strong>sys-uptime</strong> — Shows how long the Pi has been running.</li>
-                            <li><strong>sys-disk</strong> — Displays disk usage (free space, size, mounts).</li>
-                            <li><strong>sys-mem</strong> — Memory usage overview.</li>
-                            <li><strong>sys-proc</strong> — Top 15 running processes.</li>
-                            <li><strong>sys-temp</strong> — Device temperature sensor readout.</li>
-                            <li><strong>sys-ip</strong> — All assigned IP addresses.</li>
-                            <li><strong>sys-gpio</strong> — Lists GPIO pin state (requires gpiod).</li>
-                        </ul>
-                    </div>
-
-                    <!-- Server -->
-                    <div style="margin-top:20px;">
-                        <h3>Server Controls</h3>
-                        <ul>
-                            <li><strong>ws-restart</strong> — Restart the WebSocket server service.</li>
-                            <li><strong>ws-status</strong> — Show WebSocket service status.</li>
-                            <li><strong>tunnel-restart</strong> — Restart Cloudflared tunnel.</li>
-                            <li><strong>tunnel-status</strong> — Show Cloudflared status/logs.</li>
-                            <li><strong>logs-ws</strong> — View recent logs of the WS server.</li>
-                            <li><strong>logs-tunnel</strong> — View recent Cloudflared logs.</li>
-                        </ul>
-                    </div>
-
+                <!-- SDR Commands -->
+                <div style="margin-top:20px;">
+                    <h3>SDR Commands</h3>
+                    <ul>
+                        <li><strong>sdr-scan</strong> — Sweeps a frequency range and reports detected signals.</li>
+                        <li><strong>sdr-start-rx</strong> — Starts SDR receive mode on the Pi.</li>
+                        <li><strong>sdr-stop-rx</strong> — Stops the SDR receiver.</li>
+                        <li><strong>sdr-spec</strong> — Runs a quick spectrum capture (FFT snapshot).</li>
+                    </ul>
                 </div>
-            </section>
-            
+
+                <!-- Network / Pentesting Tools (Safe Recon Only) -->
+                <div style="margin-top:20px;">
+                    <h3>Network Tools</h3>
+                    <ul>
+                        <li><strong>net-scan</strong> — Fast scan of your local subnet using nmap safe scripts.</li>
+                        <li><strong>net-ports</strong> — Lists open TCP/UDP ports on the Pi itself.</li>
+                        <li><strong>net-dns</strong> — Shows DNS configuration and resolvers.</li>
+                        <li><strong>net-ping</strong> — Pings 8.8.8.8 for latency & connectivity.</li>
+                        <li><strong>net-trace</strong> — Runs traceroute to a domain.</li>
+                        <li><strong>net-arp</strong> — Shows LAN device table (ARP cache).</li>
+                        <li><strong>net-traffic</strong> — Live bandwidth summary via ifstat.</li>
+                    </ul>
+                </div>
+
+                <!-- System -->
+                <div style="margin-top:20px;">
+                    <h3>System</h3>
+                    <ul>
+                        <li><strong>sys-uptime</strong> — Shows how long the Pi has been running.</li>
+                        <li><strong>sys-disk</strong> — Displays disk usage (free space, size, mounts).</li>
+                        <li><strong>sys-mem</strong> — Memory usage overview.</li>
+                        <li><strong>sys-proc</strong> — Top 15 running processes.</li>
+                        <li><strong>sys-temp</strong> — Device temperature sensor readout.</li>
+                        <li><strong>sys-ip</strong> — All assigned IP addresses.</li>
+                        <li><strong>sys-gpio</strong> — Lists GPIO pin state (requires gpiod).</li>
+                    </ul>
+                </div>
+
+                <!-- Server -->
+                <div style="margin-top:20px;">
+                    <h3>Server Controls</h3>
+                    <ul>
+                        <li><strong>ws-restart</strong> — Restart the WebSocket server service.</li>
+                        <li><strong>ws-status</strong> — Show WebSocket service status.</li>
+                        <li><strong>tunnel-restart</strong> — Restart Cloudflared tunnel.</li>
+                        <li><strong>tunnel-status</strong> — Show Cloudflared status/logs.</li>
+                        <li><strong>logs-ws</strong> — View recent logs of the WS server.</li>
+                        <li><strong>logs-tunnel</strong> — View recent Cloudflared logs.</li>
+                    </ul>
+                </div>
+
+            </div>
+
+
         </div>
     </main>
 
