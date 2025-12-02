@@ -264,6 +264,11 @@ main {
         margin-top: 20px;
     }
 
+    #library > div {
+        width: 100%;
+    }
+
+
     #sidebar {
         display: flex;
         flex-direction: row;
