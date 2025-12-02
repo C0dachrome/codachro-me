@@ -258,6 +258,12 @@ main {
         grid-template-columns: 1fr;
     }
 
+    #library {
+        grid-column: 2;        /* stay in the right-side column */
+        width: 100%;           /* stretch fully */
+        margin-top: 20px;
+    }
+
     #sidebar {
         display: flex;
         flex-direction: row;
