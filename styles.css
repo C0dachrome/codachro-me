@@ -265,6 +265,11 @@ main {
         align-self: start;        /* stay in the right-side column */
         width: 100%;           /* stretch fully */
         margin-top: 20px;
+        width: 400px !important;
+        min-width: 400px !important;
+        max-width: 400px !important;
+
+        background: red !important; /* temporary debug */
     }
 
     #library > div {
