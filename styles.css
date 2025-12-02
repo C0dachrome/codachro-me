@@ -255,11 +255,14 @@ main {
 
     /* Sidebar becomes horizontal strip on small screens */
     #container {
-        grid-template-columns: 1fr;
+        display: grid;
+        width: 100%;
+        grid-template-columns: 240px 1fr minmax(300px, 500px);
     }
 
     #library {
-        grid-column: 2;        /* stay in the right-side column */
+        grid-column: 3;
+        align-self: start;        /* stay in the right-side column */
         width: 100%;           /* stretch fully */
         margin-top: 20px;
     }
