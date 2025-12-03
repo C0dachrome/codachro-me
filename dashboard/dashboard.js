@@ -100,3 +100,15 @@ function updateSpectrum(samples) {
     ctx.lineWidth = 2;
     ctx.stroke();
 }
+
+function showPanel(name) {
+    document.querySelectorAll('.panel').forEach(p => {
+        p.classList.remove('active');
+    });
+    document.getElementById('panel-' + name).classList.add('active');
+
+    document.querySelectorAll('#sidebar button').forEach(b => {
+        b.classList.remove('active');
+    });
+    event.target.classList.add('active');
+}
