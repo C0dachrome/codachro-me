@@ -281,14 +281,11 @@ body.login-page .form-card {
     padding: 40px 20px;
 }
 
-.project-body.nav-list {
-    justify-content: space-between;
-}
-
 /* Header */
 .project-header {
     text-align: center;
     margin-bottom: 40px;
+    justify-content: space-between;
 }
 
 .project-header h1 {
