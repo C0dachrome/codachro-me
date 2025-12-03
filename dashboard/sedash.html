@@ -233,6 +233,20 @@
                 if (typeof sendCommand === 'function') sendCommand();
             });
         }
+        function setActive(targetId) {
+            panels.forEach(p => p.style.display = p.id === targetId ? 'block' : 'none');
+            links.forEach(a => a.classList.toggle('active', a.dataset.target === targetId));
+
+            // Show/hide commit sidebar
+            const commitSidebar = document.querySelector('.home-commits');
+            if (commitSidebar) {
+                commitSidebar.style.display = (targetId === 'home') ? 'block' : 'none';
+            }
+
+            // update focus for accessibility
+            const activeLink = Array.from(links).find(a => a.dataset.target === targetId);
+            if (activeLink) activeLink.focus({ preventScroll: true });
+        }
     </script>
 </body>
 
