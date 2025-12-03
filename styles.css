@@ -21,6 +21,23 @@ html, body {
     height: 100%;
 }
 
+/* Hide all panels by default */
+.panel {
+    display: none;
+}
+
+/* Show the active panel */
+.panel.active {
+    display: block;
+}
+
+/* Active sidebar button */
+#sidebar button.active {
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+}
+
+
 body {
     background: radial-gradient(circle at 50% 0%, #33363d 0%, #1a1d21 70%);
     color: var(--text);
