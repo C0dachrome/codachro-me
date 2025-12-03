@@ -1,58 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{title}} – Projects</title>
-    <link rel="stylesheet" href="../styles.css?v=4">
+    <meta-name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CM-R1 – Projects</title>
+        <link rel="stylesheet" href="../styles.css?v=5">
 </head>
 
 <body class="project-body">
     <ul class="nav-list" role="menubar">
-                <li role="none"><a href="/" role="menuitem" class="tab-link">Home</a></li>
+        <li role="none"><a href="/" role="menuitem" class="tab-link">Home</a></li>
     </ul>
-    <header class="project-header">
-        <h1>CM-R1</h1>
-        <p class="project-subtitle">{{summary}}</p>
-    </header>
 
-    <section class="project-meta">
-        <div>
-            <h3>Tech Stack</h3>
-            <p>{{stack}}</p>
-        </div>
-        <div>
-            <h3>Date</h3>
-            <p>{{date}}</p>
-        </div>
-        <div>
-            <h3>Status</h3>
-            <p>{{status}}</p>
-        </div>
-    </section>
+    <div class="project-layout">
 
-    <section class="project-content">
-        <h2>Overview</h2>
-        <p>{{long_description}}</p>
-    </section>
+        <!-- LEFT SIDEBAR -->
+        <aside class="commit-sidebar">
+            <h2>Latest Commits</h2>
+            <ul id="commitList" class="commit-list"></ul>
+        </aside>
 
-    <section class="project-images">
-        <h2>Screenshots</h2>
-        <div class="image-grid">
-            <!-- add as many as you want -->
-            <img src="img1.png" alt="">
-            <img src="img2.png" alt="">
-        </div>
-    </section>
+        <!-- MAIN CONTENT -->
+        <main class="project-main">
 
-    <section class="github-activity">
-        <h2>Latest GitHub Commits</h2>
-        <p class="gh-note">Auto-loaded from repository.</p>
-        <ul id="commitList" class="commit-list"></ul>
-    </section>
+            <header class="project-header">
+                <h1>CM-R1</h1>
+                <p class="project-subtitle">{{summary}}</p>
+            </header>
 
+            <section class="project-meta">
+                <div>
+                    <h3>Tech Stack</h3>
+                    <p>{{stack}}</p>
+                </div>
+                <div>
+                    <h3>Date</h3>
+                    <p>{{date}}</p>
+                </div>
+                <div>
+                    <h3>Status</h3>
+                    <p>{{status}}</p>
+                </div>
+            </section>
+
+            <section class="project-content">
+                <h2>Overview</h2>
+                <p>{{long_description}}</p>
+            </section>
+
+            <section class="project-images">
+                <h2>Screenshots</h2>
+                <div class="image-grid">
+                    <img src="img1.png" alt="">
+                    <img src="img2.png" alt="">
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- GitHub Commit Loader -->
     <script>
-        // ---- GitHub Activity Loader ----
         const user = "C0dachrome";
         const repo = "CM-R1";
 
@@ -62,22 +71,24 @@
                 const list = document.getElementById("commitList");
                 list.innerHTML = "";
 
-                data.slice(0, 5).forEach(commit => {
+                data.slice(0, 10).forEach(commit => {
                     const li = document.createElement("li");
                     li.innerHTML = `
-                        <div class="commit-message">${commit.commit.message}</div>
-                        <div class="commit-meta">
-                            <span>${commit.commit.author.name}</span>
-                            <span>${new Date(commit.commit.author.date).toLocaleString()}</span>
-                        </div>`;
+                    <div class="commit-message">${commit.commit.message}</div>
+                    <div class="commit-meta">
+                        <span>${commit.commit.author.name}</span>
+                        <span>${new Date(commit.commit.author.date).toLocaleDateString()}</span>
+                    </div>
+                `;
                     list.appendChild(li);
                 });
             })
-            .catch(err => {
+            .catch(() => {
                 document.getElementById("commitList").innerHTML =
-                    "<li>Unable to load commits.</li>";
+                    "<li class='commit-error'>Unable to load commits.</li>";
             });
     </script>
 
 </body>
+
 </html>
