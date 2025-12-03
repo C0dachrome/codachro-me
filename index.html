@@ -28,10 +28,28 @@
     </header>
 
     <main>
-        <section id="home" class="card tab-panel" role="region" aria-labelledby="home-tab" style="display:block">
-            <h1>Welcome</h1>
-            <p>This is the home tab. Click "Projects" to see my work.</p>
-        </section>
+        <main class="home-layout">
+
+            <!-- LEFT COLUMN: your existing tabs -->
+            <div class="home-content">
+                <!-- your existing <section id="home">, <section id="projects"> etc... -->
+                <section id="home" class="card tab-panel" role="region" aria-labelledby="home-tab"
+                    style="display:block">
+                    <h1>Welcome</h1>
+                    <p>This is the home tab. Click "Projects" to see my work.</p>
+                </section>
+
+                <!-- ... all the other tab sections stay exactly the same ... -->
+            </div>
+
+            <!-- RIGHT COLUMN: the commit sidebar -->
+            <aside class="home-commits">
+                <h2>Latest Commits</h2>
+                <ul id="homeCommitList" class="commit-list"></ul>
+            </aside>
+
+        </main>
+
 
         <section id="projects" class="card tab-panel" role="region" aria-labelledby="projects-tab" style="display:none">
             <h1>Projects</h1>
@@ -69,11 +87,13 @@
             </div>
             <h2>Contact</h2>
             <p>Feel free to reach out via <a href="mailto:codycmillward@gmail.com">email</a> or on
-                <a href="https://www.linkedin.com/in/cody-millward-301b31258/">LinkedIn</a>.</p>
+                <a href="https://www.linkedin.com/in/cody-millward-301b31258/">LinkedIn</a>.
+            </p>
         </section>
-        <section id="dashboard" class="card tab-panel" role="region" aria-labelledby="dashboard-tab" style="display:none">
+        <section id="dashboard" class="card tab-panel" role="region" aria-labelledby="dashboard-tab"
+            style="display:none">
             <h1>Dashboard Login</h1>
-            
+
             <p></p>
             <a class="btn" href="dashboard/login.html" role="button" aria-label="Go to Dashboard login page">Login</a>
         </section>
@@ -111,6 +131,34 @@
             if (document.getElementById(initial)) setActive(initial);
         })();
     </script>
+    <script>
+        const homeUser = "C0dachrome";
+        const homeRepo = "CM-R1"; // you can expand this later to show multiple repos
+
+        fetch(`https://api.github.com/repos/${homeUser}/${homeRepo}/commits`)
+            .then(res => res.json())
+            .then(data => {
+                const list = document.getElementById("homeCommitList");
+                list.innerHTML = "";
+
+                data.slice(0, 8).forEach(commit => {
+                    const li = document.createElement("li");
+                    li.innerHTML = `
+                <div class="commit-message">${commit.commit.message}</div>
+                <div class="commit-meta">
+                    <span>${commit.commit.author.name}</span>
+                    <span>${new Date(commit.commit.author.date).toLocaleDateString()}</span>
+                </div>
+            `;
+                    list.appendChild(li);
+                });
+            })
+            .catch(() => {
+                document.getElementById("homeCommitList").innerHTML =
+                    "<li class='commit-error'>Unable to load commits.</li>";
+            });
+    </script>
+
 </body>
 
 </html>
