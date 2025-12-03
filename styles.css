@@ -428,3 +428,22 @@ body.login-page .form-card {
 }
 
 /* header, meta, content, images — unchanged from earlier */
+
+.project-header {
+    display: grid;
+    grid-template-columns: 1fr auto; /* Title grows, Home stays right */
+    align-items: center;
+    gap: 4px 12px;
+}
+
+.project-header h1 {
+    grid-column: 1;
+}
+
+.project-header .nav-list {
+    grid-column: 2;
+}
+
+.project-header .project-subtitle {
+    grid-column: 1 / span 2;
+}
