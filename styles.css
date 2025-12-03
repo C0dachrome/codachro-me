@@ -49,6 +49,14 @@ body {
     flex-basis: 100% !important;    /* if flex */
     width: 100% !important;
     max-width: none !important;
+    background: rgba(45, 47, 53, 0.75);
+    border: 1px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(14px) brightness(1.08);
+    border-radius: 14px;
+    padding: 22px;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.08),
+        0 14px 28px rgba(0,0,0,0.55);
 }
 
 #header {
