@@ -51,6 +51,44 @@ body {
     max-width: none !important;
 }
 
+/* Login page layout reset */
+body.login-page main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 60px);
+    padding: 20px;
+}
+
+body.login-page .form-card {
+    max-width: 360px;
+    width: 100%;
+}
+
+#connection {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 6px 12px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 12px;
+    font-size: 14px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+#connection::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #f0c36d; /* connecting */
+}
+
+/* variants */
+.connected::before { background: #6ef589; }
+.disconnected::before { background: #ff6a6a; }
+
 
 /* ===========================
    TOP BAR (Unified Toolbar)
