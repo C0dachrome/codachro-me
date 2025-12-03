@@ -44,6 +44,14 @@ body {
     font-size: 15px;
 }
 
+#library {
+    grid-column: 1 / -1 !important; /* if grid */
+    flex-basis: 100% !important;    /* if flex */
+    width: 100% !important;
+    max-width: none !important;
+}
+
+
 /* ===========================
    TOP BAR (Unified Toolbar)
 =========================== */
