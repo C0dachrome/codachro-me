@@ -26,31 +26,42 @@
                 <ul class="nav-list" role="menubar">
                     <li role="none"><a href="/" role="menuitem" class="tab-link">Home</a></li>
                 </ul>
-                <p class="project-subtitle">{{summary}}</p>
+                <p class="project-subtitle">A portable RF analysis device, capable of control over long distances through a Cloudflare tunnel or locally using its integrated Netgear router as an access point.</p>
             </header>
 
             <section class="project-meta">
                 <div>
                     <h3>Tech Stack</h3>
-                    <p>{{stack}}</p>
+                    <p>Cloudflared, <br> Python, <br> Javascript, <br> Raspberry Pi 4b (running Kali), <br> NESDR Mini 2+ SDR dongle, 
+                    <br> VSCode, <br> Netgear R6020 Router </p>
                 </div>
                 <div>
                     <h3>Date</h3>
-                    <p>{{date}}</p>
+                    <p>Started in early November 2025</p>
                 </div>
                 <div>
                     <h3>Status</h3>
-                    <p>{{status}}</p>
+                    <p>WIP with physical prototype</p>
                 </div>
             </section>
 
             <section class="project-content">
                 <h2>Overview</h2>
-                <p>{{long_description}}</p>
+                <p>I started this project with the goal of creating a single device that acts like the Swiss Army Knife of 
+                    RF analysis tools. The Spectrum Eye is designed to be portable, powerful, and versatile, capable of performing a wide range of RF analysis tasks on the go.
+                    It combines a Raspberry Pi 4b running Kali Linux with an NESDR Mini 2+ SDR dongle for RF signal reception and analysis. The device includes a Netgear R6020 router, 
+                    allowing it to create its own Wi-Fi access point for local connectivity. Through the dashboard web interface, users can control the SDR and do various RF and Wi-Fi tasks.
+                    Currently, the Spectrum Eye's capabilities include Wi-Fi scanning and basic signal analysis. Future plans include adding features like spectrum visualization, pentesting tools,
+                    and more features using the SDR's capabilities. The device can be accessed remotely via a Cloudflare tunnel that is linked in this very website, allowing users to control it from anywhere.
+                    The web dashboard includes both pre configured commands as well as a textbox in which users can input their own commands to be executed on the device. This allows for lots of versatility and flexibility.
+                    In the future, I plan to further expand the Spectrum Eye's capabilities in a few ways, including but not limited to: Replacing the NESDR with a HackRF for transmission capabilities and increased instantaneous 
+                    bandwidth, more effectively integrating a battery pack, and adding more advanced RF analysis and pentesting tools to the web interface.
+                    <br><br>
+                </p>
             </section>
 
             <section class="project-images">
-                <h2>Screenshots</h2>
+                <h2>Images</h2>
                 <div class="image-grid">
                     <img src="/images/cmr1(1).jpg" alt="">
                     <img src="img2.png" alt="">
