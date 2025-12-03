@@ -97,16 +97,16 @@
         (function () {
             const links = document.querySelectorAll('.tab-link');
             const panels = document.querySelectorAll('.tab-panel');
+            const commitSidebar = document.querySelector('.home-commits');
 
             function setActive(targetId) {
                 panels.forEach(p => p.style.display = p.id === targetId ? 'block' : 'none');
-                links.forEach(a => {
-                    if (a.dataset.target === targetId) a.classList.add('active');
-                    else a.classList.remove('active');
-                });
-                // update focus for accessibility
-                const activeLink = Array.from(links).find(a => a.dataset.target === targetId);
-                if (activeLink) activeLink.focus({ preventScroll: true });
+                links.forEach(a => a.classList.toggle('active', a.dataset.target === targetId));
+
+                // Show the sidebar only for home
+                if (commitSidebar) {
+                    commitSidebar.style.display = (targetId === 'home') ? 'block' : 'none';
+                }
             }
 
             links.forEach(a => {
