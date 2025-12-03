@@ -281,6 +281,10 @@ body.login-page .form-card {
     padding: 40px 20px;
 }
 
+.project-body.nav-list {
+    justify-content: space-between;
+}
+
 /* Header */
 .project-header {
     text-align: center;
