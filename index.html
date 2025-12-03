@@ -28,28 +28,20 @@
     </header>
 
     <main>
-        <main class="home-layout">
+        <div class="home-layout">
+            <!-- Main home card -->
+            <section id="home" class="card tab-panel" role="region" aria-labelledby="home-tab" style="display:block">
+                <h1>Welcome</h1>
+                <p>This is the home tab. Click "Projects" to see my work.</p>
+            </section>
 
-            <!-- LEFT COLUMN: your existing tabs -->
-            <div class="home-content">
-                <!-- your existing <section id="home">, <section id="projects"> etc... -->
-                <section id="home" class="card tab-panel" role="region" aria-labelledby="home-tab"
-                    style="display:block">
-                    <h1>Welcome</h1>
-                    <p>This is the home tab. Click "Projects" to see my work.</p>
-                    <!-- RIGHT COLUMN: the commit sidebar -->
-                    <aside class="home-commits">
-                        <h2>Latest Site Commits</h2>
-                        <ul id="homeCommitList" class="commit-list"></ul>
-                    </aside>
-                </section>
+            <!-- Commit log outside the home card -->
+            <aside class="home-commits">
+                <h2>Latest Site Commits</h2>
+                <ul id="homeCommitList" class="commit-list"></ul>
+            </aside>
+        </div>
 
-                <!-- ... all the other tab sections stay exactly the same ... -->
-            </div>
-
-
-
-        </main>
 
 
         <section id="projects" class="card tab-panel" role="region" aria-labelledby="projects-tab" style="display:none">
