@@ -1,636 +1,206 @@
-
 :root {
-    --bg: #071014;
-    --surface: #0b1517;
-    --muted: #9fb1a6;
-    --accent: #00dc12;
-    /* lime green accent */
-    --glass: rgba(255, 255, 255, 0.03);
-    --radius: 12px;
-    --gap: 18px;
-    --shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
-    --glass-border: rgba(168, 255, 75, 0.08);
-    font-family: 'Ubuntu Mono', monospace;
+    --bg: #1b1d21;
+    --surface: #24262b;
+    --surface-soft: #2e3036;
+    --outline: rgba(255, 255, 255, 0.08);
+    --accent: #6fb5ff; /* Snow Leopard blue */
+    --accent-glow: rgba(120, 180, 255, 0.35);
+    --radius: 10px;
+    --shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
+    --text: #d8d9dd;
+    --text-soft: #a6a7ab;
+    --text-faint: #7f8187;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
 }
 
-/* page layout */
-html,
-body {
+/* ===========================
+   GLOBAL
+=========================== */
+html, body {
+    margin: 0;
     height: 100%;
 }
 
-.glass {
-  position: relative;
-  background: rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(2px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  border-radius: 2rem;
-  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.2), 
-              inset 0 4px 20px rgba(255, 255, 255, 0.3);
-}
-
-.glass::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 2rem;
-  backdrop-filter: blur(1px);
-  box-shadow: inset -10px -8px 0px -11px rgba(255, 255, 255, 1),
-              inset 0px -9px 0px -8px rgba(255, 255, 255, 1);
-  opacity: 0.6;
-  z-index: -1;
-  filter: blur(1px) drop-shadow(10px 4px 6px black) brightness(115%);
-}
-
 body {
-    margin: 0;
-    background: linear-gradient(180deg, var(--bg), #041214 80%);
-    color: var(--muted);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    padding: 28px;
-    gap: var(--gap);
+    background: radial-gradient(circle at 50% 0%, #33363d 0%, #1a1d21 70%);
+    color: var(--text);
+    font-size: 15px;
 }
 
-/* top nav */
+/* ===========================
+   TOP BAR (Unified Toolbar)
+=========================== */
 .topbar {
+    background: linear-gradient(#3e4147, #2b2e33);
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.10);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
-    position: sticky;
-    top: 18px;
-    z-index: 10;
-    width: 100%;
-    max-width: none;
-    margin: 0 auto;
 }
 
 .brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    color: var(--accent);
-    text-decoration: none;
     font-weight: 700;
-    font-size: 1.15rem;
-    letter-spacing: 0.06em;
-    padding: 10px 14px;
-    border-radius: 10px;
-    background: linear-gradient(180deg, rgba(168, 255, 75, 0.04), transparent 60%);
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--shadow);
+    font-size: 1.1rem;
+    color: #e0e2e7;
+    padding: 6px 14px;
+    border-radius: 8px;
+    background: linear-gradient(#4b4e55, #393c42);
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.15);
+    text-decoration: none;
 }
 
-nav {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
+/* ===========================
+   NAVIGATION
+=========================== */
 .nav-list {
     display: flex;
-    gap: 8px;
+    gap: 10px;
     list-style: none;
-    padding: 0;
-    margin: 0;
-    align-items: center;
-    font-family: 'Ubuntu Mono', monospace;
 }
 
 .nav-list a {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 12px;
-    color: var(--muted);
+    color: var(--text-soft);
+    padding: 8px 12px;
+    border-radius: 6px;
     text-decoration: none;
-    border-radius: 8px;
-    transition: all .18s ease;
-    font-weight: 600;
-    font-size: 0.95rem;
+    background: linear-gradient(#2d2f34, #232529);
+    border: 1px solid rgba(255,255,255,0.05);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.09);
+    transition: 0.15s ease;
 }
 
-/* simple button used on panels */
-.btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 14px;
-    background: var(--accent);
-    color: var(--bg);
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: 700;
-    box-shadow: 0 6px 18px rgba(168, 255, 75, 0.08);
-    transition: transform .12s ease, box-shadow .12s ease;
-    border: 1px solid rgba(255, 255, 255, 0.02);
-    font-family: 'Ubuntu Mono', monospace;
-}
-
-.btn:hover {
-    transform: translateY(-2px);
-}
-
-/* */
-.btn.secondary {
-    background: transparent;
-    color: var(--muted);
-    border: 1px solid var(--glass-border);
-    box-shadow: none;
-}
-
-.btn.secondary:hover {
-    background: var(--glass);
-    border-color: var(--accent);
+.nav-list a:hover {
     color: var(--accent);
-}
-
-/* */
-
-
-.nav-list a:hover,
-.nav-list a:focus {
-    color: var(--accent);
-    transform: translateY(-2px);
-    outline: none;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
+    border-color: rgba(120,180,255,0.25);
+    box-shadow: 0 0 12px var(--accent-glow);
 }
 
 .nav-list a.active {
-    color: var(--bg);
-    background: var(--accent);
-    box-shadow: 0 6px 18px rgba(168, 255, 75, 0.08);
+    background: linear-gradient(#6fb5ff, #3e82d6);
+    color: #0f141a;
+    border: 1px solid rgba(255,255,255,0.4);
 }
 
-/* content card */
-main {
-    display: flex;
-    gap: var(--gap);
-    align-items: flex-start;
-    width: 100%;
-    max-width: none;
-    margin: 0 auto;
-}
-
-.card {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
-    border: 1px solid rgba(255, 255, 255, 0.03);
-    padding: 22px;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    width: 100%;
-}
-
-/* dashboard layout specifics */
+/* ===========================
+   LAYOUT GRID
+=========================== */
 #container {
     display: grid;
     grid-template-columns: 240px 1fr;
-    gap: 20px;
-    align-items: start;
-    width: 100%;
+    gap: 22px;
+    margin-top: 20px;
+    padding: 0 20px;
 }
 
+/* ===========================
+   SIDEBAR (Graphite Panel)
+=========================== */
 #sidebar {
-    background: var(--glass);
+    background: linear-gradient(#2c2f35, #26282d);
     padding: 14px;
     border-radius: var(--radius);
-    border: 1px solid rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255,255,255,0.05);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.10),
+        0 4px 12px rgba(0,0,0,0.4);
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
 #sidebar button {
-    background: transparent;
-    color: var(--muted);
-    border: 1px solid rgba(255, 255, 255, 0.02);
+    background: linear-gradient(#34363c, #25272b);
+    border: 1px solid rgba(255,255,255,0.06);
+    color: var(--text-soft);
     padding: 10px 12px;
     border-radius: 8px;
     cursor: pointer;
     text-align: left;
+    transition: 0.15s ease;
 }
 
 #sidebar button:hover {
     color: var(--accent);
-    background: var(--glass);
+    border-color: var(--accent);
+    background: #2f3238;
+    box-shadow: 0 0 10px var(--accent-glow);
 }
 
-#main {
-    flex-grow: 1;
-    /* Optional: Prevents the content from defining a minimum width that breaks the layout */
-    min-width: 0;
-}
-
+/* ===========================
+   MAIN PANEL (Frosted Graphite)
+=========================== */
 .panel {
-    display: none
+    background: rgba(45, 47, 53, 0.75);
+    border: 1px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(14px) brightness(1.08);
+    border-radius: 14px;
+    padding: 22px;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.08),
+        0 14px 28px rgba(0,0,0,0.55);
 }
 
-.panel.active {
-    display: block
+/* ===========================
+   BUTTONS (macOS Dark)
+=========================== */
+.btn {
+    background: linear-gradient(#6fb5ff, #3b7ed1);
+    border: 1px solid rgba(255,255,255,0.3);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.4),
+        0 6px 16px rgba(20,60,120,0.25);
+    color: #0f141a;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.12s ease;
 }
 
-#header {
-    width: 100%;
-    max-width: none;
-    margin: 0 auto 18px auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.5),
+        0 8px 20px var(--accent-glow);
 }
 
-#connection {
-    font-family: monospace;
-    color: var(--muted)
+.btn.secondary {
+    background: linear-gradient(#2d2f34, #212429);
+    color: var(--text-soft);
+    border: 1px solid rgba(255,255,255,0.08);
+}
+.btn.secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
 }
 
-.muted-link {
-    color: var(--muted);
-    text-decoration: none
+/* ===========================
+   CARDS
+=========================== */
+.card {
+    background: linear-gradient(#2b2d32, #24262b);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.10),
+        0 10px 24px rgba(0,0,0,0.5);
 }
 
-@media (max-width:800px) {
+/* ===========================
+   RESPONSIVE
+=========================== */
+@media (max-width: 800px) {
     #container {
-        grid-template-columns: 1fr
+        grid-template-columns: 1fr;
     }
-}
-
-/* Responsive adjustments for smaller screens */
-@media (max-width:800px) {
-    body {
-        padding: 18px;
-    }
-
-    .topbar {
-        flex-direction: row;
-        gap: 10px;
-    }
-
-    .brand {
-        font-size: 1rem;
-        padding: 8px 10px;
-    }
-
-    /* Sidebar becomes horizontal strip on small screens */
-    #container {
-        display: grid;
-        width: 100%;
-        grid-template-columns: 240px 1fr minmax(300px, 500px);
-    }
-
-    #library {
-        grid-column: 1 / -1;
-        align-self: start;        /* stay in the right-side column */
-        width: 100%;           /* stretch fully */
-        margin-top: 20px;
-        width: 400px !important;
-        min-width: 400px !important;
-        max-width: 400px !important;
-
-        background: red !important; /* temporary debug */
-    }
-
-    #library > div {
-        width: 100%;
-        box-sizing: border-box;
-    }
-
 
     #sidebar {
-        display: flex;
         flex-direction: row;
-        gap: 8px;
         overflow-x: auto;
-        padding: 8px;
-    }
-
-    #sidebar button {
-        flex: 0 0 auto;
-        white-space: nowrap;
-    }
-
-    /* Make panels stack nicely */
-    #main {
-        width: 100%;
-    }
-
-    .card {
-        padding: 18px;
-    }
-
-    /* Make canvas responsive */
-    canvas {
-        max-width: 100%;
-        height: auto;
     }
 }
 
-@media (max-width:480px) {
-    :root {
-        --gap: 12px;
-    }
-
-    body {
-        padding: 14px;
-    }
-
-    .brand {
-        padding: 6px 8px;
-    }
-
-    .nav-list {
-        display: none;
-    }
-
-    /* Buttons and inputs scale for touch */
-    #sidebar button {
-        padding: 8px 10px;
-        font-size: 0.95rem;
-        border-radius: 8px;
-    }
-
-    .btn {
-        padding: 10px 12px;
-        font-size: 0.95rem;
-    }
-
-    /* Smaller headings */
-    h1 {
-        font-size: 1.25rem;
-    }
-
-    h3 {
-        font-size: 1rem;
-    }
-}
-
-/* Narrow variant for forms (login) so they are centered and don't span full width on large screens) */
-.form-card {
-    max-width: 420px;
-    width: 100%;
-    margin: 0 auto;
-}
-
-/* Floating login card visuals */
-.form-card {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015));
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6), 0 2px 6px rgba(0, 0, 0, 0.35);
-    transform: translateY(-6px);
-    backdrop-filter: blur(6px);
-}
-
-/* Inputs inside forms */
-input[type="text"],
-input[type="password"],
-input[type="email"],
-textarea {
-    display: block;
-    width: 100%;
-    padding: 12px 14px;
-    margin-top: 8px;
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    background: rgba(0, 0, 0, 0.12);
-    color: inherit;
-    transition: box-shadow .12s ease, border-color .12s ease, transform .08s ease;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
-}
-
-input::placeholder,
-textarea::placeholder {
-    color: rgba(255, 255, 255, 0.35);
-}
-
-img#img {
-    max-width: 100px;
-    height: auto;
-    border-radius: 10px;
-    margin-top: 12px;
-}
-
-input:focus,
-textarea:focus {
-    outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 0 4px rgba(0, 220, 18, 0.06);
-    transform: translateY(-1px);
-}
-
-#library {
-    grid-column: 1 / -1; /* spans all columns */
-    width: 100%;
-}
-
-.card h2 {
-    margin-bottom: 6px;
-}
-
-.card p.muted {
-    color: var(--muted);
-    margin-top: 0;
-    margin-bottom: 12px;
-}
-
-.login-footer {
-    margin-top: 14px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px
-}
-
-.secondary-link {
-    color: rgba(255, 255, 255, 0.6);
-    text-decoration: none;
-    font-size: 0.95rem
-}
-
-/* New form field styling for stacked, 'cool' inputs */
-.field {
-    margin-top: 12px;
-    display: flex;
-    justify-content: center
-}
-
-.field label {
-    display: block;
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.85);
-    margin-bottom: 6px
-}
-
-/* Visually-hidden helper for accessibility but not visible layout */
-.visually-hidden {
-    position: absolute !important;
-    height: 1px;
-    width: 1px;
-    overflow: hidden;
-    clip: rect(1px, 1px, 1px, 1px);
-    white-space: nowrap
-}
-
-/* New unified input style */
-.input-field {
-    width: 94%;
-    max-width: 340px;
-    font-size: 1.05rem;
-    padding: 16px 18px;
-    border-radius: 14px;
-    background: rgba(0, 0, 0, 0.32);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    color: inherit;
-    box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.45);
-}
-
-.input-field::placeholder {
-    color: rgba(255, 255, 255, 0.45);
-}
-
-.input-field:focus {
-    outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55), 0 0 0 6px rgba(0, 220, 18, 0.04);
-    transform: translateY(-1px);
-}
-
-.login-actions {
-    margin-top: 18px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: center
-}
-
-.btn.block {
-    width: 92%;
-    max-width: 320px;
-    justify-content: center
-}
-
-.secondary-link {
-    text-align: center;
-    display: block
-}
-
-/* Slight hover for button to feel lively */
-.btn:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6), 0 8px 20px rgba(0, 220, 18, 0.06);
-}
-
-/* Make the login card smaller and more square */
-.form-card {
-    max-width: 360px;
-    padding: 18px;
-    border-radius: 10px;
-    transform: none;
-    border: 2px solid rgba(0, 220, 18, 0.18);
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
-}
-
-
-/* Improve focus states for accessibility on mobile */
-#sidebar button:focus,
-.nav-list a:focus,
-.btn:focus {
-    outline: 2px solid rgba(0, 0, 0, 0.12);
-    outline-offset: 2px;
-}
-
-/* Mini-nav styles for command presets - fixed column layout for predictable scaling */
-.mini-nav {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin: 12px 0
-}
-
-.mini-section {
-    background: var(--glass);
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.03);
-    min-width: 0
-}
-
-.mini-title {
-    font-weight: 700;
-    color: var(--accent);
-    font-size: 0.9rem;
-    margin-bottom: 8px;
-    white-space: nowrap
-}
-
-.section-buttons {
-    display: flex;
-    gap: 6px;
-    flex-direction: column
-}
-
-.preset-btn {
-    background: transparent;
-    color: var(--muted);
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    padding: 8px 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    text-align: left;
-    font-size: 0.9rem;
-    transition: all .12s ease;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap
-}
-
-.preset-btn:hover {
-    background: var(--glass);
-    color: var(--accent);
-    transform: translateY(-2px);
-    border-color: var(--accent)
-}
-
-.preset-btn:active {
-    transform: translateY(0)
-}
-
-@media (max-width:800px) {
-    .mini-nav {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px
-    }
-
-    .mini-section {
-        padding: 8px
-    }
-
-    .preset-btn {
-        padding: 6px 8px;
-        font-size: 0.85rem
-    }
-}
-
-@media (max-width:480px) {
-    .mini-nav {
-        grid-template-columns: 1fr;
-        gap: 6px
-    }
-
-    .mini-section {
-        padding: 6px
-    }
-
-    .preset-btn {
-        padding: 6px 8px;
-        font-size: 0.8rem
-    }
-}
