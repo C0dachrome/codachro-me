@@ -21,29 +21,27 @@ html, body {
     height: 100%;
 }
 
+/* Hide all panels by default */
+.panel {
+    display: none;
+}
+
+/* Show the active panel */
+.panel.active {
+    display: block;
+}
+
+/* Active sidebar button */
+#sidebar button.active {
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+}
+
+
 body {
     background: radial-gradient(circle at 50% 0%, #33363d 0%, #1a1d21 70%);
     color: var(--text);
     font-size: 15px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    margin: 0;
-}
-
-main {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-}
-
-.form-card {
-    width: 100%;
-    max-width: 360px;
-    padding: 24px;
 }
 
 /* ===========================
