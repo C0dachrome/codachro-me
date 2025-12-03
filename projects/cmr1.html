@@ -26,34 +26,57 @@
                 <ul class="nav-list" role="menubar">
                     <li role="none"><a href="/" role="menuitem" class="tab-link">Home</a></li>
                 </ul>
-                <p class="project-subtitle">{{summary}}</p>
+                <p class="project-subtitle">The most complicated project I have done so far, I aim to create a compact, accurate, and directional
+                    FMCW (frequency modulated continuous wave) radar system. 
+                </p>
             </header>
 
             <section class="project-meta">
                 <div>
                     <h3>Tech Stack</h3>
-                    <p>{{stack}}</p>
+                    <p>?</p>
                 </div>
                 <div>
                     <h3>Date</h3>
-                    <p>{{date}}</p>
+                    <p>Started in June 2025</p>
                 </div>
                 <div>
                     <h3>Status</h3>
-                    <p>{{status}}</p>
+                    <p>No physical prototype</p>
                 </div>
             </section>
 
             <section class="project-content">
                 <h2>Overview</h2>
-                <p>{{long_description}}</p>
+                <p>My most ambitious project yet, the CM-R1 is my idea for a compact, portable, and accurate directional FMCW radar.  Many details are still muddy, because as I have learned, 
+                    a lot goes into making a radar system, especially FMCW instead of CW or pulsed. <br><br>
+                    I have spent months researching and learning about radar systems, signal processing, antennas, and RF electronics.
+                    <br><br>
+                    I will detail the current plan as of 12/2/25 using bullet points:
+                    <ul>
+                        <li>ADALM-PLUTO SDR operating monostatically on the 23cm Ham band.</li>
+                        <li>Electrically rotatable Yagi or Parabolic transmission antenna.</li>
+                        <li>The system will use one of 3 antenna configurations:
+                            <ul>
+                                <li>The same antenna for TX and RX configured monostatically, using an RF circulator (I am unsure if this is possible, I will do more research)</li>
+                                <li>Seperate TX and RX antennas configured bistatically (this will cause difficulty on the 23 cm band as I will have to space the TX and RX antennas quite far apart)</li>
+                            </ul>
+                        </li>
+                        <li>Raspberry Pi for most of the calculations and processing.</li>
+                        <li>Likely an ESP32 or similar to control the rotating antenna, communicating over USB with the Pi.</li>
+                        <li>Any other RF filtering and amplification that may be required.</li>
+                        <li>A 3d printed or wooden housing for portability and protection of sensitive parts.</li>
+                    </ul>
+                    <br>
+                </p>
             </section>
 
             <section class="project-images">
-                <h2>Screenshots</h2>
+                <h2>Images</h2>
                 <div class="image-grid">
-                    <img src="img1.png" alt="">
-                    <img src="img2.png" alt="">
+                    <p>No pictures yet :(</p>
+                    <!-- <img src="img1.png" alt="">
+                    <img src="img2.png" alt=""> -->
                 </div>
             </section>
 
