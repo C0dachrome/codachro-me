@@ -365,6 +365,7 @@ body.login-page .form-card {
 
 .project-body {
     background: linear-gradient(180deg, #1a1a1c, #0f0f10);
+    background-attachment: fixed;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     color: #e6e6e6;
     padding: 40px 20px;
