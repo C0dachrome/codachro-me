@@ -1,14 +1,16 @@
-
-// Step 2a: Find the HTML element you want to watch.
-const buttonElement = document.getElementById("codachrome_button");
-
-// Step 2b: Define a function (callback) that runs when the event happens.
-function handleButtonClick() {
-    console.log("A click was detected in JS!");
-    alert("Button clicked!");
-    // You can send data, change styles, or call other JS functions here.
-}
-
-// Step 2c: Attach the event listener to the element.
-// We listen for the 'click' event and run the handleButtonClick function when it occurs.
-buttonElement.addEventListener("click", handleButtonClick);
+// This ensures the code inside runs only after the HTML is parsed
+document.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded and parsed');
+    
+    // Now you can safely get the element
+    const button = document.getElementById("codachrome_button");
+    
+    if (button) {
+        button.addEventListener("click", function() {
+            alert("It works! The button was clicked.");
+            // Add your other game logic here
+        });
+    } else {
+        console.error("Error: Button element not found!");
+    }
+});
