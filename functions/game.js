@@ -14,3 +14,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
         console.error("Error: Button element not found!");
     }
 });
+
+function startGame() {
+    alert("It works! The button was clicked.");
+    // Add your other game logic here
+}
