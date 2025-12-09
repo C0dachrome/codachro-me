@@ -75,362 +75,152 @@
 </head>
 
 <body class="glass">
-    
-    <div id="countdown"></div>
-    <div class="overlay" id="gameOverlay">
-         <!-- game content (pipes will be injected here) -->
-    </div>
-    
-    <div id="content-container">
-    
-        <header class="topbar" role="banner">
-    
-            <!-- This link is the target for the game and the reset -->
-            <a class="brand" id="logo" aria-label="codachrome home">codachrome</a>
-    
-            <nav role="navigation" aria-label="Main navigation">
-                <ul class="nav-list" role="menubar">
-                    <!-- Added data-link-type to identify navigation links -->
-                    <li role="none"><a href="#" role="menuitem" class="tab-link active" data-target="home" data-link-type="nav">Home</a></li>
-                    <li role="none"><a href="#" role="menuitem" class="tab-link" data-target="projects" data-link-type="nav">Projects</a></li>
-                    <li role="none"><a href="#" role="menuitem" class="tab-link" data-target="more" data-link-type="nav">More</a></li>
-                    <li role="none"><a href="#" role="menuitem" class="tab-link" data-target="dashboard" data-link-type="nav">Dashboard</a></li>
-                </ul>
-            </nav>
-        </header>
-        
-        <main>
-            <div class="home-layout">
-                <section id="home" class="card tab-panel" role="region" aria-labelledby="home-tab" style="display:block">
-                    <h1>Welcome</h1>
-                    <p>This is the home tab. Click "Projects" to see my work.</p>
-                    <h2>Contact</h2>
-                    <div class="contact-links">
-                        <img src="/images/backgroundremovedgitlogo.png" alt="GitHub Icon" class="contact-icon"
-                            href="github.com/C0dachrome">
-                        <img src="/images/linkedin logo.png" alt="LinkedIn Icon" class="contact-icon"
-                            href="linkedin.com/in/cody-milward-3b4bba240">
-                        <img src="/images/email logo.png" alt="Email Icon" class="contact-icon"
-                            href="mailto:codycmillward@gmail.com">
+    <header class="topbar" role="banner">
+
+        <a class="brand" id="codachrome_button" aria-label="codachrome home" onclick="startGame()">codachrome</a>
+
+
+        <nav role="navigation" aria-label="Main navigation">
+            <ul class="nav-list" role="menubar">
+                <li role="none"><a href="#" role="menuitem" class="tab-link active" data-target="home">Home</a></li>
+                <li role="none"><a href="#" role="menuitem" class="tab-link" data-target="projects">Projects</a></li>
+                <li role="none"><a href="#" role="menuitem" class="tab-link" data-target="more">More</a></li>
+                <li role="none"><a href="#" role="menuitem" class="tab-link" data-target="dashboard">Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="home-layout">
+            <!-- Main home card -->
+            <section id="home" class="card tab-panel" role="region" aria-labelledby="home-tab" style="display:block">
+                <h1>Welcome</h1>
+                <p>This is the home tab. Click "Projects" to see my work.</p>
+                <h2>Contact</h2>
+                <div class="contact-links">
+                    <img src="/images/backgroundremovedgitlogo.png" alt="GitHub Icon" class="contact-icon"
+                        href="github.com/C0dachrome">
+                    <img src="/images/linkedin logo.png" alt="LinkedIn Icon" class="contact-icon"
+                        href="linkedin.com/in/cody-milward-3b4bba240">
+                    <img src="/images/email logo.png" alt="Email Icon" class="contact-icon"
+                        href="mailto:codycmillward@gmail.com">
+                </div>
+            </section>
+
+            <!-- Commit log outside the home card -->
+            <aside class="home-commits">
+                <h2>Latest Site Commits</h2>
+                <ul id="homeCommitList" class="commit-list"></ul>
+            </aside>
+        </div>
+
+
+
+        <section id="projects" class="card tab-panel" role="region" aria-labelledby="projects-tab" style="display:none">
+            <h1>Projects</h1>
+            <p></p>
+
+            <div class="project-grid">
+                <div class="project-card">
+                    <h2>WARP</h2>
+                    <p>Web Authentication and Rewrite Proxy</p>
+                    <div class="project-links">
+                        <a href="prxy.html" class="btn">Project Page</a>
                     </div>
-                </section>
-    
-                <aside class="home-commits">
-                    <h2>Latest Site Commits</h2>
-                    <ul id="homeCommitList" class="commit-list"></ul>
-                </aside>
+                </div>
+                <br>
+                <div class="project-card">
+                    <h2>SpectrumEye</h2>
+                    <p>Portable, powerful RF analysis device</p>
+                    <div class="project-links">
+                        <a href="/projects/speceye.html" class="btn">Project Page</a>
+                    </div>
+                </div>
+                <br>
+                <div class="project-card">
+                    <h2>CM-R1</h2>
+                    <p>Compact FMCW radar</p>
+                    <div class="project-links">
+                        <a href="/projects/cmr1.html" class="btn">Project Page</a>
+                    </div>
+                </div>
+                <br>
             </div>
-    
-            <section id="projects" class="card tab-panel" role="region" aria-labelledby="projects-tab" style="display:none">
-                <h1>Projects</h1>
-                <p></p>
-                <div class="project-grid">
-                    <div class="project-card">
-                        <h2>WARP</h2>
-                        <p>Web Authentication and Rewrite Proxy</p>
-                        <div class="project-links">
-                            <a href="prxy.html" class="btn">Project Page</a>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="project-card">
-                        <h2>SpectrumEye</h2>
-                        <p>Portable, powerful RF analysis device</p>
-                        <div class="project-links">
-                            <a href="/projects/speceye.html" class="btn">Project Page</a>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="project-card">
-                        <h2>CM-R1</h2>
-                        <p>Compact FMCW radar</p>
-                        <div class="project-links">
-                            <a href="/projects/cmr1.html" class="btn">Project Page</a>
-                        </div>
-                    </div>
-                    <br>
-                </div>
-            </section>
-            <section id="more" class="card tab-panel" role="region" aria-labelledby="more-tab" style="display:none">
-                <h1>More</h1>
-                <p></p>
-                <div class="tabs" aria-hidden="false">
-                    <a class="btn" href="prxy.html" role="button" aria-label="Go to WARP page">WARP</a>
-                </div>
-            </section>
-            <section id="dashboard" class="card tab-panel" role="region" aria-labelledby="dashboard-tab"
-                style="display:none">
-                <h1>Dashboard Login</h1>
-                <p></p>
-                <a class="btn" href="dashboard/login.html" role="button" aria-label="Go to Dashboard login page">Login</a>
-            </section>
-        </main>
-    </div>
+        </section>
+        <section id="more" class="card tab-panel" role="region" aria-labelledby="more-tab" style="display:none">
+            <h1>More</h1>
+            <p></p>
+            <div class="tabs" aria-hidden="false">
+                <a class="btn" href="prxy.html" role="button" aria-label="Go to WARP page">WARP</a>
+            </div>
+        </section>
+        <section id="dashboard" class="card tab-panel" role="region" aria-labelledby="dashboard-tab"
+            style="display:none">
+            <h1>Dashboard Login</h1>
 
-    <!-- Game Script -->
+            <p></p>
+            <a class="btn" href="dashboard/login.html" role="button" aria-label="Go to Dashboard login page">Login</a>
+        </section>
+    </main>
+    <script src="functions/game.js" defer></script>
     <script>
-        const logo = document.getElementById('logo');
-        const overlay = document.getElementById('gameOverlay');
-        const countdownEl = document.getElementById('countdown');
-        const body = document.body;
-        const contentContainer = document.getElementById('content-container');
+        // Simple tab switching
+        (function () {
+            const links = document.querySelectorAll('.tab-link');
+            const panels = document.querySelectorAll('.tab-panel');
+            const commitSidebar = document.querySelector('.home-commits');
 
-        let gameState = 'waiting'; // 'waiting', 'counting', 'playing', 'gameOver'
-        let velocity = 0;
-        const gravity = 0.5;
-        let positionY = 0;
-        let elementHeight;
-        let elementWidth;
-        let groundLevel;
-        let gameLoopId;
-        let obstacleIntervalId;
+            function setActive(targetId) {
+                panels.forEach(p => p.style.display = p.id === targetId ? 'block' : 'none');
+                links.forEach(a => a.classList.toggle('active', a.dataset.target === targetId));
 
-        const OBSTACLE_WIDTH = 80;
-        const PIPE_GAP = 200; // Vertical gap size
-        const OBSTACLE_SPEED = 5; // How fast pipes move left
-        let obstacles = [];
-
-        // --- Game Setup and Teardown ---
-
-        // Bind logo click to start game initially
-        logo.addEventListener('click', initializeGame);
-
-        // Bind all nav links to reset the game state if active
-        document.querySelectorAll('a[data-link-type="nav"]').forEach(link => {
-            link.addEventListener('click', resetGame);
-        });
-
-        // The main logo link should also function as a general reset link now
-        logo.addEventListener('click', (e) => {
-            // If already playing, treat click as a reset for the 'logo' link specifically
-            if (gameState === 'playing' || gameState === 'gameOver') {
-                e.preventDefault(); // Stop normal link navigation
-                resetGame();
-            }
-        });
-
-
-        function initializeGame() {
-            if (gameState !== 'waiting') return;
-
-            gameState = 'counting';
-            body.classList.add('blurred-background', 'game-mode');
-            overlay.classList.add('is-active');
-            countdownEl.style.display = 'block';
-
-            // Move the logo element into the game overlay context
-            overlay.appendChild(logo);
-            
-            startCountdown();
-        }
-
-        function resetGame() {
-            // Only run reset logic if game was active
-            if (gameState === 'waiting') return;
-            
-            // Reattach logo to its original place in the header
-            document.querySelector('.topbar').prepend(logo);
-
-            // Clean up intervals/listeners
-            clearInterval(obstacleIntervalId);
-            cancelAnimationFrame(gameLoopId);
-            document.removeEventListener('keydown', handleKeyPress);
-            window.removeEventListener('resize', updateGroundLevel);
-
-
-            // Reset UI state
-            body.classList.remove('blurred-background', 'game-mode');
-            overlay.classList.remove('is-active');
-            countdownEl.style.display = 'none';
-
-            // Clear obstacles from the DOM
-            obstacles.forEach(o => o.elementTop.remove());
-            obstacles.forEach(o => o.elementBottom.remove());
-            obstacles = [];
-
-            // Reset game variables
-            gameState = 'waiting';
-            velocity = 0;
-            positionY = 0;
-            logo.style.transform = `translateY(0px)`;
-        }
-
-        function startCountdown() {
-            let count = 3;
-            countdownEl.textContent = count;
-
-            const timer = setInterval(() => {
-                count--;
-                countdownEl.textContent = count;
-
-                if (count === 0) {
-                    clearInterval(timer);
-                    countdownEl.style.display = 'none';
-                    startGameLoop();
+                // Show the sidebar only for home
+                if (commitSidebar) {
+                    commitSidebar.style.display = (targetId === 'home') ? 'block' : 'none';
                 }
-            }, 1000);
-        }
-
-        function startGameLoop() {
-            gameState = 'playing';
-            // Set initial logo positioning data needed for the loop
-            elementHeight = logo.offsetHeight;
-            elementWidth = logo.offsetWidth;
-            // The ground is the total window height minus the logo's height
-            updateGroundLevel();
-            window.addEventListener('resize', updateGroundLevel);
-            
-            // Start the physics loop and listen for spacebar presses
-            document.addEventListener('keydown', handleKeyPress);
-            
-            // Start obstacle generation
-            obstacleIntervalId = setInterval(createObstacle, 2500); // Generate every 2.5 seconds
-
-            gameLoopId = requestAnimationFrame(render);
-        }
-
-        function updateGroundLevel() {
-             // Ground level is determined by the inner height of the window, as the overlay covers the screen
-            groundLevel = window.innerHeight - elementHeight - 20; // Add small buffer
-        }
-
-        // --- Game Physics ---
-
-        function handleKeyPress(event) {
-            if (event.keyCode === 32 && gameState === 'playing') {
-                event.preventDefault(); 
-                velocity = -10; 
-            }
-        }
-
-        function render() {
-            if (gameState !== 'playing') return;
-
-            // 1. Apply Gravity and Movement
-            velocity += gravity; 
-            positionY += velocity;
-
-            // 2. Boundary Check (Floor)
-            if (positionY >= groundLevel) {
-                positionY = groundLevel; 
-                velocity = 0; 
-                // In a real Flappy Bird game, this might be game over too
-            } else if (positionY < 0) {
-                positionY = 0; // Prevent flying off the top
-                velocity = 0;
             }
 
-            // 3. Move Logo
-            // We use transform for performance
-            logo.style.transform = `translateY(${positionY}px)`;
-
-            // 4. Update and Move Obstacles
-            moveObstacles();
-            
-            // 5. Check for Collisions
-            if (checkCollisions()) {
-                gameOver();
-                return; // Stop the loop here if game over
-            }
-
-            // Continue the loop
-            gameLoopId = requestAnimationFrame(render);
-        }
-
-        function gameOver() {
-            gameState = 'gameOver';
-            alert("Game Over! Click the 'codachrome' logo or 'Home' to reset.");
-            // Stop generating new obstacles
-            clearInterval(obstacleIntervalId);
-            // The resetGame function handles cleanup when user clicks home/logo
-        }
-
-
-        // --- Obstacle Logic ---
-
-        function createObstacle() {
-            // Determine random height for the top pipe
-            const minHeight = 50;
-            const maxHeight = window.innerHeight - PIPE_GAP - minHeight;
-            const topHeight = Math.floor(Math.random() * (maxHeight - minHeight + 1)) + minHeight;
-            const bottomHeight = window.innerHeight - topHeight - PIPE_GAP;
-
-            // Create top pipe element
-            const topPipe = document.createElement('div');
-            topPipe.classList.add('obstacle');
-            topPipe.style.height = `${topHeight}px`;
-            topPipe.style.top = '0px';
-            topPipe.style.left = `${window.innerWidth}px`; // Start off screen right
-
-            // Create bottom pipe element
-            const bottomPipe = document.createElement('div');
-            bottomPipe.classList.add('obstacle');
-            bottomPipe.style.height = `${bottomHeight}px`;
-            bottomPipe.style.bottom = '0px';
-            bottomPipe.style.left = `${window.innerWidth}px`; // Start off screen right
-
-            overlay.appendChild(topPipe);
-            overlay.appendChild(bottomPipe);
-
-            obstacles.push({
-                elementTop: topPipe,
-                elementBottom: bottomPipe,
-                x: window.innerWidth
+            links.forEach(a => {
+                a.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const t = this.dataset.target;
+                    setActive(t);
+                    // update URL hash without scrolling
+                    history.replaceState(null, '', '#' + t);
+                });
             });
-        }
 
-        function moveObstacles() {
-            for (let i = 0; i < obstacles.length; i++) {
-                const obstacle = obstacles[i];
-                obstacle.x -= OBSTACLE_SPEED;
+            // Initialize from hash if present
+            const initial = location.hash ? location.hash.substring(1) : 'home';
+            if (document.getElementById(initial)) setActive(initial);
+        })();
+    </script>
+    <script>
+        const homeUser = "C0dachrome";
+        const homeRepo = "codachro-me"; // you can expand this later to show multiple repos
 
-                // Update DOM position
-                obstacle.elementTop.style.left = `${obstacle.x}px`;
-                obstacle.elementBottom.style.left = `${obstacle.x}px`;
+        fetch(`https://api.github.com/repos/${homeUser}/${homeRepo}/commits`)
+            .then(res => res.json())
+            .then(data => {
+                const list = document.getElementById("homeCommitList");
+                list.innerHTML = "";
 
-                // Remove obstacles that are off screen
-                if (obstacle.x + OBSTACLE_WIDTH < 0) {
-                    obstacle.elementTop.remove();
-                    obstacle.elementBottom.remove();
-                    obstacles.splice(i, 1);
-                    i--; // Adjust index after splice
-                }
-            }
-        }
-
-        // --- Collision Detection ---
-        function checkCollisions() {
-            // Get current logo position relative to the viewport
-            const logoRect = logo.getBoundingClientRect();
-
-            for (const obstacle of obstacles) {
-                const topRect = obstacle.elementTop.getBoundingClientRect();
-                const bottomRect = obstacle.elementBottom.getBoundingClientRect();
-
-                // Check collision with top pipe
-                if (
-                    logoRect.right > topRect.left &&
-                    logoRect.left < topRect.right &&
-                    logoRect.bottom > topRect.top &&
-                    logoRect.top < topRect.bottom
-                ) {
-                    return true;
-                }
-
-                // Check collision with bottom pipe
-                if (
-                    logoRect.right > bottomRect.left &&
-                    logoRect.left < bottomRect.right &&
-                    logoRect.bottom > bottomRect.top &&
-                    logoRect.top < bottomRect.bottom
-                ) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-
+                data.slice(0, 8).forEach(commit => {
+                    const li = document.createElement("li");
+                    li.innerHTML = `
+                <div class="commit-message">${commit.commit.message}</div>
+                <div class="commit-meta">
+                    <span>${commit.commit.author.name}</span>
+                    <span>${new Date(commit.commit.author.date).toLocaleDateString()}</span>
+                </div>
+            `;
+                    list.appendChild(li);
+                });
+            })
+            .catch(() => {
+                document.getElementById("homeCommitList").innerHTML =
+                    "<li class='commit-error'>Unable to load commits.</li>";
+            });
     </script>
 </body>
 
