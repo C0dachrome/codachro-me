@@ -13,6 +13,60 @@
     font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
 }
 
+
+body {
+    /* Remove the global transition/filter effect from the body */
+    transition: none; 
+}
+
+/* Ensure the header and its contents sit above the overlay */
+.topbar {
+    position: relative; /* Gives the header a z-index context */
+    z-index: 1001; /* Above the overlay's 1000 */
+    /* Add any other existing styles for topbar here (e.g., background-color) */
+}
+
+/* Ensure the countdown is even higher */
+#countdown {
+    position: fixed;
+    z-index: 1003; /* Highest level */
+    /* ... (rest of countdown styles) ... */
+}
+
+/* Make the logo float free of its parent when the game starts */
+#logo {
+    cursor: pointer;
+    /* Initially: inline-block or whatever it is in your CSS */
+    /* During game: position: fixed is applied via JS below */
+    z-index: 1002; /* Above the overlay but below the countdown */
+    transition: none; /* Disable any default CSS transitions that conflict with JS physics */
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+    z-index: 1000; /* This is what everything else sits on top of */
+    
+    /* >>> The fix: Blur content *behind* this overlay <<< */
+    backdrop-filter: blur(5px); 
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.overlay.is-active {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+
+
 /* ===========================
    GLOBAL
 =========================== */
