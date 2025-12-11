@@ -68,9 +68,10 @@ body {
     white-space: nowrap;
     background: transparent;
     border: none;
-    border-radius: 3px;
+    border-radius: 10px;
     box-shadow: -4px 4px 20px 1px #008e59;
     text-decoration: none;
+    transition: transform 300ms;
 }
 
 .brand:hover {
@@ -417,7 +418,14 @@ body.login-page .form-card {
     background: #000;
 }
 
-/* --- GITHUB ACTIVITY (Project Page Sidebar) --- */
+/* =========================================================================
+   1. GITHUB ACTIVITY SIDEBAR AND CONTAINER
+   ========================================================================= */
+.github-activity {
+    max-width: 900px;
+    margin: 0 auto 50px;
+}
+
 .commit-sidebar {
     width: 300px;
     flex-shrink: 0;
@@ -438,43 +446,143 @@ body.login-page .form-card {
     color: #f2f2f4;
 }
 
-.github-activity {
-    max-width: 900px;
-    margin: 0 auto 50px;
-}
-
-/* Commit list */
+/* =========================================================================
+   2. COMMIT LIST (PARENT UL/OL)
+   ========================================================================= */
 .commit-list {
     list-style: none;
     padding: 0;
     margin: 0;
+    /* Removed justify-content: flex-start; from here as it's not a flex container */
 }
 
-/* Used on project pages and home page */
+/* =========================================================================
+   3. COMMIT LIST ITEM (LI) - THE FLEX CONTAINER
+   ========================================================================= */
 .commit-list li {
-    padding: 12px;
+    /* Base Li container styles */
     margin-bottom: 10px;
     background: rgba(255,255,255,0.05);
     border-radius: 8px;
     border: 1px solid rgba(255,255,255,0.1);
+
+    /* --- FLEXBOX FOR EQUAL HEIGHT COLUMNS --- */
+    display: flex;         /* 1. Make <li> the Flex Container */
+    align-items: stretch;  /* 2. Key: Children stretch to match height of tallest sibling */
+    flex-direction: row;   /* Ensure horizontal arrangement */
+    gap: 10px;             /* Space between the two columns */
+    padding: 0;            /* Resetting li padding to 0, applied to children instead */
 }
 
-.commit-message {
+/* =========================================================================
+   4. COMMIT MESSAGE (P) - THE LEFT COLUMN
+   ========================================================================= */
+/* The element that contains lots of text and should take up most of the width */
+.commit-message { 
+    /* Flex sizing */
+    flex-grow: 1;          /* Takes up all remaining width */
+    flex-shrink: 1;        
+    flex-basis: auto;      /* Allows content to dictate width before growing */
+    
+    /* Visual styles for the column's background */
+    padding: 10px;         /* Inner padding for the content */
+    background: rgba(255,255,255,0.05); /* Match the li's background for continuous look */
+    border-radius: 8px;    /* Match li border-radius */
+    
+    /* Text styles */
     font-weight: 500;
-    margin-bottom: 4px;
+    
+    /* Box Model cleanup */
+    box-sizing: border-box; 
+    margin: 0;             /* Remove outer margin */
 }
+
+/* =========================================================================
+   5. COMMIT DETAILS (SPAN) - THE RIGHT COLUMN
+   ========================================================================= */
+.commit-details { 
+    margin-right: 5px;
+    /* Flex sizing */
+    flex-shrink: 0;        /* IMPORTANT: Prevent this container from shrinking */
+    min-width: 140px;      /* Ensures the column has enough space for the link/text */
+    
+    /* ADD THIS: Forces a strict upper limit on the width */
+    max-width: 140px; 
+    
+    /* Visual styles for the column's background */
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 10px;         /* Add inner padding */
+    
+    /* Flexbox for inner vertical alignment */
+    display: flex;
+    flex-direction: column; /* Stack the content vertically */
+    justify-content: center; /* Vertically center the content */
+    align-items: center;     /* Horizontally center content */
+    
+    /* Text styles */
+    font-size: 0.8rem; /* Adjusted to 0.8rem for meta details */
+    opacity: 0.7; /* Applied meta opacity */
+    color: white; /* Ensure text is visible */
+    text-align: center; /* Center the text inside the span */
+    /* ADD THIS: Ensure any text in the span respects its own boundaries */
+    overflow-wrap: break-word; 
+}
+
+/* =========================================================================
+   6. LINK STYLES (A) - Inside .commit-details
+   ========================================================================= */
+.commit-details a {
+    /* Base link styles */
+    background-color: rgb(0 0 0 / 40%);
+    border-radius: 3px;
+    text-decoration: none;
+    padding: 3px 8px; 
+    margin: 3px 0; /* Vertical margin to separate it from the text */
+    color: white;
+    text-align: center;
+    
+    /* --- CRITICAL FIXES FOR OVERFLOW --- */
+    display: block;            /* 1. Make link obey width/block rules strictly */
+    width: 100%;               /* 2. Force link to use 100% of parent's *content* width */
+    
+    white-space: normal;       /* 3. Allow wrapping on spaces */
+    overflow-wrap: break-word; /* 4. Recommended: Breaks long words/hashes only if necessary */
+    /* You can remove word-break: break-all; if you use overflow-wrap */
+}
+
+.commit-details a:hover {
+    background-color: rgb(44 44 44 / 40%);
+}
+
+.commit-details a:visited {
+    background-color: rgba(1, 255, 161,0.4);
+}
+
+
+/* =========================================================================
+   7. MISC/ERROR STYLES
+   ========================================================================= */
 
 .commit-meta {
-    font-size: 0.8rem;
-    opacity: 0.7;
-    display: flex;
-    justify-content: space-between;
+    /* Removed: This class seems to be for inner layout of text, 
+       but its styles are now handled by the .commit-details flex layout.
+       If you need it, its original content was:
+       font-size: 0.8rem; opacity: 0.7; display: flex; justify-content: space-between; 
+       If you put more elements in .commit-details, this might be needed.
+    */
 }
 
 .commit-error {
     color: #ff7777;
     font-size: 0.9rem;
 }
+
+/* Removed old unnecessary/conflicting styles:
+.commit-list p: float:left;, margin: 10px;, padding: 20px;, border-radius: 5px;, background-color: rgba(255,255,255, 0.1);
+.commit-details: background-color: rgba(255,255,255,0.1); border-radius: 5px; padding: 8px;
+.commit-details a: flex-basis: 30%; flex-shrink: 0; margin: 5px; 
+*/
 
 
 /* ==========================================================================
