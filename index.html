@@ -239,8 +239,8 @@
 
         // Obstacles & Score
         const OBSTACLE_WIDTH = 80;
-        const PIPE_GAP = 200;
-        const OBSTACLE_SPEED = 5;
+        const PIPE_GAP = 180;
+        const OBSTACLE_SPEED = 8;
         let obstacles = [];
         let score = 0;
         const logoRectInitialX = 14; // Matches CSS left: 14px
@@ -586,7 +586,7 @@
         }
 
         function createObstacle() {
-            const minHeight = 50;
+            const minHeight = 20;
             const maxHeight = window.innerHeight - PIPE_GAP - minHeight;
             const topHeight = Math.floor(Math.random() * (maxHeight - minHeight + 1)) + minHeight;
             const bottomHeight = window.innerHeight - topHeight - PIPE_GAP;
