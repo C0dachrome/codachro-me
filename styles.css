@@ -502,55 +502,56 @@ body.login-page .form-card {
    ========================================================================= */
 .commit-details { 
     margin-right: 5px;
-    /* Flex sizing */
-    flex-shrink: 0;        /* IMPORTANT: Prevent this container from shrinking */
-    min-width: 140px;      /* Ensures the column has enough space for the link/text */
+    /* ADD THIS LINE: Crucial fix for fixed-width containers with padding */
+    box-sizing: border-box; 
     
-    /* ADD THIS: Forces a strict upper limit on the width */
-    max-width: 140px; 
+    /* Flex sizing */
+    flex-shrink: 0;        
+    min-width: 140px;      /* Now this 140px INCLUDES the 10px padding */
+    max-width: 140px;      /* Now this 140px INCLUDES the 10px padding */
     
     /* Visual styles for the column's background */
     background-color: rgba(255,255,255,0.1);
     border-radius: 8px;
-    padding: 10px;         /* Add inner padding */
+    padding: 10px;         /* This padding is now calculated *inside* 140px */
     
-    /* Flexbox for inner vertical alignment */
+    /* ... (rest of the styles) ... */
     display: flex;
-    flex-direction: column; /* Stack the content vertically */
-    justify-content: center; /* Vertically center the content */
-    align-items: center;     /* Horizontally center content */
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;     
     
     /* Text styles */
-    font-size: 0.8rem; /* Adjusted to 0.8rem for meta details */
-    opacity: 0.7; /* Applied meta opacity */
-    color: white; /* Ensure text is visible */
-    text-align: center; /* Center the text inside the span */
-    /* ADD THIS: Ensure any text in the span respects its own boundaries */
-    overflow-wrap: break-word; 
+    font-size: 0.8rem; 
+    opacity: 0.7; 
+    color: white; 
+    text-align: center; 
+    overflow-wrap: break-word; /* Ensure text breaking is respected */
 }
 
 /* =========================================================================
    6. LINK STYLES (A) - Inside .commit-details
    ========================================================================= */
 .commit-details a {
+    /* ADD THIS LINE: Crucial fix for padding/width on the link */
+    box-sizing: border-box; 
+    
     /* Base link styles */
     background-color: rgb(0 0 0 / 40%);
     border-radius: 3px;
     text-decoration: none;
-    padding: 3px 8px; 
-    margin: 3px 0; /* Vertical margin to separate it from the text */
+    padding: 3px 8px; /* This padding is now calculated *inside* 100% width */
+    margin: 3px 0; 
     color: white;
     text-align: center;
     
     /* --- CRITICAL FIXES FOR OVERFLOW --- */
-    display: block;            /* 1. Make link obey width/block rules strictly */
-    width: 100%;               /* 2. Force link to use 100% of parent's *content* width */
+    display: block; 
+    width: 100%;           /* This now means the link element will be exactly the width of the parent's content box, including its own padding. */
     
-    white-space: normal;       /* 3. Allow wrapping on spaces */
-    overflow-wrap: break-word; /* 4. Recommended: Breaks long words/hashes only if necessary */
-    /* You can remove word-break: break-all; if you use overflow-wrap */
+    white-space: normal;
+    overflow-wrap: break-word; 
 }
-
 .commit-details a:hover {
     background-color: rgb(44 44 44 / 40%);
 }
