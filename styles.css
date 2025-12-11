@@ -594,14 +594,18 @@ body.login-page .form-card {
 }
 
 .card.tab-panel {
-    max-width: 100%;
-    /* width: 100%; */
+    max-width: none;
+    //width: 100%;
     background: rgba(42, 45, 49, 0.3);
-    padding: 32px;
+    padding: 32pxpx;
     border-radius: 16px;
     border: 1px solid rgb(1 192 121);
     color: #eee;
     box-shadow: 0 0px 12px rgba(0, 0, 0, 0.3);
+}
+
+#home {
+    width: 100%;
 }
 
 /* Commit sidebar floating outside the card (Home page specific) */
