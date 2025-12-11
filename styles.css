@@ -27,7 +27,7 @@ html, body {
 
 body {
     transition: none;
-    background: radial-gradient(circle at 50% 0%, #33363d 0%, #1a1d21 70%);
+    background: radial-gradient(circle at 50% 0%, #1d1e1e 0%, #3a3d42 70%);
     background-attachment: fixed; /* keeps background fixed on scroll */
     color: var(--text);
     font-size: 15px;
@@ -49,7 +49,7 @@ body {
     z-index: 1000;
     background: linear-gradient(#3e4147, #2b2e33);
     padding: 12px 16px;
-    border-bottom: 1px solid rgba(255,255,255,0.10);
+    border-bottom: 1px solid rgb(1 215 135 / 22%);
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.10);
     display: flex;
     align-items: center;
@@ -95,7 +95,7 @@ body {
     border-radius: 6px;
     text-decoration: none;
     background: linear-gradient(#2d2f34, #232529);
-    border: 1px solid rgba(255,255,255,0.05);
+    border: 1px solid rgb(1 222 140 / 23%);
     box-shadow: inset 0 1px 0 rgba(0, 142, 89, 1);
     transition: 0.15s ease;
 }
@@ -434,9 +434,9 @@ body.login-page .form-card {
     height: calc(100vh - 60px);
     overflow-y: auto;
     padding: 20px;
-    background: rgba(255,255,255,0.05);
+    background: rgb(208 21 21 / 5%);
     border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.1);
+    border: 1px solid rgb(213 7 7 / 10%);
     backdrop-filter: blur(12px);
     position: sticky;
     top: 20px;
@@ -608,8 +608,9 @@ body.login-page .form-card {
     background: rgba(42, 45, 49, 0.3);
     padding: 32px;
     border-radius: 16px;
+    border: 1px solid rgb(1 192 121);
     color: #eee;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    box-shadow: 0 0px 12px rgb(1 230 145);
 }
 
 /* Commit sidebar floating outside the card (Home page specific) */
@@ -623,7 +624,7 @@ body.login-page .form-card {
     top: 40px;
     margin-left: 24px; /* gap between card and sidebar */
     align-self: flex-start; /* keeps it at top of layout */
-    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    box-shadow: 0 8px 24px rgba(0,0,0,1);
 }
 
 /* NOTE: .commit-list, .commit-message, .commit-meta are styled in section 4 */
