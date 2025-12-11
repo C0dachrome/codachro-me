@@ -501,7 +501,6 @@ body.login-page .form-card {
    5. COMMIT DETAILS (SPAN) - THE RIGHT COLUMN
    ========================================================================= */
 .commit-details { 
-    margin-right: 5px;
     /* ADD THIS LINE: Crucial fix for fixed-width containers with padding */
     box-sizing: border-box; 
     
