@@ -256,11 +256,14 @@
             }
         });
 
+        // Function to show the selected tab and hide others
         function handleTabSwitch(targetId) {
             // 1. Get all tab content sections
             const tabPanels = document.querySelectorAll('.tab-panel');
             // 2. Get all nav links
             const navLinks = document.querySelectorAll('.tab-link');
+            // 3. Get the commits container (New selector added)
+            const homeCommits = document.querySelector('.home-commits');
 
             // Hide all content panels
             tabPanels.forEach(panel => {
@@ -270,7 +273,6 @@
             // Deactivate all navigation links
             navLinks.forEach(link => {
                 link.classList.remove('active');
-                // Update ARIA for accessibility (optional but recommended)
                 link.setAttribute('aria-selected', 'false');
             });
 
@@ -286,7 +288,20 @@
                 activeLink.classList.add('active');
                 activeLink.setAttribute('aria-selected', 'true');
             }
+
+            // ** NEW LOGIC: Manage the Latest Site Commits section **
+            if (homeCommits) {
+                if (targetId === 'home') {
+                    // If switching TO the home tab, make sure the commits sidebar is visible
+                    homeCommits.style.display = 'block';
+                } else {
+                    // If switching AWAY from the home tab, hide the commits sidebar
+                    homeCommits.style.display = 'none';
+                }
+            }
         }
+
+        // ... (The rest of your script, including event listeners and game logic, remains the same)
 
         // Event listener for navigation links
         document.querySelectorAll('a[data-link-type="nav"]').forEach(link => {
