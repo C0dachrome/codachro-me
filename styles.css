@@ -8,7 +8,7 @@
     --surface: #24262b;
     --surface-soft: #2e3036;
     --outline: rgba(255, 255, 255, 0.08);
-    --accent: #6fb5ff; /* Snow Leopard blue */
+    --accent: #01ffa1; 
     --accent-glow: rgba(120, 180, 255, 0.35);
     --radius: 10px;
     --shadow: 0 10px 28px rgba(0, 0, 0, 0.55);
@@ -98,7 +98,7 @@ body {
 }
 
 .nav-list a.active {
-    background: linear-gradient(#6fb5ff, #3e82d6);
+    background: linear-gradient(#01ffa1, #028152);
     color: #0f141a;
     border: 1px solid rgba(255,255,255,0.4);
 }
@@ -172,12 +172,12 @@ body.login-page .form-card {
 
 .input-field:focus {
     outline: none;
-    border-color: #007bff;
+    border-color: #01ffa1;
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
 }
 
 .input-field:hover {
-    border-color: #4c90e0;
+    border-color: #01ffa1;
 }
 
 .input-field::placeholder {
@@ -548,7 +548,7 @@ body.login-page .form-card {
 
 /* --- BUTTONS --- */
 .btn {
-    background: linear-gradient(#6fb5ff, #3b7ed1);
+    background: linear-gradient(#01ffa1, #006b44);
     border: 1px solid rgba(255,255,255,0.3);
     box-shadow:
         inset 0 1px 0 rgba(255,255,255,0.4),
