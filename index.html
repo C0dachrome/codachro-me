@@ -322,6 +322,7 @@
 
         // Handle initial load: Show the tab marked 'active' or the first one
         document.addEventListener('DOMContentLoaded', () => {
+            fetchAndDisplayCommits();
             // Find the link that is initially marked as active in the HTML
             const initialLink = document.querySelector('.tab-link.active');
             if (initialLink) {
@@ -336,7 +337,66 @@
             }
         });
 
-        // --- Game Logic ---
+        const GITHUB_REPO_OWNER = 'C0dachrome'; 
+        const GITHUB_REPO_NAME = 'codachro-me'; 
+        const commitList = document.getElementById('homeCommitList');
+
+        function fetchAndDisplayCommits() {
+            if (!commitList) return; // Exit if the element doesn't exist
+
+            // Clear any existing list items
+            commitList.innerHTML = '<li>Loading latest commits...</li>';
+
+            // Construct the API URL to fetch the last 5 commits
+            const apiUrl = `https://api.github.com/repos/${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME}/commits?per_page=5`;
+
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`GitHub API error: ${response.statusText}`);
+                    }
+                    return response.json();
+                })
+                .then(commits => {
+                    commitList.innerHTML = ''; // Clear loading message
+
+                    if (commits.length === 0) {
+                        commitList.innerHTML = '<li>No commits found.</li>';
+                        return;
+                    }
+
+                    commits.forEach(commitData => {
+                        const li = document.createElement('li');
+
+                        // Format the date
+                        const date = new Date(commitData.commit.author.date);
+                        const formattedDate = date.toLocaleDateString('en-US', {
+                            month: 'short',
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        });
+
+                        // Get the short SHA hash
+                        const shortSha = commitData.sha.substring(0, 7);
+
+                        li.innerHTML = `
+                        <p class="commit-message">
+                            <strong>${commitData.commit.message.split('\n')[0]}</strong>
+                        </p>
+                        <span class="commit-details">
+                            <a href="${commitData.html_url}" target="_blank" title="View commit on GitHub">${shortSha}</a> 
+                            by ${commitData.commit.author.name} on ${formattedDate}
+                        </span>
+                    `;
+                        commitList.appendChild(li);
+                    });
+                })
+                .catch(error => {
+                    console.error("Error fetching commits:", error);
+                    commitList.innerHTML = `<li>Error loading commits: ${error.message}. Please check your repository name.</li>`;
+                });
+        }
 
         function initializeGame() {
             if (gameState !== 'waiting') return;
