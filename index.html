@@ -10,9 +10,9 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&family=Ubuntu:wght@400;700&display=swap"
         rel="stylesheet">
-    
-    <link rel="stylesheet" href="styles.css"> 
-    
+
+    <link rel="stylesheet" href="styles.css">
+
     <style>
         /* Base styles */
         body {
@@ -28,9 +28,9 @@
 
         .blurred-background #content-container {
             filter: blur(5px);
-            pointer-events: none; 
+            pointer-events: none;
         }
-        
+
         .overlay {
             display: none;
             position: fixed;
@@ -46,7 +46,7 @@
         .overlay.is-active {
             display: block;
         }
-        
+
         #scoreDisplay {
             z-index: 1003;
             position: fixed;
@@ -56,8 +56,9 @@
             font-size: 80px;
             font-weight: bold;
             color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            display: none; /* Hidden by default */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            display: none;
+            /* Hidden by default */
             pointer-events: none;
         }
 
@@ -73,78 +74,87 @@
 
         /* Bird / Logo Copy Styles */
         .game-mode #logo-copy {
-            position: absolute; 
+            position: absolute;
             cursor: pointer;
             left: 14px;
             top: 10px;
-            white-space: nowrap; 
-            display: inline-block; 
-            z-index: 12; 
+            white-space: nowrap;
+            display: inline-block;
+            z-index: 12;
             line-height: 36px;
             text-align: center;
             overflow: hidden;
-            
+
             /* Visual styles inherited from .brand */
-            font-size: 1.1rem; 
+            font-size: 1.1rem;
             font-weight: 700;
             color: #e0e2e7;
-            background: linear-gradient(#4b4e55, #393c42); 
-            border: 1px solid rgba(255,255,255,0.08);
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.15);
-            border-radius: 8px; /* Added for consistency */
+            background: linear-gradient(#4b4e55, #393c42);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            /* Added for consistency */
         }
-        
+
         /* Ensure original logo is clickable during game for reset */
         .game-mode #logo {
-            pointer-events: auto !important; 
-            position: relative; 
-            z-index: 1002; 
+            pointer-events: auto !important;
+            position: relative;
+            z-index: 1002;
         }
 
         .obstacle {
             position: absolute;
-            width: 80px; 
-            background-color: #4CAF50; 
+            width: 80px;
+            background-color: #4CAF50;
             border: 2px solid #333;
         }
-        
+
         .game-mode {
-            overflow-x: hidden; 
+            overflow-x: hidden;
         }
     </style>
 </head>
 
 <body class="glass">
-    
+
     <div id="countdown"></div>
     <div class="overlay" id="gameOverlay">
         <div id="scoreDisplay">0</div>
     </div>
-    
+
     <div id="content-container">
-    
+
         <header class="topbar" role="banner">
             <img src="/images/LOGOWITHBG2.png" class="brand" id="logo" aria-label="codachrome home">
             <nav role="navigation" aria-label="Main navigation">
                 <ul class="nav-list" role="menubar">
-                    <li role="none"><a href="#" role="menuitem" class="tab-link active" data-target="home" data-link-type="nav">Home</a></li>
-                    <li role="none"><a href="#" role="menuitem" class="tab-link" data-target="projects" data-link-type="nav">Projects</a></li>
-                    <li role="none"><a href="#" role="menuitem" class="tab-link" data-target="more" data-link-type="nav">More</a></li>
-                    <li role="none"><a href="#" role="menuitem" class="tab-link" data-target="dashboard" data-link-type="nav">Dashboard</a></li>
+                    <li role="none"><a href="#" role="menuitem" class="tab-link active" data-target="home"
+                            data-link-type="nav">Home</a></li>
+                    <li role="none"><a href="#" role="menuitem" class="tab-link" data-target="projects"
+                            data-link-type="nav">Projects</a></li>
+                    <li role="none"><a href="#" role="menuitem" class="tab-link" data-target="more"
+                            data-link-type="nav">More</a></li>
+                    <li role="none"><a href="#" role="menuitem" class="tab-link" data-target="dashboard"
+                            data-link-type="nav">Dashboard</a></li>
                 </ul>
             </nav>
         </header>
-        
+
         <main>
             <div class="home-layout">
-                <section id="home" class="card tab-panel" role="region" aria-labelledby="home-tab" style="display:block">
+                <section id="home" class="card tab-panel" role="region" aria-labelledby="home-tab"
+                    style="display:block">
                     <h1>Welcome</h1>
                     <p>This is the home tab. Click "Projects" to see my work.</p>
                     <h2>Contact</h2>
                     <div class="contact-links">
-                        <img src="/images/backgroundremovedgitlogo.png" alt="GitHub Icon" class="contact-icon" href="github.com/C0dachrome">
-                        <img src="/images/linkedin logo.png" alt="LinkedIn Icon" class="contact-icon" href="linkedin.com/in/cody-milward-3b4bba240">
-                        <img src="/images/email logo.png" alt="Email Icon" class="contact-icon" href="mailto:codycmillward@gmail.com">
+                        <img src="/images/backgroundremovedgitlogo.png" alt="GitHub Icon" class="contact-icon"
+                            href="github.com/C0dachrome">
+                        <img src="/images/linkedin logo.png" alt="LinkedIn Icon" class="contact-icon"
+                            href="linkedin.com/in/cody-milward-3b4bba240">
+                        <img src="/images/email logo.png" alt="Email Icon" class="contact-icon"
+                            href="mailto:codycmillward@gmail.com">
                     </div>
                 </section>
                 <aside class="home-commits">
@@ -152,8 +162,9 @@
                     <ul id="homeCommitList" class="commit-list"></ul>
                 </aside>
             </div>
-            
-            <section id="projects" class="card tab-panel" role="region" aria-labelledby="projects-tab" style="display:none">
+
+            <section id="projects" class="card tab-panel" role="region" aria-labelledby="projects-tab"
+                style="display:none">
                 <h1>Projects</h1>
                 <p></p>
                 <div class="project-grid">
@@ -176,7 +187,7 @@
                     </div>
                 </div>
             </section>
-            
+
             <section id="more" class="card tab-panel" role="region" aria-labelledby="more-tab" style="display:none">
                 <h1>More</h1>
                 <p></p>
@@ -184,11 +195,13 @@
                     <a class="btn" href="prxy.html" role="button" aria-label="Go to WARP page">WARP</a>
                 </div>
             </section>
-            
-            <section id="dashboard" class="card tab-panel" role="region" aria-labelledby="dashboard-tab" style="display:none">
+
+            <section id="dashboard" class="card tab-panel" role="region" aria-labelledby="dashboard-tab"
+                style="display:none">
                 <h1>Dashboard Login</h1>
                 <p></p>
-                <a class="btn" href="dashboard/login.html" role="button" aria-label="Go to Dashboard login page">Login</a>
+                <a class="btn" href="dashboard/login.html" role="button"
+                    aria-label="Go to Dashboard login page">Login</a>
             </section>
         </main>
     </div>
@@ -202,13 +215,13 @@
         const contentContainer = document.getElementById('content-container');
 
         // Global Variables
-        let logoCopy; 
-        
+        let logoCopy;
+
         // Game State
         let gameState = 'waiting'; // 'waiting', 'counting', 'playing', 'gameOver'
         let gameLoopId;
         let obstacleIntervalId;
-        
+
         // Physics & Dimensions
         let velocity = 0;
         const gravity = 0.5;
@@ -218,24 +231,24 @@
         let groundLevel;
 
         // Ragdoll Physics
-        let angularVelocity = 0; 
-        let rotation = 0;        
-        const angularDrag = 0.9; 
-        const bounceFactor = 0.6; 
+        let angularVelocity = 0;
+        let rotation = 0;
+        const angularDrag = 0.9;
+        const bounceFactor = 0.6;
 
         // Obstacles & Score
         const OBSTACLE_WIDTH = 80;
-        const PIPE_GAP = 200; 
-        const OBSTACLE_SPEED = 5; 
+        const PIPE_GAP = 200;
+        const OBSTACLE_SPEED = 5;
         let obstacles = [];
-        let score = 0; 
+        let score = 0;
         const logoRectInitialX = 14; // Matches CSS left: 14px
 
         // --- Event Listeners ---
 
         // Unified Logo Click Listener (Handles Start and Reset)
         logo.addEventListener('click', (e) => {
-            e.preventDefault(); 
+            e.preventDefault();
             if (gameState === 'waiting') {
                 initializeGame();
             } else if (gameState === 'playing' || gameState === 'gameOver') {
@@ -243,9 +256,69 @@
             }
         });
 
-        // Bind nav links to reset
+        function handleTabSwitch(targetId) {
+            // 1. Get all tab content sections
+            const tabPanels = document.querySelectorAll('.tab-panel');
+            // 2. Get all nav links
+            const navLinks = document.querySelectorAll('.tab-link');
+
+            // Hide all content panels
+            tabPanels.forEach(panel => {
+                panel.style.display = 'none';
+            });
+
+            // Deactivate all navigation links
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                // Update ARIA for accessibility (optional but recommended)
+                link.setAttribute('aria-selected', 'false');
+            });
+
+            // Show the target content panel
+            const targetPanel = document.getElementById(targetId);
+            if (targetPanel) {
+                targetPanel.style.display = 'block';
+            }
+
+            // Activate the clicked link
+            const activeLink = document.querySelector(`.tab-link[data-target="${targetId}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+                activeLink.setAttribute('aria-selected', 'true');
+            }
+        }
+
+        // Event listener for navigation links
         document.querySelectorAll('a[data-link-type="nav"]').forEach(link => {
-            link.addEventListener('click', resetGame);
+            // Preserve the existing resetGame handler AND add the tab switch handler
+            link.addEventListener('click', (e) => {
+                e.preventDefault(); // Stop the link from changing the URL
+
+                // Get the target ID from the data-target attribute
+                const targetId = link.getAttribute('data-target');
+
+                // Handle the tab change
+                handleTabSwitch(targetId);
+
+                // Call the existing reset game logic (this is kept from your original code)
+                resetGame();
+            });
+        });
+
+        // Handle initial load: Show the tab marked 'active' or the first one
+        document.addEventListener('DOMContentLoaded', () => {
+            // Find the link that is initially marked as active in the HTML
+            const initialLink = document.querySelector('.tab-link.active');
+            if (initialLink) {
+                const initialTarget = initialLink.getAttribute('data-target');
+                handleTabSwitch(initialTarget);
+            } else {
+                // Fallback: activate the first link found
+                const firstLink = document.querySelector('.tab-link');
+                if (firstLink) {
+                    firstLink.click(); // Programmatically click the first link to set its state
+                }
+            }
         });
 
         // --- Game Logic ---
@@ -259,18 +332,18 @@
             countdownEl.style.display = 'block';
 
             // Create clone
-            logoCopy = logo.cloneNode(true); 
-            logoCopy.id = 'logo-copy'; 
+            logoCopy = logo.cloneNode(true);
+            logoCopy.id = 'logo-copy';
             overlay.appendChild(logoCopy);
-            
+
             // Set initial inline styles
-            logoCopy.style.position = 'absolute'; 
+            logoCopy.style.position = 'absolute';
             logoCopy.style.top = '10px';
             logoCopy.style.left = '14px';
-            
+
             // Allow clicking the bird to reset if dead/playing
             logoCopy.addEventListener('click', (e) => {
-                e.preventDefault(); 
+                e.preventDefault();
                 if (gameState === 'playing' || gameState === 'gameOver') {
                     resetGame();
                 }
@@ -281,7 +354,7 @@
 
         function resetGame() {
             if (gameState === 'waiting') return;
-            
+
             // Remove DOM elements
             if (logoCopy) logoCopy.remove();
             obstacles.forEach(o => {
@@ -307,7 +380,7 @@
             velocity = 0;
             positionY = 0;
             score = 0;
-            rotation = 0; 
+            rotation = 0;
             angularVelocity = 0;
         }
 
@@ -329,7 +402,7 @@
 
         function startGameLoop() {
             gameState = 'playing';
-            
+
             // Score Reset
             score = 0;
             scoreDisplay.textContent = score;
@@ -338,26 +411,26 @@
             // Dimensions
             elementHeight = logoCopy.offsetHeight;
             elementWidth = logoCopy.offsetWidth;
-            
+
             updateGroundLevel();
             window.addEventListener('resize', updateGroundLevel);
-            
+
             document.addEventListener('keydown', handleKeyPress);
-            
+
             // Start Obstacles
-            obstacleIntervalId = setInterval(createObstacle, 2500); 
+            obstacleIntervalId = setInterval(createObstacle, 2500);
 
             gameLoopId = requestAnimationFrame(render);
         }
 
         function updateGroundLevel() {
-            groundLevel = window.innerHeight - elementHeight - 20; 
+            groundLevel = window.innerHeight - elementHeight - 20;
         }
 
         function handleKeyPress(event) {
             if (event.keyCode === 32 && gameState === 'playing') {
-                event.preventDefault(); 
-                velocity = -10; 
+                event.preventDefault();
+                velocity = -10;
             }
         }
 
@@ -365,17 +438,17 @@
             if (gameState !== 'playing') return;
 
             // Physics
-            velocity += gravity;    
+            velocity += gravity;
             positionY += velocity;
 
             // Floor Check
             if (positionY >= groundLevel) {
-                positionY = groundLevel;    
-                velocity = 0;   
+                positionY = groundLevel;
+                velocity = 0;
                 gameOver();
                 return;
             } else if (positionY < 0) {
-                positionY = 0; 
+                positionY = 0;
                 velocity = 0;
             }
 
@@ -384,11 +457,11 @@
 
             // Move Obstacles
             moveObstacles();
-            
+
             // Collisions
             if (checkCollisions()) {
                 gameOver();
-                return; 
+                return;
             }
 
             gameLoopId = requestAnimationFrame(render);
@@ -397,16 +470,16 @@
         function gameOver() {
             if (gameState === 'gameOver') return;
             gameState = 'gameOver';
-            
+
             clearInterval(obstacleIntervalId);
-            
+
             // Init Ragdoll Physics
-            velocity = 6; 
+            velocity = 6;
             angularVelocity = (Math.random() < 0.5 ? -1 : 1) * (15 + Math.random() * 15);
-            
+
             gameLoopId = requestAnimationFrame(tumbleLoop);
         }
-        
+
         function tumbleLoop() {
             if (gameState !== 'gameOver') return;
 
@@ -414,23 +487,23 @@
             velocity += gravity;
             positionY += velocity;
             rotation += angularVelocity;
-            angularVelocity *= angularDrag; 
+            angularVelocity *= angularDrag;
 
             // Floor Bounce
             if (positionY >= groundLevel) {
                 positionY = groundLevel;
-                velocity *= -bounceFactor; 
-                angularVelocity *= -bounceFactor; 
-                
+                velocity *= -bounceFactor;
+                angularVelocity *= -bounceFactor;
+
                 if (Math.abs(velocity) < 1) velocity = 0;
                 if (Math.abs(angularVelocity) < 0.5) angularVelocity = 0;
             }
-            
+
             logoCopy.style.transform = `translateY(${positionY}px) rotate(${rotation}deg)`;
 
             // Stop loop when still
             if (positionY === groundLevel && velocity === 0 && angularVelocity === 0) {
-                 return;
+                return;
             }
 
             gameLoopId = requestAnimationFrame(tumbleLoop);
@@ -452,7 +525,7 @@
             bottomPipe.classList.add('obstacle');
             bottomPipe.style.height = `${bottomHeight}px`;
             bottomPipe.style.bottom = '0px';
-            bottomPipe.style.left = `${window.innerWidth}px`; 
+            bottomPipe.style.left = `${window.innerWidth}px`;
 
             overlay.appendChild(topPipe);
             overlay.appendChild(bottomPipe);
@@ -477,7 +550,7 @@
                     obstacle.elementTop.remove();
                     obstacle.elementBottom.remove();
                     obstacles.splice(i, 1);
-                    i--; 
+                    i--;
                 }
             }
         }
@@ -485,7 +558,7 @@
         function checkCollisions() {
             const logoRect = logoCopy.getBoundingClientRect();
             // Calculate X position of bird's right edge for scoring
-            const logoRightEdge = logoRectInitialX + elementWidth; 
+            const logoRightEdge = logoRectInitialX + elementWidth;
 
             for (const obstacle of obstacles) {
                 const topRect = obstacle.elementTop.getBoundingClientRect();
@@ -505,7 +578,7 @@
                     logoRect.bottom > bottomRect.top &&
                     logoRect.top < bottomRect.bottom
                 ) return true;
-                
+
                 // Scoring Logic
                 if (obstacle.x + OBSTACLE_WIDTH < logoRightEdge && !obstacle.passed) {
                     score++;
@@ -518,4 +591,5 @@
 
     </script>
 </body>
+
 </html>
