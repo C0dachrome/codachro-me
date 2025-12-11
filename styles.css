@@ -566,14 +566,14 @@ body.login-page .form-card {
    7. MISC/ERROR STYLES
    ========================================================================= */
 
-.commit-meta {
+/* .commit-meta {
     /* Removed: This class seems to be for inner layout of text, 
        but its styles are now handled by the .commit-details flex layout.
        If you need it, its original content was:
        font-size: 0.8rem; opacity: 0.7; display: flex; justify-content: space-between; 
        If you put more elements in .commit-details, this might be needed.
     */
-}
+} */
 
 .commit-error {
     color: #ff7777;
@@ -610,7 +610,7 @@ body.login-page .form-card {
     border-radius: 16px;
     border: 1px solid rgb(1 192 121);
     color: #eee;
-    box-shadow: 0 0px 12px rgb(1 230 145);
+    box-shadow: 0 0px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* Commit sidebar floating outside the card (Home page specific) */
