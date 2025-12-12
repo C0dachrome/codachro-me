@@ -775,6 +775,7 @@ body.login-page .form-card {
     margin: 10px;
     float: left;
     width: 180px;
+    height: 140px;
     align-content: center;
     text-align: center;
 }
