@@ -532,6 +532,32 @@
                 velocity = 0;
             }
 
+            if (elapsed > frameInterval) {
+                // Adjust lastTime to account for execution time (drift correction)
+                lastTime = currentTime - (elapsed % frameInterval);
+
+                // --- PHYSICS LOGIC (Only runs 60 times per second now) ---
+                velocity += gravity;    
+                positionY += velocity;
+
+                if (positionY >= groundLevel) {
+                    positionY = groundLevel;    
+                    velocity = 0;   
+                    gameOver();
+                    return;
+                } else if (positionY < 0) {
+                    positionY = 0; 
+                    velocity = 0;
+                }
+
+                logoCopy.style.transform = `translateY(${positionY}px)`;
+                moveObstacles();
+                
+                if (checkCollisions()) {
+                    gameOver();
+                }
+            }
+
             // Move Bird
             logoCopy.style.transform = `translateY(${positionY}px)`;
 
