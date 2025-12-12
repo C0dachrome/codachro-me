@@ -789,3 +789,9 @@ body.login-page .form-card {
     align-content: center;
     margin-left: 60px;
 }
+
+.random_object {
+    width: 200px;
+    height: 200px;
+    background: black;
+}
