@@ -698,7 +698,7 @@
         }
 
         // Global physics variables
-        let engine, render, runner;
+        let engine, rnder, runner;
         let isPhysicsEnabled = false;
 
         function startChaos() {
@@ -707,7 +707,7 @@
 
             // 1. Setup Matter.js
             const Engine = Matter.Engine,
-                  Render = Matter.Render,
+                  Rnder = Matter.Render,
                   Runner = Matter.Runner,
                   Bodies = Matter.Bodies,
                   Composite = Matter.Composite,
@@ -758,7 +758,7 @@
             });
 
             // 4. Create Walls (Floor, Ceiling, Left, Right)
-            const wallOptions = { isStatic: true, render: { visible: false } };
+            const wallOptions = { isStatic: true, rnder: { visible: false } };
             const width = window.innerWidth;
             const height = window.innerHeight;
             const wallThick = 100;
