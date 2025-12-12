@@ -80,6 +80,7 @@ body {
     transform: translateY(-2px);
     box-shadow:
        -4px 4px 20px 1px #003722;
+    transition: transform 0.2s ease !important;
 }
 
 /* --- NAVIGATION LIST --- */
@@ -468,7 +469,7 @@ body.login-page .form-card {
     background: rgba(255,255,255,0.05);
     border-radius: 8px;
     border: 1px solid rgba(255,255,255,0.1);
-
+    
     /* --- FLEXBOX FOR EQUAL HEIGHT COLUMNS --- */
     display: flex;         /* 1. Make <li> the Flex Container */
     align-items: stretch;  /* 2. Key: Children stretch to match height of tallest sibling */
@@ -477,6 +478,13 @@ body.login-page .form-card {
     padding: 0;            /* Resetting li padding to 0, applied to children instead */
 }
 
+.commit-list li:hover {
+    box-shadow: 0 2px 12px rgb(103 180 151);
+    transform: scale(97%);
+    transition-property: transform, box-shadow;
+    transition-duration: 0.5s;
+    transition-timing-function: cubic-bezier(0, 1.07, 0.19, 1);
+}
 /* =========================================================================
    4. COMMIT MESSAGE (P) - THE LEFT COLUMN
    ========================================================================= */
