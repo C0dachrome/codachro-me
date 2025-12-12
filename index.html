@@ -227,6 +227,11 @@
         let gameLoopId;
         let obstacleIntervalId;
 
+        // --- FPS Control Variables (Added) ---
+        let lastTime = 0;
+        const targetFPS = 60;
+        const frameInterval = 1000 / targetFPS; // approx 16.67ms
+
         // Physics & Dimensions
         let velocity = 0;
         const gravity = 0.5;
@@ -306,8 +311,6 @@
             }
         }
 
-        // ... (The rest of your script, including event listeners and game logic, remains the same)
-
         // Event listener for navigation links
         document.querySelectorAll('a[data-link-type="nav"]').forEach(link => {
             // Preserve the existing resetGame handler AND add the tab switch handler
@@ -342,8 +345,8 @@
             }
         });
 
-        const GITHUB_REPO_OWNER = 'C0dachrome'; 
-        const GITHUB_REPO_NAME = 'codachro-me'; 
+        const GITHUB_REPO_OWNER = 'C0dachrome';
+        const GITHUB_REPO_NAME = 'codachro-me';
         const commitList = document.getElementById('homeCommitList');
 
         function fetchAndDisplayCommits() {
@@ -462,6 +465,7 @@
             score = 0;
             rotation = 0;
             angularVelocity = 0;
+            lastTime = 0; // Reset Throttling Timer
         }
 
         function startCountdown() {
@@ -500,6 +504,8 @@
             // Start Obstacles
             obstacleIntervalId = setInterval(createObstacle, 2500);
 
+            // Initialize Time for Throttling
+            lastTime = performance.now();
             gameLoopId = requestAnimationFrame(render);
         }
 
@@ -514,105 +520,100 @@
             }
         }
 
-        function render() {
+        function render(currentTime) {
             if (gameState !== 'playing') return;
 
-            // Physics
-            velocity += gravity;
-            positionY += velocity;
+            // Keep the loop alive
+            gameLoopId = requestAnimationFrame(render);
 
-            // Floor Check
-            if (positionY >= groundLevel) {
-                positionY = groundLevel;
-                velocity = 0;
-                gameOver();
-                return;
-            } else if (positionY < 0) {
-                positionY = 0;
-                velocity = 0;
-            }
+            // --- FPS Throttling Logic ---
+            const elapsed = currentTime - lastTime;
 
+            // Only update physics if enough time has passed (approx 16ms)
             if (elapsed > frameInterval) {
-                // Adjust lastTime to account for execution time (drift correction)
+                // Adjust lastTime to account for execution drift
                 lastTime = currentTime - (elapsed % frameInterval);
 
-                // --- PHYSICS LOGIC (Only runs 60 times per second now) ---
-                velocity += gravity;    
+                // --- Physics Updates (Run only at Target FPS) ---
+                velocity += gravity;
                 positionY += velocity;
 
+                // Floor Check
                 if (positionY >= groundLevel) {
-                    positionY = groundLevel;    
-                    velocity = 0;   
+                    positionY = groundLevel;
+                    velocity = 0;
                     gameOver();
                     return;
                 } else if (positionY < 0) {
-                    positionY = 0; 
+                    positionY = 0;
                     velocity = 0;
                 }
 
+                // Move Bird
                 logoCopy.style.transform = `translateY(${positionY}px)`;
+
+                // Move Obstacles
                 moveObstacles();
-                
+
+                // Collisions
                 if (checkCollisions()) {
                     gameOver();
                 }
             }
-
-            // Move Bird
-            logoCopy.style.transform = `translateY(${positionY}px)`;
-
-            // Move Obstacles
-            moveObstacles();
-
-            // Collisions
-            if (checkCollisions()) {
-                gameOver();
-                return;
-            }
-
-            gameLoopId = requestAnimationFrame(render);
         }
 
         function gameOver() {
             if (gameState === 'gameOver') return;
             gameState = 'gameOver';
 
+            // Stop the main render loop explicitly
+            cancelAnimationFrame(gameLoopId);
             clearInterval(obstacleIntervalId);
 
             // Init Ragdoll Physics
             velocity = 6;
             angularVelocity = (Math.random() < 0.5 ? -1 : 1) * (15 + Math.random() * 15);
 
+            // Reset timer for tumble loop
+            lastTime = performance.now();
             gameLoopId = requestAnimationFrame(tumbleLoop);
         }
 
-        function tumbleLoop() {
+        function tumbleLoop(currentTime) {
             if (gameState !== 'gameOver') return;
 
-            // Ragdoll Physics
-            velocity += gravity;
-            positionY += velocity;
-            rotation += angularVelocity;
-            angularVelocity *= angularDrag;
-
-            // Floor Bounce
-            if (positionY >= groundLevel) {
-                positionY = groundLevel;
-                velocity *= -bounceFactor;
-                angularVelocity *= -bounceFactor;
-
-                if (Math.abs(velocity) < 1) velocity = 0;
-                if (Math.abs(angularVelocity) < 0.5) angularVelocity = 0;
-            }
-
-            logoCopy.style.transform = `translateY(${positionY}px) rotate(${rotation}deg)`;
-
-            // Stop loop when still
-            if (positionY === groundLevel && velocity === 0 && angularVelocity === 0) {
-                return;
-            }
-
             gameLoopId = requestAnimationFrame(tumbleLoop);
+
+            // --- FPS Throttling for Ragdoll ---
+            const elapsed = currentTime - lastTime;
+
+            if (elapsed > frameInterval) {
+                lastTime = currentTime - (elapsed % frameInterval);
+
+                // Ragdoll Physics
+                velocity += gravity;
+                positionY += velocity;
+                rotation += angularVelocity;
+                angularVelocity *= angularDrag;
+
+                // Floor Bounce
+                if (positionY >= groundLevel) {
+                    positionY = groundLevel;
+                    velocity *= -bounceFactor;
+                    angularVelocity *= -bounceFactor;
+
+                    if (Math.abs(velocity) < 1) velocity = 0;
+                    if (Math.abs(angularVelocity) < 0.5) angularVelocity = 0;
+                }
+
+                logoCopy.style.transform = `translateY(${positionY}px) rotate(${rotation}deg)`;
+
+                // Stop loop when still
+                if (positionY === groundLevel && velocity === 0 && angularVelocity === 0) {
+                    cancelAnimationFrame(gameLoopId);
+                    return;
+                }
+            }
         }
 
         function createObstacle() {
