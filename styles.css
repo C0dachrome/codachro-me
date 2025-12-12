@@ -777,20 +777,4 @@ body.login-page .form-card {
 .project-container {
     display: grid;
     grid-template-columns: auto auto auto;
-    max-width: none;
-    /*width: 100%;*/
-    margin: 10px;
-    background: rgba(42, 45, 49, 0.3);
-    padding: 32px;
-    border-radius: 16px;
-    border: 1px solid rgb(1 192 121);
-    color: #eee;
-    box-shadow: 0 0px 12px rgba(0, 0, 0, 0.3);
-    background: linear-gradient(#2b2d32, #24262b);
-    padding: 20px;
-    border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.06);
-    box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.10),
-        0 10px 24px rgba(0,0,0,0.5);
 }
