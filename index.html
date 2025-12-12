@@ -292,13 +292,9 @@
             const targetPanel = document.getElementById(targetId);
             if (targetPanel) {
                 if(targetId == 'projects'){
-                    const projectPanel = document.getElementById('project');
                     console.log("(codachro.me) attempting to switch display to grid");
                     targetPanel.style.display = 'grid';
                 } else {
-                    console.log(projectPanel.style.display + " Project panel");
-                    console.log(targetPanel.style.display + " Target panel");
-                    projectPanel.style.display = 'none';
                     targetPanel.style.display = 'block';
                 }
             }
