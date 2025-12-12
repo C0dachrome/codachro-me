@@ -213,126 +213,6 @@
     </div>
 
     <script>
-        // Global physics variables
-        let engine, render, runner;
-        let isPhysicsEnabled = false;
-
-        function startChaos() {
-            if (isPhysicsEnabled) return; // Don't run twice
-            isPhysicsEnabled = true;
-
-            // 1. Setup Matter.js
-            const Engine = Matter.Engine,
-                  Render = Matter.Render,
-                  Runner = Matter.Runner,
-                  Bodies = Matter.Bodies,
-                  Composite = Matter.Composite,
-                  Events = Matter.Events,
-                  Body = Matter.Body,
-                  Vector = Matter.Vector;
-
-            engine = Engine.create();
-            const world = engine.world;
-
-            // 2. Select the container and elements
-            const container = document.getElementById('content-container');
-            const elements = Array.from(container.children); // Get direct children only
-            
-            const physicsBodies = [];
-
-            // 3. Convert HTML elements to Physics Bodies
-            elements.forEach(el => {
-                // Get current position and dimensions
-                const rect = el.getBoundingClientRect();
-                
-                // Calculate center (Matter.js uses center, DOM uses top-left)
-                const x = rect.left + rect.width / 2;
-                const y = rect.top + rect.height / 2;
-
-                // Create a physics body
-                // We use a slight chamfer (rounded corners) to make them roll better
-                const body = Bodies.rectangle(x, y, rect.width, rect.height, { 
-                    restitution: 0.5, // Bounciness (0-1)
-                    friction: 0.1,
-                    chamfer: { radius: 5 } 
-                });
-
-                // Attach the DOM element to the body so we can sync them later
-                body.domElement = el;
-                
-                // IMPORTANT: We must switch the DOM element to absolute positioning
-                // so it can move freely, but keep its width/height fixed.
-                el.style.position = 'absolute';
-                el.style.left = '0px';
-                el.style.top = '0px';
-                el.style.width = rect.width + 'px';
-                el.style.height = rect.height + 'px';
-                el.style.margin = '0'; // Margins mess up physics calculations
-                el.style.transformOrigin = "50% 50%"; // Rotate from center
-
-                physicsBodies.push(body);
-            });
-
-            // 4. Create Walls (Floor, Ceiling, Left, Right)
-            const wallOptions = { isStatic: true, render: { visible: false } };
-            const width = window.innerWidth;
-            const height = window.innerHeight;
-            const wallThick = 100;
-
-            const floor = Bodies.rectangle(width/2, height + wallThick/2, width, wallThick, wallOptions);
-            const ceiling = Bodies.rectangle(width/2, -wallThick*2, width, wallThick, wallOptions); // High ceiling
-            const leftWall = Bodies.rectangle(0 - wallThick/2, height/2, wallThick, height * 5, wallOptions);
-            const rightWall = Bodies.rectangle(width + wallThick/2, height/2, wallThick, height * 5, wallOptions);
-
-            Composite.add(world, [...physicsBodies, floor, ceiling, leftWall, rightWall]);
-
-            // 5. Run the Engine
-            runner = Runner.create();
-            Runner.run(runner, engine);
-
-            // 6. The "Game Loop": Sync DOM elements to Physics Bodies
-            Events.on(engine, 'afterUpdate', function() {
-                physicsBodies.forEach(body => {
-                    const el = body.domElement;
-                    if(el) {
-                        // Move the HTML element to match the physics body
-                        const x = body.position.x - el.offsetWidth / 2;
-                        const y = body.position.y - el.offsetHeight / 2;
-                        
-                        // Use CSS transform for performance
-                        el.style.transform = `translate(${x}px, ${y}px) rotate(${body.angle}rad)`;
-                    }
-                });
-                
-                // Apply Mouse Repulsion
-                if(mousePosition) {
-                    physicsBodies.forEach(body => {
-                        const bodyPos = body.position;
-                        const distance = Vector.magnitude(Vector.sub(mousePosition, bodyPos));
-                        
-                        // If mouse is close (within 150px)
-                        if (distance < 150) {
-                            const forceMagnitude = 0.05 * body.mass;
-                            const forceVector = Vector.sub(bodyPos, mousePosition);
-                            const normalized = Vector.normalise(forceVector);
-                            const force = Vector.mult(normalized, forceMagnitude);
-                            
-                            Body.applyForce(body, body.position, force);
-                        }
-                    });
-                }
-            });
-        }
-
-        // Mouse Tracker
-        let mousePosition = null;
-        document.addEventListener('mousemove', (e) => {
-            mousePosition = { x: e.clientX, y: e.clientY };
-        });
-
-    </script>
-
-    <script>
         const logo = document.getElementById('logo');
         const overlay = document.getElementById('gameOverlay');
         const countdownEl = document.getElementById('countdown');
@@ -816,6 +696,123 @@
             }
             return false;
         }
+
+        // Global physics variables
+        let engine, render, runner;
+        let isPhysicsEnabled = false;
+
+        function startChaos() {
+            if (isPhysicsEnabled) return; // Don't run twice
+            isPhysicsEnabled = true;
+
+            // 1. Setup Matter.js
+            const Engine = Matter.Engine,
+                  Render = Matter.Render,
+                  Runner = Matter.Runner,
+                  Bodies = Matter.Bodies,
+                  Composite = Matter.Composite,
+                  Events = Matter.Events,
+                  Body = Matter.Body,
+                  Vector = Matter.Vector;
+
+            engine = Engine.create();
+            const world = engine.world;
+
+            // 2. Select the container and elements
+            const container = document.getElementById('content-container');
+            const elements = Array.from(container.children); // Get direct children only
+            
+            const physicsBodies = [];
+
+            // 3. Convert HTML elements to Physics Bodies
+            elements.forEach(el => {
+                // Get current position and dimensions
+                const rect = el.getBoundingClientRect();
+                
+                // Calculate center (Matter.js uses center, DOM uses top-left)
+                const x = rect.left + rect.width / 2;
+                const y = rect.top + rect.height / 2;
+
+                // Create a physics body
+                // We use a slight chamfer (rounded corners) to make them roll better
+                const body = Bodies.rectangle(x, y, rect.width, rect.height, { 
+                    restitution: 0.5, // Bounciness (0-1)
+                    friction: 0.1,
+                    chamfer: { radius: 5 } 
+                });
+
+                // Attach the DOM element to the body so we can sync them later
+                body.domElement = el;
+                
+                // IMPORTANT: We must switch the DOM element to absolute positioning
+                // so it can move freely, but keep its width/height fixed.
+                el.style.position = 'absolute';
+                el.style.left = '0px';
+                el.style.top = '0px';
+                el.style.width = rect.width + 'px';
+                el.style.height = rect.height + 'px';
+                el.style.margin = '0'; // Margins mess up physics calculations
+                el.style.transformOrigin = "50% 50%"; // Rotate from center
+
+                physicsBodies.push(body);
+            });
+
+            // 4. Create Walls (Floor, Ceiling, Left, Right)
+            const wallOptions = { isStatic: true, render: { visible: false } };
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const wallThick = 100;
+
+            const floor = Bodies.rectangle(width/2, height + wallThick/2, width, wallThick, wallOptions);
+            const ceiling = Bodies.rectangle(width/2, -wallThick*2, width, wallThick, wallOptions); // High ceiling
+            const leftWall = Bodies.rectangle(0 - wallThick/2, height/2, wallThick, height * 5, wallOptions);
+            const rightWall = Bodies.rectangle(width + wallThick/2, height/2, wallThick, height * 5, wallOptions);
+
+            Composite.add(world, [...physicsBodies, floor, ceiling, leftWall, rightWall]);
+
+            // 5. Run the Engine
+            runner = Runner.create();
+            Runner.run(runner, engine);
+
+            // 6. The "Game Loop": Sync DOM elements to Physics Bodies
+            Events.on(engine, 'afterUpdate', function() {
+                physicsBodies.forEach(body => {
+                    const el = body.domElement;
+                    if(el) {
+                        // Move the HTML element to match the physics body
+                        const x = body.position.x - el.offsetWidth / 2;
+                        const y = body.position.y - el.offsetHeight / 2;
+                        
+                        // Use CSS transform for performance
+                        el.style.transform = `translate(${x}px, ${y}px) rotate(${body.angle}rad)`;
+                    }
+                });
+                
+                // Apply Mouse Repulsion
+                if(mousePosition) {
+                    physicsBodies.forEach(body => {
+                        const bodyPos = body.position;
+                        const distance = Vector.magnitude(Vector.sub(mousePosition, bodyPos));
+                        
+                        // If mouse is close (within 150px)
+                        if (distance < 150) {
+                            const forceMagnitude = 0.05 * body.mass;
+                            const forceVector = Vector.sub(bodyPos, mousePosition);
+                            const normalized = Vector.normalise(forceVector);
+                            const force = Vector.mult(normalized, forceMagnitude);
+                            
+                            Body.applyForce(body, body.position, force);
+                        }
+                    });
+                }
+            });
+        }
+
+        // Mouse Tracker
+        let mousePosition = null;
+        document.addEventListener('mousemove', (e) => {
+            mousePosition = { x: e.clientX, y: e.clientY };
+        });
 
     </script>
 <!-- Cloudflare Pages Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b32778ec57ab4f57b5eb5f81d19744a1"}'></script><!-- Cloudflare Pages Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"7a78f5adbd0b4ddcbe72222cf9564e29","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
