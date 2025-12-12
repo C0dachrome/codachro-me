@@ -198,6 +198,7 @@
                 <p></p>
                 <div class="tabs" aria-hidden="false">
                     <a class="btn" href="prxy.html" role="button" aria-label="Go to WARP page">WARP</a>
+                    <a class="btn" onclick="startChaos()" role="button" aria-label="Start physics">physics</a>
                 </div>
             </section>
 
@@ -210,6 +211,126 @@
             </section>
         </main>
     </div>
+
+    <script>
+        // Global physics variables
+        let engine, render, runner;
+        let isPhysicsEnabled = false;
+
+        function startChaos() {
+            if (isPhysicsEnabled) return; // Don't run twice
+            isPhysicsEnabled = true;
+
+            // 1. Setup Matter.js
+            const Engine = Matter.Engine,
+                  Render = Matter.Render,
+                  Runner = Matter.Runner,
+                  Bodies = Matter.Bodies,
+                  Composite = Matter.Composite,
+                  Events = Matter.Events,
+                  Body = Matter.Body,
+                  Vector = Matter.Vector;
+
+            engine = Engine.create();
+            const world = engine.world;
+
+            // 2. Select the container and elements
+            const container = document.getElementById('content-container');
+            const elements = Array.from(container.children); // Get direct children only
+            
+            const physicsBodies = [];
+
+            // 3. Convert HTML elements to Physics Bodies
+            elements.forEach(el => {
+                // Get current position and dimensions
+                const rect = el.getBoundingClientRect();
+                
+                // Calculate center (Matter.js uses center, DOM uses top-left)
+                const x = rect.left + rect.width / 2;
+                const y = rect.top + rect.height / 2;
+
+                // Create a physics body
+                // We use a slight chamfer (rounded corners) to make them roll better
+                const body = Bodies.rectangle(x, y, rect.width, rect.height, { 
+                    restitution: 0.5, // Bounciness (0-1)
+                    friction: 0.1,
+                    chamfer: { radius: 5 } 
+                });
+
+                // Attach the DOM element to the body so we can sync them later
+                body.domElement = el;
+                
+                // IMPORTANT: We must switch the DOM element to absolute positioning
+                // so it can move freely, but keep its width/height fixed.
+                el.style.position = 'absolute';
+                el.style.left = '0px';
+                el.style.top = '0px';
+                el.style.width = rect.width + 'px';
+                el.style.height = rect.height + 'px';
+                el.style.margin = '0'; // Margins mess up physics calculations
+                el.style.transformOrigin = "50% 50%"; // Rotate from center
+
+                physicsBodies.push(body);
+            });
+
+            // 4. Create Walls (Floor, Ceiling, Left, Right)
+            const wallOptions = { isStatic: true, render: { visible: false } };
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            const wallThick = 100;
+
+            const floor = Bodies.rectangle(width/2, height + wallThick/2, width, wallThick, wallOptions);
+            const ceiling = Bodies.rectangle(width/2, -wallThick*2, width, wallThick, wallOptions); // High ceiling
+            const leftWall = Bodies.rectangle(0 - wallThick/2, height/2, wallThick, height * 5, wallOptions);
+            const rightWall = Bodies.rectangle(width + wallThick/2, height/2, wallThick, height * 5, wallOptions);
+
+            Composite.add(world, [...physicsBodies, floor, ceiling, leftWall, rightWall]);
+
+            // 5. Run the Engine
+            runner = Runner.create();
+            Runner.run(runner, engine);
+
+            // 6. The "Game Loop": Sync DOM elements to Physics Bodies
+            Events.on(engine, 'afterUpdate', function() {
+                physicsBodies.forEach(body => {
+                    const el = body.domElement;
+                    if(el) {
+                        // Move the HTML element to match the physics body
+                        const x = body.position.x - el.offsetWidth / 2;
+                        const y = body.position.y - el.offsetHeight / 2;
+                        
+                        // Use CSS transform for performance
+                        el.style.transform = `translate(${x}px, ${y}px) rotate(${body.angle}rad)`;
+                    }
+                });
+                
+                // Apply Mouse Repulsion
+                if(mousePosition) {
+                    physicsBodies.forEach(body => {
+                        const bodyPos = body.position;
+                        const distance = Vector.magnitude(Vector.sub(mousePosition, bodyPos));
+                        
+                        // If mouse is close (within 150px)
+                        if (distance < 150) {
+                            const forceMagnitude = 0.05 * body.mass;
+                            const forceVector = Vector.sub(bodyPos, mousePosition);
+                            const normalized = Vector.normalise(forceVector);
+                            const force = Vector.mult(normalized, forceMagnitude);
+                            
+                            Body.applyForce(body, body.position, force);
+                        }
+                    });
+                }
+            });
+        }
+
+        // Mouse Tracker
+        let mousePosition = null;
+        document.addEventListener('mousemove', (e) => {
+            mousePosition = { x: e.clientX, y: e.clientY };
+        });
+
+    </script>
 
     <script>
         const logo = document.getElementById('logo');
