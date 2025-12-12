@@ -771,10 +771,15 @@ body.login-page .form-card {
 .project-container .project-card {
     border-radius: 10px;
     background: rgba(255,255,255,0.1);
-    padding: 15px;
+    padding: 20px;
+    margin: 10px;
+    float: left;
+    width: 180px;
+    align-content: center;
+    text-align: center;
 }
 
 .project-container {
-    display: none;
+    display: grid;
     grid-template-columns: auto auto auto;
 }
