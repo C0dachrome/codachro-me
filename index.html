@@ -129,7 +129,7 @@
         <header class="topbar" role="banner">
             <img src="/images/LOGOWITHBG2.png" class="brand" id="logo" aria-label="codachrome home">
             <nav role="navigation" aria-label="Main navigation">
-                <ul class="nav-list" role="menubar">
+                <ul class="nav-list physics-element" role="menubar">
                     <li role="none"><a href="#" role="menuitem" class="tab-link active" data-target="home"
                             data-link-type="nav">Home</a></li>
                     <li role="none"><a href="#" role="menuitem" class="tab-link" data-target="projects"
@@ -144,61 +144,64 @@
 
         <main>
             <div class="home-layout">
-                <section id="home" class="card tab-panel" role="region" aria-labelledby="home-tab"
+                <section id="home" class="card tab-panel physics-element" role="region" aria-labelledby="home-tab"
                     style="display:block">
                     <h1>Welcome</h1>
-                    <p>This is the home tab. Click "Projects" to see my work.</p> 
+                    <p>This is the home tab. Click "Projects" to see my work.</p>
                     <br>
-                    <p>My name is Cody. I build and connect software and physical systems, using a wide variety of skills I have built.
-                    This portfolio serves as a place for me to document my projects in web and software development, IoT and RF, and hobby electrical and computer engineering. It is also just a place for me to experiment and have fun. Feel free to check things out!</p>
+                    <p>My name is Cody. I build and connect software and physical systems, using a wide variety of
+                        skills I have built.
+                        This portfolio serves as a place for me to document my projects in web and software development,
+                        IoT and RF, and hobby electrical and computer engineering. It is also just a place for me to
+                        experiment and have fun. Feel free to check things out!</p>
                     <br><br>
                     <h2>Contact</h2>
                     <div class="contact-links">
-                        <img src="/images/backgroundremovedgitlogo.png" alt="GitHub Icon" class="contact-icon"
+                        <img src="/images/backgroundremovedgitlogo.png" alt="GitHub Icon" class="contact-icon physics-element"
                             href="https://github.com/C0dachrome">
-                        <img src="/images/linkedin logo.png" alt="LinkedIn Icon" class="contact-icon"
+                        <img src="/images/linkedin logo.png" alt="LinkedIn Icon" class="contact-icon physics-element"
                             href="https://linkedin.com/in/cody-milward-3b4bba240">
-                        <img src="/images/email logo.png" alt="Email Icon" class="contact-icon"
+                        <img src="/images/email logo.png" alt="Email Icon" class="contact-icon physics-element"
                             href="mailto:codycmillward@gmail.com">
                     </div>
                 </section>
-                <aside class="home-commits">
+                <aside class="home-commits physics-element">
                     <h2>Latest Site Commits</h2>
-                    <ul id="homeCommitList" class="commit-list"></ul>
+                    <ul id="homeCommitList" class="commit-list physics-element"></ul>
                 </aside>
             </div>
 
-            <section id="projects" class="card tab-panel" role="region" aria-labelledby="projects-tab"
+            <section id="projects" class="card tab-panel physics-element" role="region" aria-labelledby="projects-tab"
                 style="display:none">
                 <h1>Projects</h1>
                 <p></p>
-                <div class="project-grid">
-                    <div class="project-card">
+                <div class="project-grid physics-element">
+                    <div class="project-card physics-element">
                         <h2>WARP</h2>
                         <p>Web Authentication and Rewrite Proxy</p>
-                        <div class="project-links"><a href="prxy.html" class="btn">Project Page</a></div>
+                        <div class="project-links physics-element"><a href="prxy.html" class="btn">Project Page</a></div>
                     </div>
                     <br>
-                    <div class="project-card">
+                    <div class="project-card physics-element">
                         <h2>SpectrumEye</h2>
                         <p>Portable, powerful RF analysis device</p>
-                        <div class="project-links"><a href="/projects/speceye.html" class="btn">Project Page</a></div>
+                        <div class="project-links physics-element"><a href="/projects/speceye.html" class="btn">Project Page</a></div>
                     </div>
                     <br>
-                    <div class="project-card">
+                    <div class="project-card physics-element">
                         <h2>CM-R1</h2>
                         <p>Compact FMCW radar</p>
-                        <div class="project-links"><a href="/projects/cmr1.html" class="btn">Project Page</a></div>
+                        <div class="project-links physics-element"><a href="/projects/cmr1.html" class="btn">Project Page</a></div>
                     </div>
                 </div>
             </section>
 
-            <section id="more" class="card tab-panel" role="region" aria-labelledby="more-tab" style="display:none">
+            <section id="more" class="card tab-panel physics-element" role="region" aria-labelledby="more-tab" style="display:none">
                 <h1>More</h1>
                 <p></p>
                 <div class="tabs" aria-hidden="false">
-                    <a class="btn" href="prxy.html" role="button" aria-label="Go to WARP page">WARP</a>
-                    <a class="btn" onclick="startChaos()" role="button" aria-label="Start physics">physics</a>
+                    <a class="btn physics-element" href="prxy.html" role="button" aria-label="Go to WARP page">WARP</a>
+                    <a class="btn physics-element" onclick="startChaos()" role="button" aria-label="Start physics">physics</a>
                 </div>
             </section>
 
@@ -697,76 +700,85 @@
             return false;
         }
 
+
         // Global physics variables
         let engine, rnder, runner;
         let isPhysicsEnabled = false;
 
+        // --- Matter.js Aliases (Keep these for clean code) ---
+        const { Engine, Rnder, Runner, Bodies, Composite, Events, Body, Vector } = Matter;
+
         function startChaos() {
-            if (isPhysicsEnabled) return; // Don't run twice
+            if (isPhysicsEnabled) {
+                // Optional: If you want to stop and reset the physics, uncomment this:
+                // resetChaos(); 
+                // return;
+                return; // Exit if already running to prevent duplicates
+            }
             isPhysicsEnabled = true;
 
-            // 1. Setup Matter.js
-            const Engine = Matter.Engine,
-                  Rnder = Matter.Render,
-                  Runner = Matter.Runner,
-                  Bodies = Matter.Bodies,
-                  Composite = Matter.Composite,
-                  Events = Matter.Events,
-                  Body = Matter.Body,
-                  Vector = Matter.Vector;
-
+            // 1. Setup Engine & World
             engine = Engine.create();
             const world = engine.world;
 
-            // 2. Select the container and elements
-            const container = document.getElementById('content-container');
-            const elements = Array.from(container.children); // Get direct children only
-            
+            // Set global gravity (Matter.js default is 1, let's keep it that way for realism)
+            world.gravity.y = 1;
+
+            // 2. Select ALL elements with the specific class inside the container
+            // Note: You MUST add class="physics-element" to every tag you want to fall.
+            const container = document.getElementById('content-area');
+            // Selects ALL descendants of the container that have the physics-element class
+            const elements = Array.from(container.querySelectorAll('.physics-element'));
+
             const physicsBodies = [];
 
             // 3. Convert HTML elements to Physics Bodies
             elements.forEach(el => {
-                // Get current position and dimensions
                 const rect = el.getBoundingClientRect();
-                
-                // Calculate center (Matter.js uses center, DOM uses top-left)
+
+                // Ignore elements with zero size (e.g., hidden or spacing elements)
+                if (rect.width === 0 || rect.height === 0) return;
+
+                // Calculate center
                 const x = rect.left + rect.width / 2;
                 const y = rect.top + rect.height / 2;
 
                 // Create a physics body
-                // We use a slight chamfer (rounded corners) to make them roll better
-                const body = Bodies.rectangle(x, y, rect.width, rect.height, { 
+                const body = Bodies.rectangle(x, y, rect.width, rect.height, {
                     restitution: 0.5, // Bounciness (0-1)
                     friction: 0.1,
-                    chamfer: { radius: 5 } 
+                    // Chamfer helps elements roll better
+                    chamfer: { radius: 5 },
+                    // Give it a slightly custom mass based on its area
+                    mass: (rect.width * rect.height) / 1000
                 });
 
-                // Attach the DOM element to the body so we can sync them later
+                // Attach the DOM element to the body
                 body.domElement = el;
-                
-                // IMPORTANT: We must switch the DOM element to absolute positioning
-                // so it can move freely, but keep its width/height fixed.
+
+                // Prepare the DOM element for absolute positioning
                 el.style.position = 'absolute';
                 el.style.left = '0px';
                 el.style.top = '0px';
                 el.style.width = rect.width + 'px';
                 el.style.height = rect.height + 'px';
-                el.style.margin = '0'; // Margins mess up physics calculations
-                el.style.transformOrigin = "50% 50%"; // Rotate from center
+                el.style.margin = '0';
+                el.style.transformOrigin = "50% 50%";
+                el.style.pointerEvents = 'none'; // Optional: makes them non-clickable in physics mode
 
                 physicsBodies.push(body);
             });
 
-            // 4. Create Walls (Floor, Ceiling, Left, Right)
-            const wallOptions = { isStatic: true, rnder: { visible: false } };
+            // 4. Create Walls (Boundary)
+            const wallOptions = { isStatic: true, rnnder: { visible: false } };
             const width = window.innerWidth;
             const height = window.innerHeight;
             const wallThick = 100;
 
-            const floor = Bodies.rectangle(width/2, height + wallThick/2, width, wallThick, wallOptions);
-            const ceiling = Bodies.rectangle(width/2, -wallThick*2, width, wallThick, wallOptions); // High ceiling
-            const leftWall = Bodies.rectangle(0 - wallThick/2, height/2, wallThick, height * 5, wallOptions);
-            const rightWall = Bodies.rectangle(width + wallThick/2, height/2, wallThick, height * 5, wallOptions);
+            const floor = Bodies.rectangle(width / 2, height + wallThick / 2, width, wallThick, wallOptions);
+            const ceiling = Bodies.rectangle(width / 2, -wallThick / 2, width, wallThick, wallOptions);
+            const leftWall = Bodies.rectangle(0 - wallThick / 2, height / 2, wallThick, height * 5, wallOptions);
+            const rightWall = Bodies.rectangle(width + wallThick / 2, height / 2, wallThick, height * 5, wallOptions);
 
             Composite.add(world, [...physicsBodies, floor, ceiling, leftWall, rightWall]);
 
@@ -774,33 +786,34 @@
             runner = Runner.create();
             Runner.run(runner, engine);
 
-            // 6. The "Game Loop": Sync DOM elements to Physics Bodies
-            Events.on(engine, 'afterUpdate', function() {
+            // 6. The "Game Loop": Sync DOM elements to Physics Bodies & Mouse Repulsion
+            Events.on(engine, 'afterUpdate', function () {
                 physicsBodies.forEach(body => {
                     const el = body.domElement;
-                    if(el) {
+                    if (el) {
                         // Move the HTML element to match the physics body
                         const x = body.position.x - el.offsetWidth / 2;
                         const y = body.position.y - el.offsetHeight / 2;
-                        
+
                         // Use CSS transform for performance
                         el.style.transform = `translate(${x}px, ${y}px) rotate(${body.angle}rad)`;
                     }
                 });
-                
+
                 // Apply Mouse Repulsion
-                if(mousePosition) {
+                if (mousePosition) {
                     physicsBodies.forEach(body => {
                         const bodyPos = body.position;
                         const distance = Vector.magnitude(Vector.sub(mousePosition, bodyPos));
-                        
+
                         // If mouse is close (within 150px)
                         if (distance < 150) {
+                            // Apply a force proportional to the body's mass
                             const forceMagnitude = 0.05 * body.mass;
                             const forceVector = Vector.sub(bodyPos, mousePosition);
                             const normalized = Vector.normalise(forceVector);
                             const force = Vector.mult(normalized, forceMagnitude);
-                            
+
                             Body.applyForce(body, body.position, force);
                         }
                     });
@@ -814,8 +827,42 @@
             mousePosition = { x: e.clientX, y: e.clientY };
         });
 
+        // Optional: Cleanup function if you want a reset button
+        function resetChaos() {
+            if (!isPhysicsEnabled) return;
+
+            // Stop the engine runner
+            Runner.stop(runner);
+
+            // Remove all physics bodies from the world
+            Composite.clear(engine.world);
+
+            // Reset the style of all elements back to their original state (or just remove the absolute positioning)
+            const elements = document.querySelectorAll('.physics-element');
+            elements.forEach(el => {
+                el.style.position = ''; // Remove inline style
+                el.style.transform = '';
+                el.style.width = '';
+                el.style.height = '';
+                el.style.margin = '';
+                el.style.transformOrigin = '';
+                el.style.pointerEvents = '';
+            });
+
+            isPhysicsEnabled = false;
+            engine = null;
+            runner = null;
+        }
+
     </script>
-<!-- Cloudflare Pages Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b32778ec57ab4f57b5eb5f81d19744a1"}'></script><!-- Cloudflare Pages Analytics --><script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"version":"2024.11.0","token":"7a78f5adbd0b4ddcbe72222cf9564e29","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+    <!-- Cloudflare Pages Analytics -->
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
+        data-cf-beacon='{"token": "b32778ec57ab4f57b5eb5f81d19744a1"}'></script><!-- Cloudflare Pages Analytics -->
+    <script defer
+        src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
+        integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+        data-cf-beacon='{"version":"2024.11.0","token":"7a78f5adbd0b4ddcbe72222cf9564e29","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}'
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
