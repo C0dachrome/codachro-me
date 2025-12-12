@@ -291,6 +291,10 @@
             // Show the target content panel
             const targetPanel = document.getElementById(targetId);
             if (targetPanel) {
+                if(targetId == "projects"){
+                    targetPanel.style.display = 'grid';
+
+                }
                 targetPanel.style.display = 'block';
             }
 
