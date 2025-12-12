@@ -775,6 +775,6 @@ body.login-page .form-card {
 }
 
 .project-container {
-    display: grid;
+    display: none;
     grid-template-columns: auto auto auto;
 }
