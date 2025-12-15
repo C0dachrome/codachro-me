@@ -797,4 +797,6 @@ body.login-page .form-card {
     border-radius: 10px;
     text-align: center;
     align-content: center;
+    float:center;
+    margin:10px;
 }
