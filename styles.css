@@ -775,6 +775,8 @@ body.login-page .form-card {
 /* PROJECT CARD */
 .project-container .project-card {
     border-radius: 10px;
+    text-decoration: none;
+    color: #a6a7ab;
     background: rgba(255,255,255,0.1);
     padding: 20px;
     margin: 10px;
@@ -783,6 +785,12 @@ body.login-page .form-card {
     height: 140px;
     align-content: center;
     text-align: center;
+    transition: 0.3s ease;
+}
+
+.project-container .project-card:hover {
+    transform: translate3d(0px, 30%, 0.1em) scale(1.3);
+    
 }
 
 .project-container {
@@ -797,6 +805,4 @@ body.login-page .form-card {
     border-radius: 10px;
     text-align: center;
     align-content: center;
-    float:center;
-    margin:10px;
 }
