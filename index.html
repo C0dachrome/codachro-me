@@ -196,6 +196,12 @@
                             <p>Compact FMCW radar</p>
                         </a>
                     </div>
+                    <div>
+                        <a class="project-card physics-element" href="/projects/other.html">
+                            <h2>Other</h2>
+                            <p>Other projects that aren't enough to have their own page.</p>
+                        </a>
+                    </div>
                 </div>
             </section>
 
@@ -755,7 +761,7 @@
                 // Create a physics body
                 const body = Bodies.rectangle(x, y, rect.width, rect.height, {
                     restitution: 1, // Bounciness (0-1)
-                    friction: 0,
+                    friction: 0.1,
                     // Chamfer helps elements roll better
                     chamfer: { radius: 5 },
                     // Give it a slightly custom mass based on its area
