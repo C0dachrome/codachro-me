@@ -889,7 +889,7 @@
 
         function draw() {
             // Semi-transparent black rectangle creates the trailing effect
-            ctx.fillStyle = '#1b1d21';
+            ctx.fillStyle = 'rgba(27,29,33,0.5)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             ctx.fillStyle = '#0F0'; // Matrix gree
@@ -907,7 +907,7 @@
             }
         }
 
-        setInterval(draw, 30); // Adjust speed
+        setInterval(draw, 20); // Adjust speed
 
     </script>
     <!-- Cloudflare Pages Analytics -->
