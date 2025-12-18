@@ -810,3 +810,11 @@ body.login-page .form-card {
 .small-card {
 
 } */
+
+#matrixCanvas {
+                display: block;
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: -1;
+            }

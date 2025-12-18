@@ -130,8 +130,8 @@
             <img src="/images/LOGOWITHBG2.png" class="brand" id="logo" aria-label="codachrome home">
             <nav role="navigation" aria-label="Main navigation">
                 <ul class="nav-list" role="menubar">
-                    <li role="none"><a href="#" role="menuitem" class="tab-link active physics-element" data-target="home"
-                            data-link-type="nav">Home</a></li>
+                    <li role="none"><a href="#" role="menuitem" class="tab-link active physics-element"
+                            data-target="home" data-link-type="nav">Home</a></li>
                     <li role="none"><a href="#" role="menuitem" class="tab-link physics-element" data-target="projects"
                             data-link-type="nav">Projects</a></li>
                     <li role="none"><a href="#" role="menuitem" class="tab-link physics-element" data-target="more"
@@ -158,10 +158,12 @@
                     <h2>Contact</h2>
                     <div class="contact-links">
                         <a href="https://github.com/C0dachrome">
-                            <img src="/images/backgroundremovedgitlogo.png" alt="GitHub Icon" class="contact-icon physics-element">
+                            <img src="/images/backgroundremovedgitlogo.png" alt="GitHub Icon"
+                                class="contact-icon physics-element">
                         </a>
                         <a href="https://linkedin.com/in/cody-millward-301b31258/">
-                            <img src="/images/linkedin logo.png" alt="LinkedIn Icon" class="contact-icon physics-element">
+                            <img src="/images/linkedin logo.png" alt="LinkedIn Icon"
+                                class="contact-icon physics-element">
                         </a>
                         <a href="mailto:codycmillward@gmail.com">
                             <img src="/images/email logo.png" alt="Email Icon" class="contact-icon physics-element">
@@ -174,8 +176,8 @@
                 </aside>
             </div>
 
-            <section id="projects" class="card tab-panel physics-element project-container" role="region" aria-labelledby="projects-tab"
-                style="display:none">
+            <section id="projects" class="card tab-panel physics-element project-container" role="region"
+                aria-labelledby="projects-tab" style="display:none">
                 <h1>Projects</h1><br>
                 <div class="project-grid physics-element">
                     <div>
@@ -205,12 +207,14 @@
                 </div>
             </section>
 
-            <section id="more" class="card tab-panel physics-element" role="region" aria-labelledby="more-tab" style="display:none">
+            <section id="more" class="card tab-panel physics-element" role="region" aria-labelledby="more-tab"
+                style="display:none">
                 <h1>More</h1>
                 <p></p>
                 <div class="tabs" aria-hidden="false">
                     <a class="btn physics-element" href="prxy.html" role="button" aria-label="Go to WARP page">WARP</a>
-                    <a class="btn physics-element" onclick="startChaos()" role="button" aria-label="Start physics">physics</a>
+                    <a class="btn physics-element" onclick="startChaos()" role="button"
+                        aria-label="Start physics">physics</a>
                 </div>
             </section>
 
@@ -222,6 +226,7 @@
                     aria-label="Go to Dashboard login page">Login</a>
             </section>
         </main>
+        <canvas id="matrixCanvas"></canvas>
     </div>
 
     <script>
@@ -303,7 +308,7 @@
             // const projectPanel = document.getElementById('project');
             const targetPanel = document.getElementById(targetId);
             if (targetPanel) {
-                if(targetId == 'projects'){
+                if (targetId == 'projects') {
                     console.log("(codachro.me) attempting to switch display to grid");
                     targetPanel.style.display = 'grid';
                 } else {
@@ -868,6 +873,41 @@
             engine = null;
             runner = null;
         }
+
+        //matrix page
+
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()";
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const rainDrops = Array.from({ length: columns }).fill(1);
+
+        function draw() {
+            // Semi-transparent black rectangle creates the trailing effect
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = '#0F0'; // Matrix green
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < rainDrops.length; i++) {
+                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
+                // Randomly reset the drop to the top after it crosses the screen
+                if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    rainDrops[i] = 0;
+                }
+                rainDrops[i]++;
+            }
+        }
+
+        setInterval(draw, 30); // Adjust speed
 
     </script>
     <!-- Cloudflare Pages Analytics -->
