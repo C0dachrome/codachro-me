@@ -348,16 +348,23 @@ body.login-page .form-card {
     max-width: 900px;
 }
 
-/* --- HEADER/TITLE SECTION --- */
-.project-header {
-    text-align: center;
-    margin-bottom: 40px;
+
+.small-project-page-content {
     justify-content: space-between;
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr 1fr;
     /* Title grows, Home stays right */
     align-items: center;
     gap: 4px 12px;
+}
+
+
+/* --- HEADER/TITLE SECTION --- */
+.project-header {
+    text-align: center;
+    float: center;
+    margin-bottom: 40px;
+    
 }
 
 .project-header h1 {
@@ -840,10 +847,10 @@ body.login-page .form-card {
     align-content: center;
 }
 
-/* 
 .small-card {
-
-} */
+    background: green;
+    float: center;
+}
 
 #matrixCanvas {
     display: block;
