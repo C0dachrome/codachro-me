@@ -637,7 +637,7 @@ body.login-page .form-card {
     max-width: none;
     /*width: 100%;*/
     margin: 10px;
-    background: rgba(42, 45, 49, 0.3);
+    background: rgba(42, 45, 49, 0.7);
     padding: 32px;
     border-radius: 16px;
     border: 1px solid rgb(1 192 121);
