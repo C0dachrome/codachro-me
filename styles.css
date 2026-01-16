@@ -49,7 +49,7 @@ body {
     width: 100%;
     height: 48px;
     z-index: 1000;
-    background: linear-gradient(#3e473f, #303330);
+    background: linear-gradient(#252525, #2c352c);
     padding: 8px 16px;
     border-bottom: 1px solid rgb(1 215 135 / 22%);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10);
