@@ -8,10 +8,10 @@
     --surface: #24262b;
     --surface-soft: #2e3036;
     --outline: rgba(255, 255, 255, 0.08);
-    --accent: #01ff80;
-    --accent-glow: rgb(0, 209, 87);
+    --accent: #d1d1d1;
+    --accent-glow: rgb(14 14 14);
     --radius: 10px;
-    --shadow: 0 10px 28px #008e4c;
+    --shadow: 0 10px 28px #000a4d;
     --text: #bdc2d5;
     --text-soft: #a6a7ab;
     --text-faint: #7f8187;
@@ -49,7 +49,7 @@ body {
     width: 100%;
     height: 48px;
     z-index: 1000;
-    background: linear-gradient(#252525, #2c352c);
+    background: linear-gradient(#252525, #2f2f2f);
     padding: 8px 16px;
     border-bottom: 1px solid rgb(1 215 135 / 22%);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10);
@@ -73,16 +73,16 @@ body {
     background: transparent;
     border: none;
     border-radius: 10px;
-    box-shadow: -4px 4px 20px 1px #008e59;
+    box-shadow: -4px 4px 20px 1px #161616;
     text-decoration: none;
     transition: transform 300ms;
 }
 
 .brand:hover {
-    transform: translateY(-2px);
+    transform: scale(105%);
     box-shadow:
-        -4px 4px 20px 1px #003722;
-    transition: transform 0.2s ease !important;
+        -4px 4px 20px 1px #000000;
+    transition: transform 0.5s cubic-bezier(0, 0.65, 0.04, 1.13) !important;
 }
 
 /* --- NAVIGATION LIST --- */
@@ -99,19 +99,18 @@ body {
     border-radius: 6px;
     text-decoration: none;
     background: linear-gradient(#2d2f34, #232529);
-    border: 1px solid rgb(1 222 140 / 23%);
-    box-shadow: inset 0 1px 0 rgba(0, 142, 89, 1);
+    border: 1px solid rgb(207 207 207 / 23%);
     transition: 0.15s ease;
 }
 
 .nav-list a:hover {
     color: var(--accent);
-    border-color: rgba(120, 180, 255, 0.25);
+    border-color: rgb(175 193 216 / 25%);
     box-shadow: 0 0 12px var(--accent-glow);
 }
 
 .nav-list a.active {
-    background: linear-gradient(#01ffa1, #028152);
+    background: linear-gradient(#01ffa1, #015536);
     color: #0f141a;
     border: 1px solid rgba(255, 255, 255, 0.4);
 }
@@ -502,8 +501,8 @@ body.login-page .form-card {
 }
 
 .commit-list li:hover {
-    box-shadow: 0 2px 12px rgb(103 180 151);
-    transform: scale(97%);
+    box-shadow: 0 4px 12px rgb(0 0 0);
+    transform: scale(105%);
     transition-property: transform, box-shadow;
     transition-duration: 0.5s;
     transition-timing-function: cubic-bezier(0, 1.07, 0.19, 1);
@@ -647,7 +646,7 @@ body.login-page .form-card {
     background: rgba(42, 45, 49, 0.7);
     padding: 32px;
     border-radius: 16px;
-    border: 1px solid rgb(1 192 121);
+    border: 1px solid rgb(1 255 161);
     color: #eee;
     box-shadow: 0 0px 12px rgba(0, 0, 0, 0.3);
 
