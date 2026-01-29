@@ -632,7 +632,7 @@ body.login-page .form-card {
     justify-content: center;
     /* centers main card horizontally */
     position: relative;
-    padding: 40px 20px;
+    padding: 10px 20px;
 }
 
 #content-container {
@@ -642,14 +642,13 @@ body.login-page .form-card {
 .card.tab-panel {
     max-width: none;
     /*width: 100%;*/
-    margin: 10px;
+    margin: 20px;
     background: rgba(42, 45, 49, 0.7);
     padding: 32px;
     border-radius: 16px;
     border: 1px solid rgb(1 255 161);
     color: #eee;
     box-shadow: 0 0px 12px rgba(0, 0, 0, 0.3);
-
 }
 
 #home {
@@ -658,6 +657,7 @@ body.login-page .form-card {
 
 /* Commit sidebar floating outside the card (Home page specific) */
 .home-commits {
+    margin-top: 20px;
     width: 280px;
     background: rgba(30, 30, 30, 0.9);
     padding: 20px;
