@@ -8,10 +8,12 @@
     --surface: #24262b;
     --surface-soft: #2e3036;
     --outline: rgba(255, 255, 255, 0.08);
-    --accent: #d1d1d1;
-    --accent-glow: rgb(14 14 14);
+    --accent: #42494e; /* soft steel blue */
+    --accent-dark: #1c2225; /* deeper blue/grey */
+    --accent-rgb: 127,166,198;
+    --accent-glow: rgba(22,36,54,0.45);
     --radius: 10px;
-    --shadow: 0 10px 28px #000a4d;
+    --shadow: 0 8px 20px rgba(12,22,34,0.45);
     --text: #bdc2d5;
     --text-soft: #a6a7ab;
     --text-faint: #7f8187;
@@ -51,7 +53,7 @@ body {
     z-index: 1000;
     background: linear-gradient(#252525, #2f2f2f);
     padding: 8px 16px;
-    border-bottom: 1px solid rgb(1 215 135 / 22%);
+    border-bottom: 1px solid rgba(var(--accent-rgb), 0.12);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10);
     display: flex;
     align-items: center;
@@ -110,9 +112,10 @@ body {
 }
 
 .nav-list a.active {
-    background: linear-gradient(#01ffa1, #015536);
-    color: #0f141a;
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: linear-gradient(var(--accent), var(--accent-dark));
+    color: #e9eef6;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 0 10px var(--accent-glow);
 }
 
 /* --- UTILITY IDs (non-standard elements) --- */
@@ -184,12 +187,12 @@ body.login-page .form-card {
 
 .input-field:focus {
     outline: none;
-    border-color: #01ffa1;
-    box-shadow: 0 0 0 3px rgba(0, 142, 89, 1);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
 }
 
 .input-field:hover {
-    border-color: #01ffa1;
+    border-color: var(--accent);
 }
 
 .input-field::placeholder {
@@ -237,8 +240,8 @@ body.login-page .form-card {
     border-radius: var(--radius);
     border: 1px solid rgba(255, 255, 255, 0.05);
     box-shadow:
-        inset 0 1px 0 rgba(0, 142, 89, 1),
-        0 4px 12px rgba(0, 142, 89, 1);
+        inset 0 1px 0 rgba(var(--accent-rgb), 0.06),
+        0 4px 12px rgba(var(--accent-rgb), 0.06);
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -603,7 +606,7 @@ body.login-page .form-card {
 }
 
 .commit-details a:visited {
-    background-color: rgba(1, 255, 161, 0.4);
+    background-color: rgba(var(--accent-rgb), 0.12);
 }
 
 
@@ -646,7 +649,7 @@ body.login-page .form-card {
     background: rgba(42, 45, 49, 0.7);
     padding: 32px;
     border-radius: 16px;
-    border: 1px solid rgb(1 255 161);
+    border: 1px solid rgba(var(--accent-rgb), 0.14);
     color: #eee;
     box-shadow: 0 0px 12px rgba(0, 0, 0, 0.3);
 }
@@ -712,12 +715,12 @@ body.login-page .form-card {
 
 /* --- BUTTONS --- */
 .btn {
-    background: linear-gradient(#01ffa1, #006b44);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: linear-gradient(var(--accent), var(--accent-dark));
+    border: 1px solid rgba(255, 255, 255, 0.06);
     box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.4),
-        0 6px 16px rgba(20, 60, 120, 0.25);
-    color: #0f141a;
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 6px 16px rgba(12,22,34,0.30);
+    color: #e9eef6;
     margin: 10px;
     padding: 10px 16px;
     border-radius: 8px;
@@ -730,7 +733,7 @@ body.login-page .form-card {
     transform: translateY(-2px);
     box-shadow:
         inset 0 1px 0 rgba(255, 255, 255, 0.5),
-        0 8px 20px var(--accent-glow);
+        0 8px 18px rgba(12,22,34,0.32);
 }
 
 .btn.secondary {
@@ -847,7 +850,7 @@ body.login-page .form-card {
 }
 
 .small-card {
-    background: green;
+    background: var(--surface-soft);
     float: center;
 }
 
