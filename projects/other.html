@@ -4,36 +4,135 @@
 <head>
     <meta charset="UTF-8">
     <meta-name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>CM-R1 – Projects</title>
-        <link rel="stylesheet" href="../styles.css?v=5">
-        <link rel="icon" type="image/x-icon" href="images/favicon.ico">
-
+    <title>Other Projects</title>
+    <link rel="stylesheet" href="../styles.css?v=5">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
 </head>
 
 <body class="project-body">
 
     <div class="project-layout">
-        <main class="small-project-page-content">
+        <main class="project-main">
             <header class="project-header">
                 <h1>Other Projects</h1>
                 <ul class="nav-list" role="menubar">
                     <li role="none"><a href="/" role="menuitem" class="tab-link">Home</a></li>
                 </ul>
-                <p class="project-subtitle">My other projects that aren't quite big enough for their own page.
-                </p>
+                <p class="project-subtitle">A gallery of smaller projects — click any card to expand.</p>
             </header>
 
+            <section class="project-meta" aria-hidden="true">
+                <div>
+                    <h3>Gallery</h3>
+                    <p>Cards scale responsively; add/remove as needed.</p>
+                </div>
+                <div>
+                    <h3>Tip</h3>
+                    <p>Click a card to open it, press ESC or click outside to close.</p>
+                </div>
+            </section>
 
-            <section class="small-card">
-                yapyapyap
+            <section class="cards-section">
+                <div class="cards-grid project-container">
+                    <!-- Example cards: duplicate or add new .project-card blocks to scale -->
+                    <article class="project-card card" tabindex="0" data-full="<p>This is a longer description for Project Alpha. Add more details, links, or embeds here.</p>">
+                        <div class="card-media">
+                            <img src="../images/placeholder-1.jpg" alt="Project Alpha image">
+                        </div>
+                        <h3 class="card-title">Project Alpha</h3>
+                        <p class="card-excerpt">A short summary of Project Alpha to entice the viewer.</p>
+                    </article>
 
-                <section class="small-images">
-                    <img src="">
-                </section>
+                    <article class="project-card card" tabindex="0" data-full="<p>Project Beta full description. You can include technical notes, links, or additional sections.</p>">
+                        <div class="card-media">
+                            <img src="../images/placeholder-2.jpg" alt="Project Beta image">
+                        </div>
+                        <h3 class="card-title">Project Beta</h3>
+                        <p class="card-excerpt">Small project exploring an idea worth documenting.</p>
+                    </article>
+
+                    <article class="project-card card" tabindex="0" data-full="<p>Project Gamma detailed write-up goes here.</p>">
+                        <div class="card-media">
+                            <img src="../images/placeholder-3.jpg" alt="Project Gamma image">
+                        </div>
+                        <h3 class="card-title">Project Gamma</h3>
+                        <p class="card-excerpt">A one-line teaser for Gamma.</p>
+                    </article>
+
+                    <!-- Add more cards as needed -->
+                </div>
             </section>
 
         </main>
     </div>
+
+    <!-- Overlay used for backdrop blur when a card is expanded -->
+    <div class="overlay" id="cardOverlay" aria-hidden="true"></div>
+
+    <script>
+        (function(){
+            const overlay = document.getElementById('cardOverlay');
+
+            function openCard(card){
+                const rect = card.getBoundingClientRect();
+                const clone = card.cloneNode(true);
+                clone.classList.add('expanded-card');
+                // Insert full content if provided
+                const fullHtml = card.dataset.full || '<p>No additional details.</p>';
+                const contentEl = document.createElement('div');
+                contentEl.className = 'expanded-content';
+                contentEl.innerHTML = `
+                    <button class="expanded-close" aria-label="Close">✕</button>
+                    <div class="expanded-inner">
+                        <div class="expanded-media">${clone.querySelector('.card-media')?.innerHTML || ''}</div>
+                        <h2>${clone.querySelector('.card-title')?.textContent || ''}</h2>
+                        ${fullHtml}
+                    </div>
+                `;
+                // replace cloned excerpt with full content
+                clone.innerHTML = '';
+                clone.appendChild(contentEl);
+
+                // set initial positioning matching the clicked card
+                clone.style.position = 'fixed';
+                clone.style.left = rect.left + 'px';
+                clone.style.top = rect.top + 'px';
+                clone.style.width = rect.width + 'px';
+                clone.style.height = rect.height + 'px';
+                clone.style.margin = 0;
+                clone.style.zIndex = 1100;
+                document.body.appendChild(clone);
+
+                // show overlay
+                overlay.classList.add('is-active');
+
+                // allow a frame for layout then animate to center
+                requestAnimationFrame(()=>{
+                    clone.classList.add('is-open');
+                });
+
+                function close(){
+                    clone.classList.remove('is-open');
+                    overlay.classList.remove('is-active');
+                    clone.addEventListener('transitionend', ()=> clone.remove(), {once:true});
+                    document.removeEventListener('keydown', onKey);
+                }
+
+                function onKey(e){ if(e.key === 'Escape') close(); }
+
+                overlay.addEventListener('click', close, {once:true});
+                clone.querySelector('.expanded-close')?.addEventListener('click', close);
+                document.addEventListener('keydown', onKey);
+            }
+
+            // attach listeners
+            document.querySelectorAll('.project-card').forEach(card=>{
+                card.addEventListener('click', ()=> openCard(card));
+                card.addEventListener('keydown', (e)=>{ if(e.key === 'Enter' || e.key === ' ') openCard(card); });
+            });
+        })();
+    </script>
+
 </body>
 
 </html>

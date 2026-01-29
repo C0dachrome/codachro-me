@@ -859,3 +859,109 @@ body.login-page .form-card {
     left: 0;
     z-index: -1;
 }
+
+/* --------------------------------------------------------------------------
+   Cards Grid & Expanded Card (projects/other.html)
+   -------------------------------------------------------------------------- */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    align-items: start;
+    max-width: 1200px;
+    margin: 0 auto 60px;
+}
+
+.project-card {
+    cursor: pointer;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 14px;
+    border-radius: 12px;
+    transition: transform 260ms cubic-bezier(.2,.9,.2,1), box-shadow 260ms;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.08));
+    border: 1px solid rgba(255,255,255,0.04);
+}
+
+.project-card:hover,
+.project-card:focus {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 20px 60px rgba(2,6,23,0.6);
+}
+
+.project-card .card-media img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+}
+
+.card-title {
+    margin: 0;
+    font-size: 1.05rem;
+    color: #f4f6f8;
+}
+
+.card-excerpt {
+    margin: 0;
+    color: var(--text-soft);
+    font-size: 0.95rem;
+}
+
+/* Expanded (cloned) card that animates to the center */
+.expanded-card {
+    border-radius: 12px;
+    transition: left 420ms cubic-bezier(.2,.9,.2,1), top 420ms cubic-bezier(.2,.9,.2,1), width 420ms, height 420ms, transform 420ms;
+    background: linear-gradient(#232426, #101214);
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+    overflow: hidden;
+    padding: 18px;
+    color: var(--text);
+    will-change: left, top, width, height, transform;
+}
+
+.expanded-card.is-open {
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: min(1000px, 92vw) !important;
+    height: auto !important;
+    max-height: 92vh;
+    padding: 24px;
+}
+
+.expanded-content {
+    position: relative;
+}
+
+.expanded-close {
+    position: absolute;
+    right: 12px;
+    top: 10px;
+    background: rgba(0,0,0,0.35);
+    border: 1px solid rgba(255,255,255,0.06);
+    color: var(--text);
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.expanded-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+.expanded-media img { width: 100%; height: auto; border-radius: 8px; display:block; }
+
+/* Slightly stronger overlay blur when active to focus on the card */
+.overlay.is-active { backdrop-filter: blur(8px) brightness(0.6); -webkit-backdrop-filter: blur(8px) brightness(0.6); }
+
+@media (min-width: 900px) {
+    .expanded-inner { grid-template-columns: 360px 1fr; }
+}
