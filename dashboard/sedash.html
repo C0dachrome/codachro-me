@@ -40,7 +40,8 @@
 <body>
 
     <header class="topbar" role="banner">
-        <img src="/images/LOGOWITHBG2.png" class="brand" id="logo" aria-label="codachrome home">
+        <img src="/images/finLogo.png" class="brand" id="logo" aria-label="codachrome home">
+        <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
 
         <nav role="navigation" aria-label="Main navigation">
             <ul class="nav-list" role="menubar">
@@ -50,6 +51,17 @@
             </ul>
         </nav>
     </header>
+    <script>
+        (function(){
+            const toggle = document.querySelector('.nav-toggle');
+            if(!toggle) return;
+            toggle.addEventListener('click', ()=>{
+                const expanded = toggle.getAttribute('aria-expanded') === 'true';
+                toggle.setAttribute('aria-expanded', String(!expanded));
+                document.body.classList.toggle('nav-open', !expanded);
+            });
+        })();
+    </script>
 
     <div id="header">
         <h2>Spectrum Eye Dashboard</h2>

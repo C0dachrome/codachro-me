@@ -20,7 +20,6 @@
             font-family: 'Ubuntu', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
         }
 
         .glass #content-container {
@@ -128,6 +127,7 @@
 
         <header class="topbar" role="banner">
             <img src="/images/finLogo.png" class="brand" id="logo" aria-label="codachrome home">
+            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
             <nav role="navigation" aria-label="Main navigation">
                 <ul class="nav-list" role="menubar">
                     <li role="none"><a href="#" role="menuitem" class="tab-link active physics-element"
@@ -226,7 +226,7 @@
                     aria-label="Go to Dashboard login page">Login</a>
             </section>
         </main>
-        <canvas id="matrixCanvas"></canvas>
+        <!-- matrix background removed; using subtle radial gradient instead -->
     </div>
 
     <script>
@@ -876,40 +876,21 @@
 
         //matrix page
 
-        const canvas = document.getElementById('matrixCanvas');
-        const ctx = canvas.getContext('2d');
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const alphabet = " リミヒニチシキイルユムフヌツスクウレメヘネテセケエヲロヨモホノトソコ";
-        const fontSize = 10;
-        const columns = canvas.width / fontSize;
-        const rainDrops = Array.from({ length: columns }).fill(1);
-
-        function draw() {
-            // Semi-transparent black rectangle creates the trailing effect
-            ctx.fillStyle = 'rgba(27,29,33,0.1)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = '#2f6b8a'; // matrix color (dark blue/grey)
-            ctx.font = fontSize + 'px monospace';
-
-            for (let i = 0; i < rainDrops.length; i++) {
-                const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-                ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
-
-                // Randomly reset the drop to the top after it crosses the screen
-                if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    rainDrops[i] = 0;
-                }
-                rainDrops[i]++;
-            }
-        }
-
-        setInterval(draw, 50); // Adjust speed
+        // matrix animation removed — background handled in CSS for a subtle effect
 
     </script>
+    <script>
+        (function(){
+            const toggle = document.querySelector('.nav-toggle');
+            if(!toggle) return;
+            toggle.addEventListener('click', ()=>{
+                const expanded = toggle.getAttribute('aria-expanded') === 'true';
+                toggle.setAttribute('aria-expanded', String(!expanded));
+                document.body.classList.toggle('nav-open', !expanded);
+            });
+        })();
+    </script>
+
     <!-- Cloudflare Pages Analytics -->
     <script defer src='https://static.cloudflareinsights.com/beacon.min.js'
         data-cf-beacon='{"token": "b32778ec57ab4f57b5eb5f81d19744a1"}'></script><!-- Cloudflare Pages Analytics -->

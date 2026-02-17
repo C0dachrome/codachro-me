@@ -29,7 +29,8 @@ body {
 
 body {
     transition: none;
-    background: radial-gradient(circle at 50% 0%, #1d1e1e 0%, #3a3d42 70%);
+    /* subtle radial background, low contrast */
+    background: radial-gradient(circle at 50% 10%, rgba(255,255,255,0.01), rgba(0,0,0,0.06));
     background-attachment: fixed;
     /* keeps background fixed on scroll */
     color: var(--text);
@@ -1229,9 +1230,9 @@ body.login-page .form-card {
         padding: 12px;
     }
 
-    /* Canvas adjustments */
+    /* Canvas adjustments (hidden) */
     #matrixCanvas {
-        display: block;
+        display: none;
     }
 }
 
@@ -1589,12 +1590,7 @@ body.login-page .form-card {
 }
 
 #matrixCanvas {
-    display: block;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: -1;
+    display: none;
 }
 
 /* --------------------------------------------------------------------------
@@ -2054,4 +2050,17 @@ body.login-page .form-card {
     .due-date {
         font-size: 12px;
     }
+}
+
+/* Mobile nav dropdown: global rules appended here so they override earlier rules when needed */
+@media (max-width: 800px) {
+    .nav-toggle { display: block; }
+    .nav-toggle { display: block; background: transparent; border: none; color: var(--text); font-size: 1.6rem; padding: 8px 12px; cursor: pointer; margin-left: 8px; }
+    /* Hide native nav-list and show when body has .nav-open */
+    .nav-list { display: none !important; }
+    body.nav-open .nav-list { display: flex !important; position: absolute; left: 0; right: 0; top: 48px; background: linear-gradient(#1e2326, #16181a); padding: 12px 0; margin: 0; flex-direction: column; align-items: center; gap: 8px; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; box-shadow: 0 8px 20px rgba(12,22,34,0.45); z-index: 1001; }
+    .nav-list li { width: 100%; display: flex; justify-content: center; }
+    .nav-list a { display: block; width: 100%; max-width: 360px; text-align: center; padding: 10px 16px; border-radius: 8px; margin: 0 10px; }
+    .topbar { padding: 6px 10px; }
+    .brand { margin-right: 6px; }
 }
