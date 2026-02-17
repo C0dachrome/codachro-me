@@ -56,68 +56,215 @@
 
     <div id="container">
         <section id="main">
-            <div id="panel-system" class="panel active card">
-                <div id="status-container">
-                    <span id="status-indicator">...checking status...</span>
-                </div>
+            <div id="panel-todo" class="panel active card">
+                <h3>My To-Do List</h3>
+                
+                <form id="todo-form">
+                    <div class="form-group">
+                        <label for="todo-title">Task Title:</label>
+                        <input type="text" id="todo-title" placeholder="Enter task title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="todo-description">Description:</label>
+                        <textarea id="todo-description" placeholder="Add task details (optional)"></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="todo-priority">Priority:</label>
+                            <select id="todo-priority">
+                                <option value="low">Low</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="high">High</option>
+                                <option value="critical">Critical</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="todo-due">Due Date:</label>
+                            <input type="date" id="todo-due">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">Add Task</button>
+                </form>
+
+                <div id="todo-list"></div>
 
                 <script>
-                    const statusSlug = 'vast-oil'; // Replace with your actual slug
-                    const apiEndpoint = `api.openstatus.dev{statusSlug}`;
-                    const statusIndicator = document.getElementById('status-indicator');
-                    const statusContainer = document.getElementById('status-container');
+                    const todoForm = document.getElementById('todo-form');
+                    const todoTitle = document.getElementById('todo-title');
+                    const todoDescription = document.getElementById('todo-description');
+                    const todoPriority = document.getElementById('todo-priority');
+                    const todoDue = document.getElementById('todo-due');
+                    const todoList = document.getElementById('todo-list');
+                    const STORAGE_KEY = 'codachrome_todos';
+                    let isLoading = false;
 
-                    async function fetchStatus() {
+                    // Load todos from server
+                    async function loadTodos() {
                         try {
-                            const response = await fetch(apiEndpoint);
-                            if (!response.ok) {
-                                throw new Error('Network response was not ok');
+                            const response = await fetch('/todos', { 
+                                method: 'GET',
+                                credentials: 'same-origin'
+                            });
+                            
+                            if (response.ok) {
+                                return await response.json();
+                            } else if (response.status === 401) {
+                                // Redirect to login if unauthorized
+                                window.location.href = '/dashboard/login.html';
+                                return [];
+                            } else {
+                                // Fallback to localStorage if server fails
+                                console.warn('Server todos failed, using local storage');
+                                const stored = localStorage.getItem(STORAGE_KEY);
+                                return stored ? JSON.parse(stored) : [];
                             }
-                            const data = await response.json();
-                            // The data object will contain a 'status' field (e.g., 'OPERATIONAL', 'DEGRADED', 'INCIDENT')
-
-                            updateStatusUI(data.status);
-
                         } catch (error) {
-                            console.error("Failed to fetch status:", error);
-                            updateStatusUI('ERROR');
+                            console.error('Error loading todos:', error);
+                            // Fallback to localStorage on network error
+                            const stored = localStorage.getItem(STORAGE_KEY);
+                            return stored ? JSON.parse(stored) : [];
                         }
                     }
 
-                    function updateStatusUI(status) {
-                        let message = "Status Unknown";
-                        let color = "#aaa";
-
-                        switch (status) {
-                            case 'OPERATIONAL':
-                                message = "All Systems Operational";
-                                color = "#4A6B86"; // muted blue/teal for operational
-                                break;
-                            case 'DEGRADED':
-                                message = "Some Systems Degraded";
-                                color = "#F59E0B"; // Amber
-                                break;
-                            case 'INCIDENT':
-                                message = "Major Incident Detected";
-                                color = "#EF4444"; // Red
-                                break;
-                            case 'MAINTENANCE':
-                                message = "Under Scheduled Maintenance";
-                                color = "#3B82F6"; // Blue
-                                break;
-                            default:
-                                message = "Status check failed";
+                    // Save todos to server
+                    async function saveTodos(todos) {
+                        try {
+                            const response = await fetch('/todos', {
+                                method: 'POST',
+                                credentials: 'same-origin',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(todos)
+                            });
+                            
+                            if (!response.ok) {
+                                throw new Error('Failed to save todos');
+                            }
+                            
+                            // Also save to localStorage as backup
+                            localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+                        } catch (error) {
+                            console.error('Error saving todos to server:', error);
+                            // Still save to localStorage as fallback
+                            localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
                         }
-
-                        statusIndicator.textContent = message;
-                        statusContainer.style.color = color;
                     }
 
-                    fetchStatus();
-                    // Optionally, set an interval to refresh the status periodically
-                    // setInterval(fetchStatus, 60000); // Refresh every minute
+                    // Render todo list
+                    async function renderTodos() {
+                        if (isLoading) return;
+                        isLoading = true;
+                        
+                        const todos = await loadTodos();
+                        todoList.innerHTML = '';
+
+                        if (todos.length === 0) {
+                            todoList.innerHTML = '<p class="empty-state">No tasks yet. Add one to get started!</p>';
+                            isLoading = false;
+                            return;
+                        }
+
+                        // Sort by priority and due date
+                        const priorityOrder = { critical: 0, high: 1, medium: 2, low: 3 };
+                        todos.sort((a, b) => {
+                            if (a.completed !== b.completed) return a.completed ? 1 : -1;
+                            if (priorityOrder[a.priority] !== priorityOrder[b.priority]) {
+                                return priorityOrder[a.priority] - priorityOrder[b.priority];
+                            }
+                            return new Date(a.due || '9999-12-31') - new Date(b.due || '9999-12-31');
+                        });
+
+                        todos.forEach((todo, index) => {
+                            const todoItem = document.createElement('div');
+                            todoItem.className = `todo-item priority-${todo.priority} ${todo.completed ? 'completed' : ''}`;
+                            
+                            const dueDate = todo.due ? new Date(todo.due).toLocaleDateString() : 'No due date';
+                            const isOverdue = todo.due && new Date(todo.due) < new Date() && !todo.completed ? 'overdue' : '';
+
+                            todoItem.innerHTML = `
+                                <div class="todo-content">
+                                    <input type="checkbox" class="todo-checkbox" ${todo.completed ? 'checked' : ''} onchange="toggleTodo(${index})">
+                                    <div class="todo-text">
+                                        <h4>${escapeHtml(todo.title)}</h4>
+                                        ${todo.description ? `<p>${escapeHtml(todo.description)}</p>` : ''}
+                                        <div class="todo-meta">
+                                            <span class="priority-badge">${todo.priority}</span>
+                                            <span class="due-date ${isOverdue}">${dueDate}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="btn-delete" onclick="deleteTodo(${index})">×</button>
+                            `;
+                            todoList.appendChild(todoItem);
+                        });
+                        
+                        isLoading = false;
+                    }
+
+                    // Add new todo
+                    async function addTodo(e) {
+                        e.preventDefault();
+
+                        const todos = await loadTodos();
+                        const newTodo = {
+                            id: Date.now(),
+                            title: todoTitle.value,
+                            description: todoDescription.value,
+                            priority: todoPriority.value,
+                            due: todoDue.value,
+                            completed: false,
+                            created: new Date().toISOString()
+                        };
+
+                        todos.push(newTodo);
+                        await saveTodos(todos);
+
+                        // Reset form
+                        todoForm.reset();
+                        todoPriority.value = 'medium';
+                        
+                        renderTodos();
+                    }
+
+                    // Toggle todo completion
+                    async function toggleTodo(index) {
+                        const todos = await loadTodos();
+                        todos[index].completed = !todos[index].completed;
+                        await saveTodos(todos);
+                        renderTodos();
+                    }
+
+                    // Delete todo
+                    async function deleteTodo(index) {
+                        if (confirm('Delete this task?')) {
+                            const todos = await loadTodos();
+                            todos.splice(index, 1);
+                            await saveTodos(todos);
+                            renderTodos();
+                        }
+                    }
+
+                    // Utility function to escape HTML
+                    function escapeHtml(text) {
+                        const map = {
+                            '&': '&amp;',
+                            '<': '&lt;',
+                            '>': '&gt;',
+                            '"': '&quot;',
+                            "'": '&#039;'
+                        };
+                        return text.replace(/[&<>"']/g, m => map[m]);
+                    }
+
+                    // Initialize
+                    todoForm.addEventListener('submit', addTodo);
+                    renderTodos();
                 </script>
-
             </div>
         </section>
     </div>
