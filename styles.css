@@ -974,6 +974,7 @@ body.login-page .form-card {
    ========================================================================== */
 
 #main {
+    grid-column: 1 / -1;
     display: flex;
     justify-content: center;
     width: 100%;
