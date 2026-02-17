@@ -272,12 +272,16 @@
     <script>
         (function(){
             const toggle = document.querySelector('.nav-toggle');
+            const nav = document.querySelector('.nav-list');
             if(!toggle) return;
-            toggle.addEventListener('click', ()=>{
-                const expanded = toggle.getAttribute('aria-expanded') === 'true';
-                toggle.setAttribute('aria-expanded', String(!expanded));
-                document.body.classList.toggle('nav-open', !expanded);
-            });
+
+            function closeNav(){ toggle.setAttribute('aria-expanded','false'); document.body.classList.remove('nav-open'); }
+            function openNav(){ toggle.setAttribute('aria-expanded','true'); document.body.classList.add('nav-open'); }
+
+            toggle.addEventListener('click', ()=>{ const expanded = toggle.getAttribute('aria-expanded') === 'true'; if(expanded) closeNav(); else openNav(); });
+            window.addEventListener('resize', ()=>{ if(window.innerWidth > 800) closeNav(); });
+            if(nav) nav.querySelectorAll('a').forEach(a=> a.addEventListener('click', closeNav));
+            document.addEventListener('click', (e)=>{ if(!document.body.classList.contains('nav-open')) return; if(toggle.contains(e.target) || (nav && nav.contains(e.target))) return; closeNav(); });
         })();
     </script>
 </body>

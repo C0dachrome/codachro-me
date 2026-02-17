@@ -29,8 +29,8 @@ body {
 
 body {
     transition: none;
-    /* subtle radial background, low contrast */
-    background: radial-gradient(circle at 50% 10%, rgba(255,255,255,0.01), rgba(0,0,0,0.06));
+    /* darker subtle radial background to match site theme */
+    background: radial-gradient(circle at 50% 10%, #151617 0%, #0f1113 65%);
     background-attachment: fixed;
     /* keeps background fixed on scroll */
     color: var(--text);
@@ -38,6 +38,9 @@ body {
     padding-top: 48px;
     /* space for top bar */
 }
+
+/* hide nav-toggle by default; shown only on small screens via media query */
+.nav-toggle { display: none; }
 
 /* ==========================================================================
    1. TOP BAR & NAVIGATION
@@ -1547,6 +1550,12 @@ body.login-page .form-card {
 /* --- OLD BREAKPOINT (Kept for backward compatibility) --- */
 @media (max-width: 800px) {
     /* Already covered above */
+}
+
+/* Desktop override: ensure nav is inline and toggle hidden on larger screens */
+@media (min-width: 801px) {
+    .nav-toggle { display: none !important; }
+    .nav-list { position: static !important; display: flex !important; flex-direction: row !important; gap: 10px; background: transparent !important; box-shadow: none !important; }
 }
 
 /* PROJECT CARD */
