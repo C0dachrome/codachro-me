@@ -34,7 +34,7 @@ body {
     /* keeps background fixed on scroll */
     color: var(--text);
     font-size: 15px;
-    padding-top: 80px;
+    padding-top: 48px;
     /* space for top bar */
 }
 
@@ -91,19 +91,20 @@ body {
 /* --- NAVIGATION LIST --- */
 .nav-list {
     display: flex;
-    gap: 10px;
+    gap: 6px;
     list-style: none;
-    margin-right: 20px;
+    margin-right: 0;
 }
 
 .nav-list a {
     color: var(--text-soft);
-    padding: 8px 12px;
+    padding: 6px 10px;
     border-radius: 6px;
     text-decoration: none;
     background: linear-gradient(#2d2f34, #232529);
     border: 1px solid rgb(207 207 207 / 23%);
     transition: 0.15s ease;
+    font-size: 13px;
 }
 
 .nav-list a:hover {
@@ -222,9 +223,9 @@ body.login-page .form-card {
 #container {
     display: grid;
     grid-template-columns: 240px 1fr;
-    gap: 22px;
-    margin-top: 20px;
-    padding: 0 20px;
+    gap: 16px;
+    margin-top: 12px;
+    padding: 0 14px;
 }
 
 #header {
@@ -232,7 +233,8 @@ body.login-page .form-card {
     justify-content: space-between;
     /* pushes connection to the right */
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
+    padding: 0 2px;
 }
 
 /* --- SIDEBAR --- */
@@ -996,6 +998,11 @@ body.login-page .form-card {
         font-size: 14px;
     }
 
+    /* Project pages */
+    .project-body {
+        padding: 20px 12px;
+    }
+
     .topbar {
         height: 48px;
         padding: 5px 8px;
@@ -1210,6 +1217,18 @@ body.login-page .form-card {
         padding: 14px;
     }
 
+    /* Cards grid */
+    .cards-grid {
+        gap: 14px;
+        padding: 14px;
+        margin: 0 auto 40px;
+    }
+
+    .project-card {
+        gap: 10px;
+        padding: 12px;
+    }
+
     /* Canvas adjustments */
     #matrixCanvas {
         display: block;
@@ -1225,6 +1244,11 @@ body.login-page .form-card {
     body {
         padding-top: 48px;
         font-size: 13px;
+    }
+
+    /* Project pages */
+    .project-body {
+        padding: 18px 10px;
     }
 
     .topbar {
@@ -1428,10 +1452,27 @@ body.login-page .form-card {
     .image-grid img {
         border-radius: 10px;
     }
+
+    /* Cards grid */
+    .cards-grid {
+        gap: 12px;
+        padding: 12px;
+        margin: 0 auto 30px;
+    }
+
+    .project-card {
+        gap: 10px;
+        padding: 10px;
+    }
 }
 
 /* --- EXTRA SMALL (360px and below) --- */
 @media (max-width: 360px) {
+    /* Project pages */
+    .project-body {
+        padding: 16px 8px;
+    }
+
     .topbar {
         height: 44px;
         padding: 3px 6px;
@@ -1483,6 +1524,18 @@ body.login-page .form-card {
     .due-date {
         font-size: 9px;
         padding: 2px 6px;
+    }
+
+    /* Cards grid */
+    .cards-grid {
+        gap: 10px;
+        padding: 10px;
+        margin: 0 auto 25px;
+    }
+
+    .project-card {
+        gap: 8px;
+        padding: 10px;
     }
 
     .project-header h1 {
@@ -1742,7 +1795,7 @@ body.login-page .form-card {
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    gap: 12px;
 }
 
 .btn-primary {
@@ -1760,6 +1813,10 @@ body.login-page .form-card {
     letter-spacing: 0.5px;
     margin: 0;
     width: 100%;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn-primary:hover {
@@ -1778,13 +1835,13 @@ body.login-page .form-card {
 #todo-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
 }
 
 .empty-state {
     text-align: center;
     color: var(--text-faint);
-    padding: 40px 20px;
+    padding: 30px 20px;
     font-style: italic;
 }
 
@@ -1794,11 +1851,11 @@ body.login-page .form-card {
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-left: 4px solid rgba(127, 166, 198, 0.3);
     border-radius: 10px;
-    padding: 16px;
+    padding: 12px;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    gap: 16px;
+    gap: 10px;
     transition: all 0.2s ease;
     backdrop-filter: blur(8px);
 }
@@ -1855,7 +1912,7 @@ body.login-page .form-card {
 /* --- TODO CONTENT --- */
 .todo-content {
     display: flex;
-    gap: 14px;
+    gap: 10px;
     flex: 1;
     min-width: 0;
 }
@@ -1883,7 +1940,7 @@ body.login-page .form-card {
 /* --- TODO META --- */
 .todo-meta {
     display: flex;
-    gap: 12px;
+    gap: 8px;
     flex-wrap: wrap;
     align-items: center;
     margin-top: 10px;
