@@ -58,6 +58,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 10px;
 }
 
 #content-container {
@@ -151,8 +152,9 @@ body.login-page .form-card {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    max-width: 360px;
+    max-width: 380px;
     width: 100%;
+    padding: 30px 20px;
 }
 
 #loginForm {
@@ -636,6 +638,7 @@ body.login-page .form-card {
     /* centers main card horizontally */
     position: relative;
     padding: 10px 20px;
+    gap: 20px;
 }
 
 #content-container {
@@ -674,6 +677,7 @@ body.login-page .form-card {
     align-self: flex-start;
     /* keeps it at top of layout */
     box-shadow: 0 8px 24px rgba(0, 0, 0, 1);
+    min-width: 280px;
 }
 
 /* NOTE: .commit-list, .commit-message, .commit-meta are styled in section 4 */
@@ -800,18 +804,695 @@ body.login-page .form-card {
    7. RESPONSIVE DESIGN
    ========================================================================== */
 
-@media (max-width: 800px) {
-
-    /* Dashboard and Project Layout stacking */
-    #container {
-        grid-template-columns: 1fr;
+/* --- TABLET BREAKPOINT (768px and below) --- */
+@media (max-width: 768px) {
+    body {
+        padding-top: 50px;
+        font-size: 15px;
     }
 
-    /* Dashboard Sidebar (Horizontal scrollable) */
+    #header {
+        padding: 0 12px;
+        margin-bottom: 12px;
+    }
+
+    #header h2 {
+        font-size: 1.4rem;
+        margin: 8px 0;
+    }
+
+    /* Dashboard container */
+    #container {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding: 0 12px;
+        margin-top: 10px;
+    }
+
+    /* Sidebar becomes horizontal scrollable or stacked */
     #sidebar {
         flex-direction: row;
         overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+        padding: 8px;
+        gap: 6px;
     }
+
+    #sidebar button {
+        flex-shrink: 0;
+        min-width: 110px;
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    /* Navigation list stacking */
+    .nav-list {
+        gap: 4px;
+        flex-wrap: wrap;
+    }
+
+    .nav-list a {
+        padding: 5px 9px;
+        font-size: 12px;
+    }
+
+    /* Home layout */
+    .home-layout {
+        flex-direction: column;
+        padding: 8px 12px;
+        gap: 12px;
+    }
+
+    .home-commits {
+        position: static;
+        width: 100%;
+        margin: 0;
+        margin-left: 0;
+        padding: 14px;
+        min-width: unset;
+        top: auto;
+        align-self: auto;
+    }
+    
+    .home-commits h2 {
+        font-size: 1.2rem;
+        margin-bottom: 12px;
+    }
+
+    /* Card spacing */
+    .card {
+        padding: 14px;
+        border-radius: 10px;
+    }
+
+    .panel {
+        padding: 14px;
+        border-radius: 10px;
+    }
+    
+    #panel-todo h3 {
+        font-size: 1.5rem;
+        margin-bottom: 18px;
+    }
+    
+    #todo-form {
+        padding: 16px;
+        margin-bottom: 20px;
+    }
+    
+    .form-group {
+        margin-bottom: 12px;
+    }
+    
+    .form-group label {
+        font-size: 13px;
+        margin-bottom: 6px;
+    }
+    
+    #todo-form input,
+    #todo-form textarea,
+    #todo-form select {
+        padding: 9px 11px;
+        font-size: 15px;
+    }
+    
+    #todo-form textarea {
+        min-height: 70px;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+    
+    .btn-primary {
+        padding: 10px 16px;
+        font-size: 13px;
+        min-height: 40px;
+    }
+
+    /* Project layout */
+    .project-layout {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .commit-sidebar {
+        order: 2;
+        width: 100%;
+    }
+
+    .project-main {
+        order: 1;
+        max-width: 100%;
+    }
+
+    /* Project header */
+    .project-header h1 {
+        font-size: 2rem;
+    }
+
+    .project-header .nav-list {
+        grid-column: 1 / span 2;
+        justify-content: flex-start;
+    }
+
+    /* Project meta grid */
+    .project-meta {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    /* Image grid */
+    .image-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .image-grid img {
+        width: 100%;
+        height: auto;
+    }
+
+    /* Project card hover scales adjusted */
+    .project-container .project-card:hover {
+        transform: translate3d(0px, 20%, 0.1em) scale(1.15);
+    }
+
+    .project-card:hover,
+    .project-card:focus {
+        transform: translateY(-4px) scale(1.01);
+    }
+}
+
+/* --- MOBILE BREAKPOINT (600px and below) --- */
+@media (max-width: 600px) {
+    :root {
+        font-size: 14px;
+    }
+
+    body {
+        padding-top: 50px;
+        font-size: 14px;
+    }
+
+    .topbar {
+        height: 48px;
+        padding: 5px 8px;
+        gap: 8px;
+    }
+
+    .topbar h1,
+    #header h2 {
+        font-size: 1.25rem;
+        margin: 0;
+    }
+
+    .brand {
+        width: 35px;
+        font-size: 0.9rem;
+    }
+
+    .nav-list {
+        gap: 2px;
+    }
+
+    .nav-list a {
+        padding: 4px 7px;
+        font-size: 11px;
+    }
+
+    /* Home layout */
+    .home-layout {
+        flex-direction: column;
+        padding: 6px 10px;
+        gap: 10px;
+    }
+
+    .home-commits {
+        position: static;
+        width: 100%;
+        margin: 0;
+        margin-left: 0;
+        padding: 12px;
+        min-width: unset;
+    }
+
+    .home-commits h2 {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+    }
+
+    /* Form layouts */
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .form-group {
+        margin-bottom: 11px;
+    }
+
+    .form-group label {
+        font-size: 11.5px;
+        margin-bottom: 4px;
+    }
+
+    #todo-form input,
+    #todo-form textarea,
+    #todo-form select,
+    .input-field {
+        padding: 8px 10px;
+        font-size: 15px;
+    }
+
+    #todo-form textarea {
+        min-height: 65px;
+    }
+
+    .btn-primary {
+        padding: 9px 14px;
+        font-size: 12.5px;
+        min-height: 38px;
+    }
+
+    /* Todo items */
+    .todo-item {
+        padding: 10px;
+        gap: 8px;
+        flex-direction: column;
+    }
+
+    .todo-content {
+        gap: 10px;
+    }
+
+    .todo-text h4 {
+        font-size: 0.95rem;
+        margin-bottom: 4px;
+    }
+
+    .todo-text p {
+        font-size: 12px;
+        margin-bottom: 6px;
+        line-height: 1.4;
+    }
+
+    .todo-meta {
+        gap: 6px;
+        margin-top: 6px;
+    }
+
+    .priority-badge,
+    .due-date {
+        font-size: 10px;
+        padding: 3px 7px;
+    }
+
+    .btn-delete {
+        width: 26px;
+        height: 26px;
+        font-size: 22px;
+    }
+
+    .empty-state {
+        padding: 25px 12px;
+        font-size: 12px;
+    }
+
+    /* Project headers */
+    .project-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .project-header .project-subtitle {
+        font-size: 12px;
+        margin: 6px auto 0;
+    }
+
+    .project-meta {
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .project-meta h3 {
+        font-size: 13px;
+        margin-bottom: 4px;
+    }
+
+    .project-meta p {
+        font-size: 11px;
+    }
+
+    .btn-primary,
+    .btn {
+        padding: 8px 12px;
+        font-size: 12px;
+        margin: 6px;
+        min-height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Commit list */
+    .commit-list {
+        font-size: 11px;
+    }
+
+    .commit-list li {
+        padding: 6px 0;
+        font-size: 11px;
+    }
+
+    /* Cards */
+    .card,
+    .panel {
+        padding: 12px;
+        border-radius: 8px;
+    }
+
+    .card h3,
+    .panel h3 {
+        font-size: 1.3rem;
+        margin-bottom: 14px;
+    }
+
+    /* Contact links */
+    .contact-links {
+        gap: 12px;
+        margin-top: 12px;
+    }
+
+    .contact-links .contact-icon {
+        width: 26px;
+        height: 26px;
+    }
+
+    /* Project container */
+    .project-container {
+        margin-left: 0;
+    }
+
+    .project-container .project-card {
+        width: 100%;
+        height: auto;
+        margin: 8px 0;
+        padding: 15px;
+    }
+
+    .project-container .project-card:hover {
+        transform: translate3d(0px, -5%, 0.1em) scale(1.05);
+    }
+
+    /* Tab panels */
+    .tab-panel {
+        padding: 14px;
+    }
+
+    /* Canvas adjustments */
+    #matrixCanvas {
+        display: block;
+    }
+}
+
+/* --- SMALL MOBILE BREAKPOINT (480px and below) --- */
+@media (max-width: 480px) {
+    :root {
+        font-size: 13px;
+    }
+
+    body {
+        padding-top: 48px;
+        font-size: 13px;
+    }
+
+    .topbar {
+        height: 48px;
+        padding: 4px 8px;
+        gap: 8px;
+    }
+
+    .brand {
+        width: 32px;
+        font-size: 0.85rem;
+    }
+
+    #header,
+    #header h2 {
+        font-size: 1.2rem;
+        padding: 0 10px;
+        margin-bottom: 12px;
+    }
+
+    .nav-list {
+        gap: 2px;
+        margin-right: 10px;
+    }
+
+    .nav-list a {
+        padding: 4px 6px;
+        font-size: 11px;
+    }
+
+    .tab-link {
+        font-size: 11px;
+        padding: 4px 6px;
+    }
+
+    /* Form elements */
+    .form-group {
+        margin-bottom: 12px;
+    }
+
+    .form-group label {
+        font-size: 11px;
+        margin-bottom: 5px;
+    }
+
+    #todo-form input,
+    #todo-form textarea,
+    #todo-form select,
+    .input-field {
+        padding: 9px 10px;
+        font-size: 15px;
+    }
+
+    #todo-form textarea {
+        min-height: 65px;
+    }
+
+    .btn-primary,
+    .btn {
+        padding: 9px 16px;
+        font-size: 13px;
+        margin: 6px 0;
+    }
+
+    /* Todo list */
+    .todo-item {
+        padding: 10px;
+        gap: 8px;
+        border-left-width: 3px;
+    }
+
+    .todo-text h4 {
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+    }
+
+    .todo-text p {
+        font-size: 12px;
+        margin-bottom: 7px;
+    }
+
+    .todo-meta {
+        gap: 6px;
+        margin-top: 7px;
+        flex-wrap: wrap;
+    }
+
+    .priority-badge,
+    .due-date {
+        font-size: 10px;
+        padding: 3px 7px;
+    }
+
+    .btn-delete {
+        width: 26px;
+        height: 26px;
+        font-size: 22px;
+    }
+
+    .todo-checkbox {
+        width: 18px;
+        height: 18px;
+    }
+
+    /* Project layouts */
+    .project-header h1 {
+        font-size: 1.4rem;
+    }
+
+    .project-subtitle {
+        font-size: 12px;
+    }
+
+    .project-meta {
+        padding: 12px;
+        gap: 10px;
+    }
+
+    .project-meta h3 {
+        font-size: 13px;
+    }
+
+    .project-meta p {
+        font-size: 11px;
+    }
+
+    .project-content {
+        margin: 30px 0;
+    }
+
+    .project-content h2 {
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+    }
+
+    .project-content p {
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+    /* Cards and panels */
+    .card,
+    .panel {
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+
+    .card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 16px;
+    }
+
+    /* Commit sidebar */
+    .commit-sidebar h2 {
+        font-size: 1.2rem;
+        margin-bottom: 12px;
+    }
+
+    .commit-list li {
+        padding: 6px 0;
+        font-size: 11px;
+    }
+
+    /* Contact icons */
+    .contact-links {
+        gap: 12px;
+        margin-top: 12px;
+    }
+
+    .contact-links .contact-icon {
+        width: 26px;
+        height: 26px;
+    }
+
+    /* Project cards */
+    .project-container .project-card {
+        width: 100%;
+        height: auto;
+        margin: 8px 0;
+        padding: 12px;
+        font-size: 12px;
+    }
+
+    .random_object {
+        width: 80px;
+        height: 80px;
+    }
+
+    /* Input field specific */
+    input.input-field {
+        margin-top: 4px;
+        padding: 9px 10px;
+    }
+
+    /* Gallery images */
+    .image-grid {
+        gap: 12px;
+    }
+
+    .image-grid img {
+        border-radius: 10px;
+    }
+}
+
+/* --- EXTRA SMALL (360px and below) --- */
+@media (max-width: 360px) {
+    .topbar {
+        height: 44px;
+        padding: 3px 6px;
+    }
+
+    .brand {
+        width: 30px;
+        font-size: 0.8rem;
+    }
+
+    .nav-list {
+        gap: 1px;
+        margin-right: 5px;
+    }
+
+    .nav-list a {
+        padding: 3px 5px;
+        font-size: 10px;
+    }
+
+    #header h2 {
+        font-size: 1.1rem;
+        padding: 0 8px;
+    }
+
+    .btn-primary,
+    .btn {
+        width: 100%;
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+
+    .form-group label {
+        font-size: 10px;
+    }
+
+    #todo-form input,
+    #todo-form textarea,
+    #todo-form select {
+        font-size: 14px;
+        padding: 8px 9px;
+    }
+
+    .todo-item {
+        padding: 8px;
+    }
+
+    .priority-badge,
+    .due-date {
+        font-size: 9px;
+        padding: 2px 6px;
+    }
+
+    .project-header h1 {
+        font-size: 1.2rem;
+    }
+}
+
+/* --- OLD BREAKPOINT (Kept for backward compatibility) --- */
+@media (max-width: 800px) {
+    /* Already covered above */
 }
 
 /* PROJECT CARD */
@@ -998,14 +1679,14 @@ body.login-page .form-card {
     background: linear-gradient(135deg, rgba(66, 73, 78, 0.15), rgba(28, 34, 37, 0.15));
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 12px;
-    padding: 24px;
-    margin-bottom: 32px;
+    padding: 20px;
+    margin-bottom: 24px;
     backdrop-filter: blur(10px);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .form-group {
-    margin-bottom: 18px;
+    margin-bottom: 14px;
 }
 
 .form-group label {
