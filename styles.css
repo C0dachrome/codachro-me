@@ -1779,7 +1779,7 @@ body.login-page .form-card {
     max-width: 1200px !important;
     margin: 0 auto !important;
     padding: 40px 20px !important;
-    display: flex !important;
+    display: flex;
     flex-direction: column;
     align-items: center;
 }
