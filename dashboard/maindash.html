@@ -180,7 +180,7 @@
                             return new Date(a.due || '9999-12-31') - new Date(b.due || '9999-12-31');
                         });
 
-                        todos.forEach((todo, index) => {
+                        todos.forEach((todo) => {
                             const todoItem = document.createElement('div');
                             todoItem.className = `todo-item priority-${todo.priority} ${todo.completed ? 'completed' : ''}`;
                             
@@ -189,7 +189,7 @@
 
                             todoItem.innerHTML = `
                                 <div class="todo-content">
-                                    <input type="checkbox" class="todo-checkbox" ${todo.completed ? 'checked' : ''} onchange="toggleTodo(${index})">
+                                    <input type="checkbox" class="todo-checkbox" ${todo.completed ? 'checked' : ''} onchange="toggleTodo(${todo.id})">
                                     <div class="todo-text">
                                         <h4>${escapeHtml(todo.title)}</h4>
                                         ${todo.description ? `<p>${escapeHtml(todo.description)}</p>` : ''}
@@ -199,7 +199,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button class="btn-delete" onclick="deleteTodo(${index})">×</button>
+                                <button class="btn-delete" onclick="deleteTodo(${todo.id})">×</button>
                             `;
                             todoList.appendChild(todoItem);
                         });
@@ -233,20 +233,26 @@
                     }
 
                     // Toggle todo completion
-                    async function toggleTodo(index) {
+                    async function toggleTodo(id) {
                         const todos = await loadTodos();
-                        todos[index].completed = !todos[index].completed;
-                        await saveTodos(todos);
-                        renderTodos();
+                        const todo = todos.find(t => t.id === id);
+                        if (todo) {
+                            todo.completed = !todo.completed;
+                            await saveTodos(todos);
+                            renderTodos();
+                        }
                     }
 
                     // Delete todo
-                    async function deleteTodo(index) {
+                    async function deleteTodo(id) {
                         if (confirm('Delete this task?')) {
                             const todos = await loadTodos();
-                            todos.splice(index, 1);
-                            await saveTodos(todos);
-                            renderTodos();
+                            const index = todos.findIndex(t => t.id === id);
+                            if (index !== -1) {
+                                todos.splice(index, 1);
+                                await saveTodos(todos);
+                                renderTodos();
+                            }
                         }
                     }
 
