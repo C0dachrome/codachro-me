@@ -98,6 +98,11 @@ body {
     gap: 6px;
     list-style: none;
     margin-right: 0;
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow-x: auto;
+    max-width: 100vw;
+    scrollbar-width: thin;
 }
 
 .nav-list a {
@@ -1462,6 +1467,10 @@ body.login-page .form-card {
         gap: 12px;
         padding: 12px;
         margin: 0 auto 30px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: stretch;
     }
 
     .project-card {
@@ -1566,22 +1575,32 @@ body.login-page .form-card {
     background: rgba(255, 255, 255, 0.1);
     padding: 20px;
     margin: 10px;
-    float: left;
-    width: 180px;
-    height: 140px;
-    align-content: center;
+    width: 220px;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.10);
     transition: 0.3s ease;
 }
 
 .project-container .project-card:hover {
-    transform: translate3d(0px, 30%, 0.1em) scale(1.3);
-
+    transform: scale(1.08);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18);
 }
 
+
 .project-container {
-    align-content: center;
-    margin-left: 60px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    margin: 0 auto 40px auto;
+    max-width: 1200px;
+    padding: 0 10px;
 }
 
 .random_object {
