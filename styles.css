@@ -99,7 +99,7 @@ body {
     display: flex;
     gap: 6px;
     list-style: none;
-    margin-right: 0;
+    margin-right: 25px;
     flex-wrap: wrap;
     justify-content: center;
     overflow-x: auto;
