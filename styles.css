@@ -1704,7 +1704,7 @@ body.login-page .form-card {
 /* Desktop override: ensure nav is inline and toggle hidden on larger screens */
 @media (min-width: 801px) {
     .nav-toggle { display: none !important; }
-    .nav-list { position: static !important; display: flex !important; flex-direction: row !important; gap: 10px; background: transparent !important; box-shadow: none !important; }
+    .nav-list {position: static !important;display: flex !important;flex-direction: row !important;gap: 10px;margin-right: 25px;box-shadow: none !important;}
 }
 
 /* PROJECT CARD */
