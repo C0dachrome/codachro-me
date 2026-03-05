@@ -15,8 +15,11 @@
     <header class="topbar">
         <img src="/images/finLogo.png" class="brand" id="logo" aria-label="codachrome home">
         <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
-        <nav aria-label="top nav">
-            <a class="muted-link" href="/">Home</a>
+        <nav role="navigation" aria-label="Main navigation">
+                <ul class="nav-list" role="menubar">
+                    <li role="none"><a href="#" role="menuitem" class="tab-link active physics-element"
+                            data-target="home" data-link-type="nav">Home</a></li>
+                </ul>
         </nav>
     </header>
 
