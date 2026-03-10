@@ -114,12 +114,31 @@
                 // show overlay
                 overlay.classList.add('is-active');
 
-                // allow a frame for layout then animate to center
+                // after layout, calculate target size and animate
                 requestAnimationFrame(()=>{
+                    // determine final width (caps at 92vw or 1000px)
+                    const finalW = Math.min(1000, window.innerWidth * 0.92);
+                    // temporarily let the clone size itself to content to measure
+                    clone.style.height = 'auto';
+                    clone.style.width = finalW + 'px';
+                    const measuredH = clone.offsetHeight;
+                    // clamp to viewport height
+                    const finalH = Math.min(measuredH, window.innerHeight * 0.92);
+                    // revert to original dimensions so transition can run
+                    clone.style.height = rect.height + 'px';
+                    // add class to reposition to center
                     clone.classList.add('is-open');
+                    // then trigger size change
+                    requestAnimationFrame(() => {
+                        clone.style.height = finalH + 'px';
+                    });
                 });
 
                 function close(){
+                    // before removing the class, set inline dimensions back to original
+                    clone.style.width = rect.width + 'px';
+                    clone.style.height = rect.height + 'px';
+                    // trigger the class removal which will animate position & size
                     clone.classList.remove('is-open');
                     overlay.classList.remove('is-active');
                     clone.addEventListener('transitionend', ()=> clone.remove(), {once:true});
