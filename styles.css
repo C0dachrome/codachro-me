@@ -655,6 +655,12 @@ body.login-page .form-card {
    5. HOME PAGE (index.html)
    ========================================================================== */
 
+.hopper {
+    border-radius: 100;
+    margin: 20px;
+
+}
+
 .home-layout {
     display: flex;
     justify-content: center;
