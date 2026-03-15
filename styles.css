@@ -661,6 +661,18 @@ body.login-page .form-card {
 
 }
 
+.hopper-card {
+    max-width: none;
+    margin: 20px auto;
+    background: rgba(42, 45, 49, 0.7);
+    padding: 32px;
+    border-radius: 16px;
+    border: 1px solid rgba(var(--accent-rgb), 0.14);
+    color: #eee;
+    box-shadow: 0 0px 12px rgba(0, 0, 0, 0.3);
+}
+
+
 .home-layout {
     display: flex;
     justify-content: center;
