@@ -671,6 +671,7 @@ body.login-page .form-card {
     border: 1px solid rgba(var(--accent-rgb), 0.14);
     color: #eee;
     box-shadow: 0 0px 12px rgba(0, 0, 0, 0.3);
+    grid-column: 1 / -1;
 }
 
 
