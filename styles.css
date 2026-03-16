@@ -662,11 +662,12 @@ body.login-page .form-card {
     width: 100%;
 }
 
-.hopper-card {
+#hopper-card {
     max-width: none;
     margin: 20px auto;
     background: rgba(42, 45, 49, 0.7);
     padding: 0px;
+    display: none;
     border-radius: 16px;
     border: 1px solid rgba(var(--accent-rgb), 0.14);
     color: #eee;

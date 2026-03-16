@@ -180,7 +180,8 @@
             <section id="projects" class="card tab-panel physics-element project-container" role="region"
                 aria-labelledby="projects-tab" style="display:none">
                 <h1>Featured & Complete Projects</h1>
-                <p style="opacity: 0.8; margin-bottom: 24px;">A collection of my major projects. Click any project to explore the full details.</p>
+                <p style="opacity: 0.8; margin-bottom: 24px;">A collection of my major projects. Click any project to
+                    explore the full details.</p>
                 <div class="project-grid physics-element">
                     <div>
                         <a class="project-card physics-element" href="/projects/cmr1.html">
@@ -203,9 +204,9 @@
                 </div>
             </section>
 
-                <aside class="hopper-card">
-                    <img src="/images/poop.jpg" class="hopper">
-                </aside>
+            <aside class="hopper-card" id="hopper-card">
+                <img src="/images/poop.jpg" class="hopper">
+            </aside>
 
             <section id="more" class="card tab-panel physics-element" role="region" aria-labelledby="more-tab"
                 style="display:none">
@@ -359,6 +360,19 @@
                 const firstLink = document.querySelector('.tab-link');
                 if (firstLink) {
                     firstLink.click(); // Programmatically click the first link to set its state
+                }
+            }
+        });
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'h' || event.key === 'H') {
+                const hopper = document.getElementById('hopper-card');
+
+                // Toggle the display property
+                if (hopper.style.display === 'none') {
+                    hopper.style.display = 'block';
+                } else {
+                    hopper.style.display = 'none';
                 }
             }
         });
@@ -874,36 +888,36 @@
 
     </script>
     <script>
-        (function(){
+        (function () {
             const toggle = document.querySelector('.nav-toggle');
             const nav = document.querySelector('.nav-list');
-            if(!toggle) return;
+            if (!toggle) return;
 
-            function closeNav(){
-                toggle.setAttribute('aria-expanded','false');
+            function closeNav() {
+                toggle.setAttribute('aria-expanded', 'false');
                 document.body.classList.remove('nav-open');
             }
 
-            function openNav(){
-                toggle.setAttribute('aria-expanded','true');
+            function openNav() {
+                toggle.setAttribute('aria-expanded', 'true');
                 document.body.classList.add('nav-open');
             }
 
-            toggle.addEventListener('click', (e)=>{
+            toggle.addEventListener('click', (e) => {
                 const expanded = toggle.getAttribute('aria-expanded') === 'true';
-                if(expanded) closeNav(); else openNav();
+                if (expanded) closeNav(); else openNav();
             });
 
             // Close when resizing to desktop
-            window.addEventListener('resize', ()=>{ if(window.innerWidth > 800) closeNav(); });
+            window.addEventListener('resize', () => { if (window.innerWidth > 800) closeNav(); });
 
             // Close when clicking a nav link (good for single-page navigation)
-            if(nav) nav.querySelectorAll('a').forEach(a=> a.addEventListener('click', closeNav));
+            if (nav) nav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeNav));
 
             // Click outside to close
-            document.addEventListener('click', (e)=>{
-                if(!document.body.classList.contains('nav-open')) return;
-                if(toggle.contains(e.target) || (nav && nav.contains(e.target))) return;
+            document.addEventListener('click', (e) => {
+                if (!document.body.classList.contains('nav-open')) return;
+                if (toggle.contains(e.target) || (nav && nav.contains(e.target))) return;
                 closeNav();
             });
         })();
