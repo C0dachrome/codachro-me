@@ -656,9 +656,10 @@ body.login-page .form-card {
    ========================================================================== */
 
 #boxOfSecrets {
-    background-color: #000000;
+    background-color: #1b1b1b;
     color: white;
     margin: 10px;
+    padding: 10px;
     border-radius: 10px;
 }
 
