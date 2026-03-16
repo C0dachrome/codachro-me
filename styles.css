@@ -655,6 +655,13 @@ body.login-page .form-card {
    5. HOME PAGE (index.html)
    ========================================================================== */
 
+#boxOfSecrets {
+    background-color: #000000;
+    color: white;
+    margin: 10px;
+    border-radius: 10px;
+}
+
 .hopper {
     border-radius: 16px;
     margin: none;

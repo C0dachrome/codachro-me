@@ -155,6 +155,7 @@
                         IoT and RF, and hobby electrical and computer engineering. It is also just a place for me to
                         experiment and have fun. Feel free to check things out!</p>
                     <br><br>
+                    <input type="text" id="boxOfSecrets" placeholder="Text box of secrets...">
                     <h2>Contact</h2>
                     <div class="contact-links">
                         <a href="https://github.com/C0dachrome">
@@ -190,12 +191,6 @@
                         </a>
                     </div>
                     <div>
-                        <a class="project-card physics-element" href="prxy.html">
-                            <h2>WARP</h2>
-                            <p>Web Authentication & Rewrite Proxy</p>
-                        </a>
-                    </div>
-                    <div>
                         <a class="project-card physics-element" href="/projects/other.html">
                             <h2>Gallery</h2>
                             <p>Smaller projects, prototypes & experiments</p>
@@ -213,7 +208,6 @@
                 <h1>More</h1>
                 <p></p>
                 <div class="tabs" aria-hidden="false">
-                    <a class="btn physics-element" href="prxy.html" role="button" aria-label="Go to WARP page">WARP</a>
                     <a class="btn physics-element" onclick="startChaos()" role="button"
                         aria-label="Start physics">physics</a>
                 </div>
@@ -231,6 +225,9 @@
     </div>
 
     <script>
+
+        const boxOfSecrets = document.getElementById('boxOfSecrets');
+
         const logo = document.getElementById('logo');
         const overlay = document.getElementById('gameOverlay');
         const countdownEl = document.getElementById('countdown');
@@ -274,6 +271,15 @@
         const logoRectInitialX = 14; // Matches CSS left: 14px
 
         // --- Event Listeners ---
+
+        boxOfSecrets.addEventListener('keydown', function(event) {
+            if(event.key === 'Enter'){
+                if(boxOfSecrets.value.toLowerCase() === "warp"){
+                    window.location.href = "prxy.html"
+                } // else if (boxOfSecrets.value.toLowerCase() === ''){}
+                // Space to add more secrets in the future 
+            }
+        });
 
         // Unified Logo Click Listener (Handles Start and Reset)
         logo.addEventListener('click', (e) => {
