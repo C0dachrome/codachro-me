@@ -48,7 +48,9 @@ boxOfSecrets.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
         if (boxOfSecrets.value.toLowerCase() === "warp") {
             window.location.href = "prxy.html"
-        } // else if (boxOfSecrets.value.toLowerCase() === ''){}
+        }  else if (boxOfSecrets.value.toLowerCase() === "ultrasound"){
+            window.location.href = "ultrasound.html"
+        }
         // Space to add more secrets in the future 
     }
 });
