@@ -54,20 +54,31 @@
                     a lot goes into making a radar system, especially FMCW instead of CW or pulsed. <br><br>
                     I have spent months researching and learning about radar systems, signal processing, antennas, and RF electronics.
                     <br><br>
-                    I will detail the current plan as of 12/2/25 using bullet points:
+                    I will detail the current plan as of 3/25/26 using bullet points (this also acts as a checklist for me):
                     <ul>
-                        <li>ADALM-PLUTO SDR operating monostatically on the 23cm Ham band.</li>
-                        <li>Electrically rotatable Yagi or Parabolic transmission antenna.</li>
-                        <li>The system will use one of 3 antenna configurations:
+                        <li>ADALM-PLUTO Rev. D SDR operating on the 5.8GHz ISM band. <br> 
+                            Both Rev. C and D actually have 2 RX and TX, only accessible via a U.Fl connector on the PCB. <br>
+                            They also have both a Clock In and Clock Out, once again via U.Fl connectors. <br>
+                            One of my Plutos is modified, and has U.Fl to SMA pigtails connected to the TX2, RX2, and Clock In ports. <br>
+                            I will need to account for the phase shift implicit in having different lengths between the actual input and SMA on RX1 and RX2 <br>
+                            To do that, I will have to write some sort of script to test and determine the offset that needs to be hard-coded into the final program. <br>
+                            Should be able to set up a strong reflector in the center of the radar's FOV, and use the phase difference between signals captured from RX1 and RX2 to <br> 
+                            calculate delta Phi, the phase difference. Then just multiply every sample from RX2 by e^-j(deltaPhi). Apparently j is the electrical engineers version of i, sqrt(-1). <br>
+                            (IMPORTANT) - I need to look more into IQ sampling and how phase works with that.<br>
+                        </li>
+                        <li>2 RX antennas, 1 TX. RX antennas spaced 1/2 wavelength apart, TX at least 15 cm away from the pair. I have not yet determined whether or not it should be in plane or offset from the RX antennas.</li>
+                        <li>Possibly a Raspberry Pi for most of the calculations and processing. I will just use my laptop during testing.</li>
+                        <li>Any other RF filtering and amplification that may be required. As of now, I know that I need: 
                             <ul>
-                                <li>The same antenna for TX and RX configured monostatically, using an RF circulator (I am unsure if this is possible, I will do more research)</li>
-                                <li>Seperate TX and RX antennas configured bistatically (this will cause difficulty on the 23 cm band as I will have to space the TX and RX antennas quite far apart)</li>
+                                <li>
+                                    Attenuator and DC blocker between GPSDO and Pluto, as the Pluto Clock In prefers 1.8v and the Leo Bodnar Mini outputs 3.3v. I don't yet know how big of a deal that 1.5 volt difference is, but to be safe I will ensure I get at least an attenuator. 
+                                </li>
+                                <li>
+
+                                </li>
                             </ul>
                         </li>
-                        <li>Raspberry Pi for most of the calculations and processing.</li>
-                        <li>Likely an ESP32 or similar to control the rotating antenna, communicating over USB with the Pi.</li>
-                        <li>Any other RF filtering and amplification that may be required.</li>
-                        <li>A 3d printed or wooden housing for portability and protection of sensitive parts.</li>
+                        <li>Likely an aluminum housing to shield parts, I'll need to find the right size to avoid trapping "standing" waves.</li>
                     </ul>
                     <br>
                 </p>
