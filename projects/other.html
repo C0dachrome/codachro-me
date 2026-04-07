@@ -41,33 +41,7 @@
                         <h3 class="card-title">Spectrum Eye</h3>
                         <p class="card-excerpt">Portable RF analysis device with remote access via Cloudflare tunnel</p>
                     </article>
-                    <!-- change something so i can commit again-->
-                    <!-- Example cards: duplicate or add new .project-card blocks to scale -->
-                    <article class="project-card card" tabindex="0" data-full="<p>This is a longer description for Project Alpha. Add more details, links, or embeds here.</p>">
-                        <div class="card-media">
-                            <img src="../images/placeholder-1.jpg" alt="Project Alpha image">
-                        </div>
-                        <h3 class="card-title">Example</h3>
-                        <p class="card-excerpt">example project</p>
-                    </article>
-
-                    <article class="project-card card" tabindex="0" data-full="<p>Project Beta full description. You can include technical notes, links, or additional sections.</p>">
-                        <div class="card-media">
-                            <img src="../images/placeholder-2.jpg" alt="Project Beta image">
-                        </div>
-                        <h3 class="card-title">Example</h3>
-                        <p class="card-excerpt">example roject.</p>
-                    </article>
-
-                    <article class="project-card card" tabindex="0" data-full="<p>Project Gamma detailed write-up goes here.</p>">
-                        <div class="card-media">
-                            <img src="../images/placeholder-3.jpg" alt="Project Gamma image">
-                        </div>
-                        <h3 class="card-title">example</h3>
-                        <p class="card-excerpt">example project</p>
-                    </article>
-
-                    <!-- Add more cards as needed -->
+                    <!-- Add more cards by duplicating the .project-card block above and updating the title, excerpt, image, and data-full content. -->
                 </div>
             </section>
 
@@ -89,10 +63,12 @@
                 const fullHtml = card.dataset.full || '<p>No additional details.</p>';
                 const contentEl = document.createElement('div');
                 contentEl.className = 'expanded-content';
+                const originalMedia = clone.querySelector('.card-media')?.innerHTML || '';
+                const mediaHtml = /<img[\s>]/i.test(fullHtml) ? '' : `<div class="expanded-media">${originalMedia}</div>`;
                 contentEl.innerHTML = `
                     <button class="expanded-close" aria-label="Close">✕</button>
                     <div class="expanded-inner">
-                        <div class="expanded-media">${clone.querySelector('.card-media')?.innerHTML || ''}</div>
+                        ${mediaHtml}
                         <h2>${clone.querySelector('.card-title')?.textContent || ''}</h2>
                         ${fullHtml}
                     </div>
