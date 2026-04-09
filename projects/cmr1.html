@@ -79,6 +79,15 @@
                             </ul>
                         </li>
                         <li>Likely an aluminum housing to shield parts, I'll need to find the right size to avoid trapping "standing" waves.</li>
+                        <li>much of the signal processing will be handled on the Pluto to avoid the USB 2.0 bottleneck. I will detail that here: 
+                            <ul>
+                                <li>Cyclic buffers to store chirp and free usb bandwidth.</li>
+                                <li>Should be able to perform an FFT on the raw data, then just send the FFT bins to my computer over the USB. I'll probably just use a Python library like Electron for visualization. </li>
+                                <li>cross compiling C or C++ to the pluto, preferably C++ if it will work. Ive already messed with sending C binaries to the pluto and that worked well enough, Id just rather use C++.</li>
+                                <li>When I did that before, I sent over .so files (shared libraries) for me to be able to use the libraries. Having asked an LLM about any ways to get around that (it was a pretty big issue, made quick changes difficult), it suggested "static linking" which apparently can link the libraries straight into the executable. </li>
+                                <li>also, I will have to store and run the executable from the Pluto's RAM, as it has almost half a gig of memory as opposed to only 32 mb of storage. It's obviously also just fast. I'll just use the /tmp directory.</li>
+                            </ul>
+                        </li>
                     </ul>
                     <br>
                 </p>
