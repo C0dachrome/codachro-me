@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>CM-R1 – Projects</title>
         <link rel="stylesheet" href="../styles.css?v=5">
-        <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 
 </head>
 
@@ -50,47 +50,39 @@
 
             <section class="project-content">
                 <h2>Overview</h2>
-                <p>My most ambitious project yet, the CM-R1 is my idea for a compact, portable, and accurate directional FMCW radar.  Many details are still muddy, because as I have learned, 
-                    a lot goes into making a radar system, especially FMCW instead of CW or pulsed. <br><br>
-                    I have spent months researching and learning about radar systems, signal processing, antennas, and RF electronics.
-                    <br><br>
-                    I will detail the current plan as of 3/25/26 using bullet points (this also acts as a checklist for me):
-                    <ul>
-                        <li>ADALM-PLUTO Rev. D SDR operating on the 5.8GHz ISM band. <br> 
-                            Both Rev. C and D actually have 2 RX and TX, only accessible via a U.Fl connector on the PCB. <br>
-                            They also have both a Clock In and Clock Out, once again via U.Fl connectors. <br>
-                            One of my Plutos is modified, and has U.Fl to SMA pigtails connected to the TX2, RX2, and Clock In ports. <br>
-                            I will need to account for the phase shift implicit in having different lengths between the actual input and SMA on RX1 and RX2 <br>
-                            To do that, I will have to write some sort of script to test and determine the offset that needs to be hard-coded into the final program. <br>
-                            Should be able to set up a strong reflector in the center of the radar's FOV, and use the phase difference between signals captured from RX1 and RX2 to <br> 
-                            calculate delta Phi, the phase difference. Then just multiply every sample from RX2 by e^-j(deltaPhi). Apparently j is the electrical engineers version of i, sqrt(-1). <br>
-                            (IMPORTANT) - I need to look more into IQ sampling and how phase works with that.<br>
-                        </li>
-                        <li>2 RX antennas, 1 TX. RX antennas spaced 1/2 wavelength apart, TX at least 15 cm away from the pair. I have not yet determined whether or not it should be in plane or offset from the RX antennas.</li>
-                        <li>Possibly a Raspberry Pi for most of the calculations and processing. I will just use my laptop during testing.</li>
-                        <li>Any other RF filtering and amplification that may be required. As of now, I know that I need: 
-                            <ul>
-                                <li>
-                                    Attenuator and DC blocker between GPSDO and Pluto, as the Pluto Clock In prefers 1.8v and the Leo Bodnar Mini outputs 3.3v. I don't yet know how big of a deal that 1.5 volt difference is, but to be safe I will ensure I get at least an attenuator. 
-                                </li>
-                                <li>
-
-                                </li>
-                            </ul>
-                        </li>
-                        <li>Likely an aluminum housing to shield parts, I'll need to find the right size to avoid trapping "standing" waves.</li>
-                        <li>much of the signal processing will be handled on the Pluto to avoid the USB 2.0 bottleneck. I will detail that here: 
-                            <ul>
-                                <li>Cyclic buffers to store chirp and free usb bandwidth.</li>
-                                <li>Should be able to perform an FFT on the raw data, then just send the FFT bins to my computer over the USB. I'll probably just use a Python library like Electron for visualization. </li>
-                                <li>cross compiling C or C++ to the pluto, preferably C++ if it will work. Ive already messed with sending C binaries to the pluto and that worked well enough, Id just rather use C++.</li>
-                                <li>When I did that before, I sent over .so files (shared libraries) for me to be able to use the libraries. Having asked an LLM about any ways to get around that (it was a pretty big issue, made quick changes difficult), it suggested "static linking" which apparently can link the libraries straight into the executable. </li>
-                                <li>also, I will have to store and run the executable from the Pluto's RAM, as it has almost half a gig of memory as opposed to only 32 mb of storage. It's obviously also just fast. I'll just use the /tmp directory.</li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <br>
-                </p>
+                <p>My most ambitious project yet, the CM-R1 is my idea for a compact, portable, and accurate directional FMCW radar. Many details are still muddy, because as I have learned, a lot goes into making a radar system, especially FMCW instead of CW or pulsed.</p>
+                <p>I have spent months researching and learning about radar systems, signal processing, antennas, and RF electronics. Recently, I was able to get a simple Doppler system working with the Pluto SDR, as demonstrated in <a href="https://www.youtube.com/shorts/GkYgVYhrkFY" target="_blank">this video</a>.</p>
+                <p>The current plan as of 3/25/26:</p>
+                <h3>Hardware Components</h3>
+                <ul>
+                    <li><strong>SDR:</strong> ADALM-PLUTO Rev. D SDR operating on the 5.8GHz ISM band. <br>
+                        Both Rev. C and D actually have 2 RX and TX, only accessible via a U.Fl connector on the PCB. <br>
+                        They also have both a Clock In and Clock Out, once again via U.Fl connectors. <br>
+                        One of my Plutos is modified, and has U.Fl to SMA pigtails connected to the TX2, RX2, and Clock In ports. <br>
+                        I will need to account for the phase shift implicit in having different lengths between the actual input and SMA on RX1 and RX2 <br>
+                        To do that, I will have to write some sort of script to test and determine the offset that needs to be hard-coded into the final program. <br>
+                        Should be able to set up a strong reflector in the center of the radar's FOV, and use the phase difference between signals captured from RX1 and RX2 to <br>
+                        calculate delta Phi, the phase difference. Then just multiply every sample from RX2 by e^-j(deltaPhi). Apparently j is the electrical engineers version of i, sqrt(-1). <br>
+                        (IMPORTANT) - I need to look more into IQ sampling and how phase works with that.<br>
+                    </li>
+                    <li><strong>Antennas:</strong> 2 RX antennas, 1 TX. RX antennas spaced 1/2 wavelength apart, TX at least 15 cm away from the pair. I have not yet determined whether or not it should be in plane or offset from the RX antennas.</li>
+                    <li><strong>RF Filtering and Amplification:</strong> Any other RF filtering and amplification that may be required. As of now, I know that I need:
+                        <ul>
+                            <li>Attenuator and DC blocker between GPSDO and Pluto, as the Pluto Clock In prefers 1.8v and the Leo Bodnar Mini outputs 3.3v. I don't yet know how big of a deal that 1.5 volt difference is, but to be safe I will ensure I get at least an attenuator.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Housing:</strong> Likely an aluminum housing to shield parts, I'll need to find the right size to avoid trapping "standing" waves.</li>
+                    <li><strong>Computer:</strong> Possibly a Raspberry Pi for most of the calculations and processing. I will just use my laptop during testing.</li>
+                </ul>
+                <h3>Software and Signal Processing</h3>
+                <p>Much of the signal processing will be handled on the Pluto to avoid the USB 2.0 bottleneck.</p>
+                <ul>
+                    <li>Cyclic buffers to store chirp and free usb bandwidth.</li>
+                    <li>Should be able to perform an FFT on the raw data, then just send the FFT bins to my computer over the USB. I'll probably just use a Python library like Electron for visualization.</li>
+                    <li>Cross compiling C or C++ to the Pluto, preferably C++ if it will work. I've already messed with sending C binaries to the Pluto and that worked well enough, I'd just rather use C++.</li>
+                    <li>When I did that before, I sent over .so files (shared libraries) for me to be able to use the libraries. Having asked an LLM about any ways to get around that (it was a pretty big issue, made quick changes difficult), it suggested "static linking" which apparently can link the libraries straight into the executable.</li>
+                    <li>Also, I will have to store and run the executable from the Pluto's RAM, as it has almost half a gig of memory as opposed to only 32 mb of storage. It's obviously also just fast. I'll just use the /tmp directory.</li>
+                </ul>
             </section>
 
             <section class="project-images">
