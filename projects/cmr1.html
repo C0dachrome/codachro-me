@@ -78,6 +78,11 @@
                 <p>Much of the signal processing will be handled on the Pluto to avoid the USB 2.0 bottleneck.</p>
                 <ul>
                     <li>Cyclic buffers to store chirp and free usb bandwidth.</li>
+                    <li>Fast lock profiles on the pluto for perfect chirps</li>
+                    <li>A significant problem is the low bandwidth of the pluto. For decent range resolution, I need a wider bandwidth chirp, eg. 150MHz for around a meter of resolution. My plan was to just do multiple chirps and "stitch" them together into one to account for this, but this raises a significant issue with phase coherency. Every time the pluto recalibrates to a different chirp starting point, it resets to a different phase. I need to find a way to overlap the chirps and mathematically shift the phase of each subsequent one to match the previous. </li>
+                    <li>Maximum cooling, implement a fan as well as the heatsinks already in place</li>
+                    <li>Internal calibration if possible to maintain phase alignment over a long period of time</li>
+                    <li>Possibly (emphasis on POSSIBLY) offload the fft from the pluto's processor to the FPGA</li>
                     <li>Should be able to perform an FFT on the raw data, then just send the FFT bins to my computer over the USB. I'll probably just use a Python library like Electron for visualization.</li>
                     <li>Cross compiling C or C++ to the Pluto, preferably C++ if it will work. I've already messed with sending C binaries to the Pluto and that worked well enough, I'd just rather use C++.</li>
                     <li>When I did that before, I sent over .so files (shared libraries) for me to be able to use the libraries. Having asked an LLM about any ways to get around that (it was a pretty big issue, made quick changes difficult), it suggested "static linking" which apparently can link the libraries straight into the executable.</li>
