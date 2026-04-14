@@ -88,6 +88,17 @@
                     <li>When I did that before, I sent over .so files (shared libraries) for me to be able to use the libraries. Having asked an LLM about any ways to get around that (it was a pretty big issue, made quick changes difficult), it suggested "static linking" which apparently can link the libraries straight into the executable.</li>
                     <li>Also, I will have to store and run the executable from the Pluto's RAM, as it has almost half a gig of memory as opposed to only 32 mb of storage. It's obviously also just fast. I'll just use the /tmp directory.</li>
                 </ul>
+                <br>
+                <p><strong>Logs:</strong></p>
+                <ul>
+                    <li>
+                        4/14/2026 - All the parts arrived, bringing the total cost of this project to just over $800. Of course, because the Plutos and GPSDO were graciously sent to me by their respective companies, that brings the actual amount of money I've spent to only around $270. <br> 
+                        Last night, I went ahead and connected everything. I also grabbed a DHT22 temp & humidity sensor out of my parts drawer. I plan to stick it in the pluto's case so that I can monitor it's temperature. I am expecting the pluto to get very hot, so I modified it to include heatsinks on the CPU and the FPGA, and cut a window in the top of the case with some mesh in it. 
+                        I will likely add a fan as well; I'll probably just grab one from a raspberry pi case. After I connected all the parts, I noticed the physical size of my antennas. They all have a radius of about 29.2 mm, meaning it is literally physically impossible to space them exacly 25.8mm apart center to center. 
+                        Having gone to an LLM to ask about this problem, it said that I can vertically offset one of them in order to make the horizontal spacing the right distance. I have yet to fact-check this, but that remains the plan for now. 
+                        Of course, to nail that perfect 25.8 mm 1/2 wavelength spacing, I'll need to 3d print a jig to mount the antennas. Another worry is the differing lengths of all my SMA cables. I have 5 of the same length, but that isn't enough for the project. This difference in length will manifest as a phase difference in signals. I will need to calculate and adjust for this phase difference in software. 
+                    </li>
+                </ul>
             </section>
 
             <section class="project-images">
