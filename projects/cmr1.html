@@ -101,17 +101,125 @@
                 </ul>
             </section>
 
-            <section class="project-images">
-                <h2>Images</h2>
-                <div class="image-grid">
-                    <img src="../images/plutoCloseUp.jpeg" alt="Close-Up of the modified Pluto">
-                    <img src="../images/plutoFarShot.jpeg" alt="Shot of Pluto and other devices">
-                    <img src="../images/blockdiagram.png" alt="Block diagram of project">
+            <section class="cards-section">
+                <div class="cards-grid project-container">
+                    <!-- Pluto Close-Up Card -->
+                    <article class="project-card card" tabindex="0" data-full="&lt;div class='full-content'&gt;&lt;h3&gt;Description&lt;/h3&gt;&lt;p&gt;A detailed close-up view of the modified ADALM-PLUTO SDR with heatsinks and modifications for the CM-R1 radar project.&lt;/p&gt;&lt;div style='margin-top: 20px;'&gt;&lt;img src='../images/plutoCloseUp.jpeg' alt='Close-Up of the modified Pluto' style='max-width: 100%; border-radius: 8px; margin-top: 10px;'&gt;&lt;/div&gt;&lt;/div&gt;">
+                        <div class="card-media">
+                            <img src="../images/plutoCloseUp.jpeg" alt="Close-Up of the modified Pluto">
+                        </div>
+                        <h3 class="card-title">Pluto SDR Close-Up</h3>
+                        <p class="card-excerpt">Detailed view of the modified ADALM-PLUTO with heatsinks and custom modifications</p>
+                    </article>
+                    <!-- Pluto Far Shot Card -->
+                    <article class="project-card card" tabindex="0" data-full="&lt;div class='full-content'&gt;&lt;h3&gt;Description&lt;/h3&gt;&lt;p&gt;Overview shot showing the Pluto SDR alongside other components including the GPSDO and RF filtering equipment.&lt;/p&gt;&lt;div style='margin-top: 20px;'&gt;&lt;img src='../images/plutoFarShot.jpeg' alt='Shot of Pluto and other devices' style='max-width: 100%; border-radius: 8px; margin-top: 10px;'&gt;&lt;/div&gt;&lt;/div&gt;">
+                        <div class="card-media">
+                            <img src="../images/plutoFarShot.jpeg" alt="Shot of Pluto and other devices">
+                        </div>
+                        <h3 class="card-title">System Overview</h3>
+                        <p class="card-excerpt">Complete setup showing Pluto SDR with GPSDO and supporting RF components</p>
+                    </article>
+                    <!-- Block Diagram Card -->
+                    <article class="project-card card" tabindex="0" data-full="&lt;div class='full-content'&gt;&lt;h3&gt;Description&lt;/h3&gt;&lt;p&gt;System block diagram illustrating the architecture of the CM-R1 FMCW radar system, including signal flow and component connections.&lt;/p&gt;&lt;div style='margin-top: 20px;'&gt;&lt;img src='../images/blockdiagram.png' alt='Block diagram of project' style='max-width: 100%; border-radius: 8px; margin-top: 10px;'&gt;&lt;/div&gt;&lt;/div&gt;">
+                        <div class="card-media">
+                            <img src="../images/blockdiagram.png" alt="Block diagram of project">
+                        </div>
+                        <h3 class="card-title">System Block Diagram</h3>
+                        <p class="card-excerpt">Architectural overview of the CM-R1 radar system components and signal flow</p>
+                    </article>
                 </div>
             </section>
 
         </main>
     </div>
+
+    <!-- Overlay used for backdrop blur when a card is expanded -->
+    <div class="overlay" id="cardOverlay" aria-hidden="true"></div>
+
+    <script>
+        (function(){
+            const overlay = document.getElementById('cardOverlay');
+
+            function openCard(card){
+                const rect = card.getBoundingClientRect();
+                const clone = card.cloneNode(true);
+                clone.classList.add('expanded-card');
+                // Insert full content if provided
+                const fullHtml = card.dataset.full || '<p>No additional details.</p>';
+                const contentEl = document.createElement('div');
+                contentEl.className = 'expanded-content';
+                const originalMedia = clone.querySelector('.card-media')?.innerHTML || '';
+                const mediaHtml = /<img[\s>]/i.test(fullHtml) ? '' : `<div class="expanded-media">${originalMedia}</div>`;
+                contentEl.innerHTML = `
+                    <button class="expanded-close" aria-label="Close">✕</button>
+                    <div class="expanded-inner">
+                        ${mediaHtml}
+                        <h2>${clone.querySelector('.card-title')?.textContent || ''}</h2>
+                        ${fullHtml}
+                    </div>
+                `;
+                // replace cloned excerpt with full content
+                clone.innerHTML = '';
+                clone.appendChild(contentEl);
+
+                // set initial positioning matching the clicked card
+                clone.style.position = 'fixed';
+                clone.style.left = rect.left + 'px';
+                clone.style.top = rect.top + 'px';
+                clone.style.width = rect.width + 'px';
+                clone.style.height = rect.height + 'px';
+                clone.style.margin = 0;
+                clone.style.zIndex = 1100;
+                document.body.appendChild(clone);
+
+                // show overlay
+                overlay.classList.add('is-active');
+
+                // after layout, calculate target size and animate
+                requestAnimationFrame(()=>{
+                    // determine final width (caps at 92vw or 1000px)
+                    const finalW = Math.min(1000, window.innerWidth * 0.92);
+                    // temporarily let the clone size itself to content to measure
+                    clone.style.height = 'auto';
+                    clone.style.width = finalW + 'px';
+                    const measuredH = clone.offsetHeight;
+                    // clamp to viewport height
+                    const finalH = Math.min(measuredH, window.innerHeight * 0.92);
+                    // revert to original dimensions so transition can run
+                    clone.style.height = rect.height + 'px';
+                    // add class to reposition to center
+                    clone.classList.add('is-open');
+                    // then trigger size change
+                    requestAnimationFrame(() => {
+                        clone.style.height = finalH + 'px';
+                    });
+                });
+
+                function close(){
+                    // before removing the class, set inline dimensions back to original
+                    clone.style.width = rect.width + 'px';
+                    clone.style.height = rect.height + 'px';
+                    // trigger the class removal which will animate position & size
+                    clone.classList.remove('is-open');
+                    overlay.classList.remove('is-active');
+                    clone.addEventListener('transitionend', ()=> clone.remove(), {once:true});
+                    document.removeEventListener('keydown', onKey);
+                }
+
+                function onKey(e){ if(e.key === 'Escape') close(); }
+
+                overlay.addEventListener('click', close, {once:true});
+                clone.querySelector('.expanded-close')?.addEventListener('click', close);
+                document.addEventListener('keydown', onKey);
+            }
+
+            // attach listeners
+            document.querySelectorAll('.project-card').forEach(card=>{
+                card.addEventListener('click', ()=> openCard(card));
+                card.addEventListener('keydown', (e)=>{ if(e.key === 'Enter' || e.key === ' ') openCard(card); });
+            });
+        })();
+    </script>
 
     <!-- GitHub Commit Loader -->
     <script>
