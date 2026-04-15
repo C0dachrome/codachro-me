@@ -1861,6 +1861,8 @@ body.login-page .form-card {
 
 .project-container {
     display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
     max-width: 1200px;
     margin: 0 auto 40px auto;
 }
