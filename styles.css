@@ -1331,11 +1331,11 @@ body.login-page .form-card {
 
     /* Cards grid */
     .cards-grid {
-        display: grid;
-        gap: 12px;
+        display: grid !important;
+        gap: 12px !important;
         padding: 10px;
         margin: 0 auto 30px;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)) !important;
     }
 
     .project-card {
@@ -1606,11 +1606,11 @@ body.login-page .form-card {
 
     /* Cards grid */
     .cards-grid {
-        display: grid;
+        display: grid !important;
         gap: 10px;
         padding: 8px;
         margin: 0 auto 25px;
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
     }
 
     .project-card {
@@ -1895,6 +1895,18 @@ body.login-page .form-card {
     margin: 0 auto 60px;
 }
 
+/* Ensure proper grid layout when combined with project-container */
+.cards-grid.project-container {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+    gap: 20px !important;
+}
+
+/* Force child cards to respect grid */
+.cards-grid > * {
+    min-width: 0 !important;
+}
+
 .project-card {
     cursor: pointer;
     overflow: hidden;
@@ -1906,6 +1918,8 @@ body.login-page .form-card {
     transition: transform 260ms cubic-bezier(.2,.9,.2,1), box-shadow 260ms;
     background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.08));
     border: 1px solid rgba(255,255,255,0.04);
+    width: 100% !important;
+    max-width: 100% !important;
 }
 
 .project-card:hover,
