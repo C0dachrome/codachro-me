@@ -1039,11 +1039,11 @@ body.login-page .form-card {
 
     /* Cards grid */
     .cards-grid {
-        display: grid;
-        gap: 16px;
+        display: grid !important;
+        gap: 16px !important;
         padding: 12px;
         margin: 0 auto 30px;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
     }
 
     .project-container .project-card {
@@ -1860,9 +1860,6 @@ body.login-page .form-card {
 }
 
 .project-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
     max-width: 1200px;
     margin: 0 auto 40px auto;
 }
@@ -1889,9 +1886,9 @@ body.login-page .form-card {
    Cards Grid & Expanded Card (projects/other.html)
    -------------------------------------------------------------------------- */
 .cards-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+    gap: 20px !important;
     padding: 20px;
     align-items: start;
     max-width: 1200px;
