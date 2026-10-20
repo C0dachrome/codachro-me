@@ -9,3 +9,4 @@ In Progress/Active Development
 ## Roadmap and Planned Upgrades
 - [ ] Visual and Functional Overhaul
 
+- [ ] Remove joke features
